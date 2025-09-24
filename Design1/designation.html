@@ -386,6 +386,17 @@
       }
 
     }
+
+    @media (max-width: 768px) {
+  .sidebar {
+    left: -200px;
+    transition: left 0.3s ease;
+  }
+  .sidebar.active {
+    left: 0;
+  }
+}
+
   </style>
 </head>
 
@@ -843,252 +854,237 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // sample data
-    let data = [
-      { id: 1, department: 'Cardiology', name: 'Doctor', code: 'DR', status: 'Active', date: '22-04-25,08:30 PM', desc: 'Cardiology doctor' },
-      { id: 2, department: 'Oncology', name: 'Doctor', code: 'DR', status: 'Active', date: '23-04-25,10:30 AM', desc: 'Oncology doctor' }
-    ];
+(() => {
+  // -------------------- Sample Data --------------------
+  let data = [
+    { id: 1, department: 'Cardiology', name: 'Doctor', code: 'DR', status: 'Active', date: '22-04-25,08:30 PM', desc: 'Cardiology doctor' },
+    { id: 2, department: 'Oncology', name: 'Doctor', code: 'DR', status: 'Active', date: '23-04-25,10:30 AM', desc: 'Oncology doctor' }
+  ];
 
-    let editId = null;
-    let deleteId = null;
+  let editId = null;
+  let deleteId = null;
 
-    function esc(s) {
-      if (s === null || s === undefined) return '';
-      // replaceAll is widely supported in modern browsers; if you need IE11 support use a regex replace
-      return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-    }
+  // -------------------- Utilities --------------------
+  const esc = s => s == null ? '' : String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
-    function renderTable(items = data) {
-      const tbody = document.getElementById('designationsTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
+  const isMobile = () => window.innerWidth <= 768;
 
-      if (!items.length) {
-        tbody.innerHTML = '<tr><td class="text-center" colspan="6">No records found</td></tr>';
-        return;
-      }
+  // -------------------- Table Rendering --------------------
+  const renderTable = (items = data) => {
+    const tbody = document.getElementById('designationsTableBody');
+    if (!tbody) return;
 
-      items.forEach((row, idx) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
+    tbody.innerHTML = items.length === 0
+      ? '<tr><td class="text-center" colspan="6">No records found</td></tr>'
+      : '';
+
+    items.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
         <td>${idx + 1}</td>
         <td>${esc(row.department)}</td>
         <td>${esc(row.code)}</td>
-        <td>${row.status === 'Active' ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-danger">Deactive</span>'}</td>
+        <td>${row.status === 'Active' 
+          ? '<span class="badge text-bg-success">Active</span>' 
+          : '<span class="badge text-bg-danger">Deactive</span>'}</td>
         <td>${esc(row.date)}</td>
         <td>
-          <div class="btn" style="background-color: rgb(48, 72, 156);" data-bs-toggle="modal" data-bs-target="#view" data-id="${row.id}">
-            <svg style="color: white;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 2 16 16">
-              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+          <div class="btn view-btn" style="background-color: rgb(48, 72, 156);" data-bs-toggle="modal" data-bs-target="#view" data-id="${row.id}">
+            <svg style="color:white;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 2 16 16">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
             </svg>
           </div>
-
-          <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit" data-id="${row.id}">
+          <div class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#edit" data-id="${row.id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 1 16 16">
               <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
             </svg>
           </div>
-
-          <div class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" data-id="${row.id}">
+          <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete" data-id="${row.id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
             </svg>
           </div>
         </td>
       `;
-        tbody.appendChild(tr);
-      });
-    }
+      tbody.appendChild(tr);
+    });
+  };
 
-    // initial render and UI wiring
-    document.addEventListener('DOMContentLoaded', function () {
-      renderTable();
+  // -------------------- Modals Handling --------------------
+  const initModal = (modalId, callback) => {
+    const el = document.getElementById(modalId);
+    if (!el) return;
+    el.addEventListener('show.bs.modal', callback);
+  };
 
-      // modal population
-      const viewModalEl = document.getElementById('view');
-      if (viewModalEl) {
-        viewModalEl.addEventListener('show.bs.modal', function (event) {
-          const button = event.relatedTarget;
-          const id = Number(button.getAttribute('data-id'));
-          const rec = data.find(d => d.id === id);
-          if (!rec) return;
-          document.getElementById('viewDept').innerText = rec.department;
-          document.getElementById('viewName').innerText = rec.name;
-          document.getElementById('viewCode').innerText = rec.code;
-          document.getElementById('viewStatusCell').innerHTML = rec.status === 'Active' ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-danger">Deactive</span>';
-          document.getElementById('viewDate').innerText = rec.date;
-          document.getElementById('viewDesc').innerText = rec.desc || '';
-        });
-      }
+  // View Modal
+  initModal('view', (e) => {
+    const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
+    if (!rec) return;
+    document.getElementById('viewDept').innerText = rec.department;
+    document.getElementById('viewName').innerText = rec.name;
+    document.getElementById('viewCode').innerText = rec.code;
+    document.getElementById('viewStatusCell').innerHTML = rec.status === 'Active'
+      ? '<span class="badge text-bg-success">Active</span>'
+      : '<span class="badge text-bg-danger">Deactive</span>';
+    document.getElementById('viewDate').innerText = rec.date;
+    document.getElementById('viewDesc').innerText = rec.desc || '';
+  });
 
-      const editModalEl = document.getElementById('edit');
-      if (editModalEl) {
-        editModalEl.addEventListener('show.bs.modal', function (event) {
-          const button = event.relatedTarget;
-          const id = Number(button.getAttribute('data-id'));
-          const rec = data.find(d => d.id === id);
-          if (!rec) return;
-          editId = id;
-          document.getElementById('deptEdit').value = rec.department;
-          document.getElementById('nameEdit').value = rec.name;
-          document.getElementById('codeEdit').value = rec.code;
-          document.getElementById('descEdit').value = rec.desc || '';
-          document.getElementById('statusEdit').value = rec.status;
-        });
-      }
+  // Edit Modal
+  initModal('edit', (e) => {
+    const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
+    if (!rec) return;
+    editId = rec.id;
+    document.getElementById('deptEdit').value = rec.department;
+    document.getElementById('nameEdit').value = rec.name;
+    document.getElementById('codeEdit').value = rec.code;
+    document.getElementById('descEdit').value = rec.desc || '';
+    document.getElementById('statusEdit').value = rec.status;
+  });
 
-      const deleteModalEl = document.getElementById('delete');
-      if (deleteModalEl) {
-        deleteModalEl.addEventListener('show.bs.modal', function (event) {
-          const button = event.relatedTarget;
-          const id = Number(button.getAttribute('data-id'));
-          const rec = data.find(d => d.id === id);
-          deleteId = id;
-          document.getElementById('deleteName').innerText = rec ? rec.name : '';
-        });
-      }
+  // Delete Modal
+  initModal('delete', (e) => {
+    deleteId = Number(e.relatedTarget.dataset.id);
+    const rec = data.find(d => d.id === deleteId);
+    document.getElementById('deleteName').innerText = rec ? rec.name : '';
+  });
 
-      // create
-      const createBtn = document.getElementById('createBtn');
-      if (createBtn) {
-        createBtn.addEventListener('click', function () {
-          const deptEl = document.getElementById('deptCreate');
-          const nameEl = document.getElementById('nameCreate');
-          const codeEl = document.getElementById('codeCreate');
-          const descEl = document.getElementById('descCreate');
-          const statusEl = document.getElementById('statusCreate');
+  // -------------------- CRUD --------------------
+  const createRecord = () => {
+    const dept = document.getElementById('deptCreate').value.trim();
+    const name = document.getElementById('nameCreate').value.trim();
+    const code = document.getElementById('codeCreate').value.trim();
+    const desc = document.getElementById('descCreate').value.trim();
+    const status = document.getElementById('statusCreate').value || 'Active';
 
-          const dept = deptEl ? deptEl.value.trim() : '';
-          const name = nameEl ? nameEl.value.trim() : '';
-          const code = codeEl ? codeEl.value.trim() : '';
-          const desc = descEl ? descEl.value.trim() : '';
-          const status = statusEl ? statusEl.value : 'Active';
+    if (!dept || !name || !code) return alert('Please fill required fields');
 
-          if (!dept || !name || !code) { alert('Please fill required fields'); return; }
-
-          data.push({ id: Date.now(), department: dept, name: name, code: code, status: status || 'Active', date: new Date().toLocaleString(), desc: desc });
-          renderTable();
-          const form = document.getElementById('designationForm'); if (form) form.reset();
-          const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-          if (modal) modal.hide();
-        });
-      }
-
-      // update
-      const updateBtn = document.getElementById('updateBtn');
-      if (updateBtn) {
-        updateBtn.addEventListener('click', function () {
-          if (!editId) return;
-          const rec = data.find(d => d.id === editId);
-          if (!rec) return;
-          const dept = document.getElementById('deptEdit').value.trim();
-          const name = document.getElementById('nameEdit').value.trim();
-          const code = document.getElementById('codeEdit').value.trim();
-          const desc = document.getElementById('descEdit').value.trim();
-          const status = document.getElementById('statusEdit').value;
-          if (!dept || !name || !code) { alert('Please fill required fields'); return; }
-          rec.department = dept; rec.name = name; rec.code = code; rec.desc = desc; rec.status = status; rec.date = new Date().toLocaleString();
-          renderTable();
-          const modal = bootstrap.Modal.getInstance(document.getElementById('edit')); if (modal) modal.hide(); editId = null;
-        });
-      }
-
-      // delete
-      const confirmDeleteBtn = document.getElementById('confirmDelete');
-      if (confirmDeleteBtn) {
-        confirmDeleteBtn.addEventListener('click', function () {
-          if (!deleteId) return; data = data.filter(d => d.id !== deleteId); renderTable();
-          const modal = bootstrap.Modal.getInstance(document.getElementById('delete')); if (modal) modal.hide(); deleteId = null;
-        });
-      }
-
-      // search wiring
-      const searchEl = document.getElementById('tableSearch');
-      if (searchEl) {
-        searchEl.addEventListener('input', function () {
-          const q = this.value.trim().toLowerCase(); if (!q) { renderTable(); return; }
-          const filtered = data.filter(d => (d.department || '').toLowerCase().includes(q) || (d.name || '').toLowerCase().includes(q) || (d.code || '').toLowerCase().includes(q) || (d.status || '').toLowerCase().includes(q) || (d.date || '').toLowerCase().includes(q));
-          renderTable(filtered);
-        });
-      }
-
-      // ---------------- mobile-only sidebar toggle + footer adjust ----------------
-      const sidebar = document.querySelector('.sidebar');
-      const toggleBtn = document.getElementById('sidebarToggle');
-      const footer = document.querySelector('.site-footer');
-
-      function isMobile() { return window.innerWidth <= 768; }
-
-      if (sidebar && toggleBtn) {
-        // Toggle on hamburger press (mobile only)
-        toggleBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          if (!isMobile()) return; // do nothing on desktop
-          sidebar.classList.toggle('active');
-          if (footer) footer.classList.toggle('footer-shift', sidebar.classList.contains('active'));
-        });
-
-        // Click outside sidebar closes it (mobile)
-        document.addEventListener('click', function (ev) {
-          if (!isMobile()) return;
-          if (!sidebar.classList.contains('active')) return;
-          if (!sidebar.contains(ev.target) && !toggleBtn.contains(ev.target)) {
-            sidebar.classList.remove('active');
-            if (footer) footer.classList.remove('footer-shift');
-          }
-        });
-
-        // Esc to close (mobile)
-        document.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Escape' && isMobile()) {
-            sidebar.classList.remove('active');
-            if (footer) footer.classList.remove('footer-shift');
-          }
-        });
-
-        // Clear mobile state when switching to desktop
-        window.addEventListener('resize', function () {
-          if (!isMobile()) {
-            sidebar.classList.remove('active');
-            if (footer) footer.classList.remove('footer-shift');
-          }
-        });
-      }
-
-      function adjustFooter() { if (!footer) return; if (window.innerWidth <= 768) { footer.style.position = 'static'; footer.style.width = '100%'; footer.style.left = '0'; footer.style.bottom = 'auto'; } else { footer.style.position = 'fixed'; footer.style.bottom = '0'; footer.style.left = '28.1ch'; footer.style.width = '83.6%'; } }
-      adjustFooter(); window.addEventListener('resize', adjustFooter);
+    data.push({
+      id: Date.now(),
+      department: dept,
+      name,
+      code,
+      status,
+      date: new Date().toLocaleString(),
+      desc
     });
 
-    // compatibility function for inline onkeyup
-    function searchTable() {
-      const el = document.getElementById('tableSearch'); if (!el) return; const q = el.value.trim().toLowerCase(); if (!q) { renderTable(); return; }
-      const filtered = data.filter(d => (d.department || '').toLowerCase().includes(q) || (d.name || '').toLowerCase().includes(q) || (d.code || '').toLowerCase().includes(q) || (d.status || '').toLowerCase().includes(q) || (d.date || '').toLowerCase().includes(q));
-      renderTable(filtered);
-    }
+    renderTable();
+    document.getElementById('designationForm')?.reset();
+    bootstrap.Modal.getInstance(document.getElementById('exampleModal'))?.hide();
+  };
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
+  const updateRecord = () => {
+    if (!editId) return;
+    const rec = data.find(d => d.id === editId);
+    if (!rec) return;
 
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-      });
+    const dept = document.getElementById('deptEdit').value.trim();
+    const name = document.getElementById('nameEdit').value.trim();
+    const code = document.getElementById('codeEdit').value.trim();
+    const desc = document.getElementById('descEdit').value.trim();
+    const status = document.getElementById('statusEdit').value;
+
+    if (!dept || !name || !code) return alert('Please fill required fields');
+
+    Object.assign(rec, { department: dept, name, code, desc, status, date: new Date().toLocaleString() });
+    renderTable();
+    bootstrap.Modal.getInstance(document.getElementById('edit'))?.hide();
+    editId = null;
+  };
+
+  const deleteRecord = () => {
+    if (!deleteId) return;
+    data = data.filter(d => d.id !== deleteId);
+    renderTable();
+    bootstrap.Modal.getInstance(document.getElementById('delete'))?.hide();
+    deleteId = null;
+  };
+
+  // -------------------- Search --------------------
+  const searchTable = (query) => {
+    query = query.trim().toLowerCase();
+    renderTable(
+      query
+        ? data.filter(d =>
+            (d.department || '').toLowerCase().includes(query) ||
+            (d.name || '').toLowerCase().includes(query) ||
+            (d.code || '').toLowerCase().includes(query) ||
+            (d.status || '').toLowerCase().includes(query) ||
+            (d.date || '').toLowerCase().includes(query)
+          )
+        : data
+    );
+  };
+
+  // -------------------- Sidebar & Footer --------------------
+  const initSidebar = () => {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const footer = document.querySelector('.site-footer');
+
+    if (!sidebar || !toggleBtn) return;
+
+    const toggleSidebar = () => {
+      if (!isMobile()) return;
+      sidebar.classList.toggle('active');
+      footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
+    };
+
+    toggleBtn.addEventListener('click', toggleSidebar);
+
+    document.addEventListener('click', e => {
+      if (!isMobile() || !sidebar.classList.contains('active')) return;
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        footer?.classList.remove('footer-shift');
+      }
     });
 
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
-      const mainContent = document.querySelector(".main-content");
-
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-        mainContent.classList.toggle("shifted");
-      });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && isMobile()) {
+        sidebar.classList.remove('active');
+        footer?.classList.remove('footer-shift');
+      }
     });
 
-  </script>
+    window.addEventListener('resize', () => {
+      if (!isMobile()) {
+        sidebar.classList.remove('active');
+        footer?.classList.remove('footer-shift');
+      }
+      adjustFooter();
+    });
+
+    const adjustFooter = () => {
+      if (!footer) return;
+      if (isMobile()) {
+        Object.assign(footer.style, { position: 'static', width: '100%', left: '0', bottom: 'auto' });
+      } else {
+        Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
+      }
+    };
+
+    adjustFooter();
+  };
+
+  // -------------------- Event Bindings --------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    renderTable();
+
+    document.getElementById('createBtn')?.addEventListener('click', createRecord);
+    document.getElementById('updateBtn')?.addEventListener('click', updateRecord);
+    document.getElementById('confirmDelete')?.addEventListener('click', deleteRecord);
+    document.getElementById('tableSearch')?.addEventListener('input', e => searchTable(e.target.value));
+
+    initSidebar();
+  });
+
+})();
+</script>
+
 
 
 </body>
