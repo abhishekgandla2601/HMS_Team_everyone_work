@@ -855,7 +855,6 @@
 
   // -------------------- Utilities --------------------
   const esc = s => s == null ? '' : String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-
   const isMobile = () => window.innerWidth <= 768;
 
   // -------------------- Table Rendering --------------------
@@ -1012,41 +1011,39 @@
   const initSidebar = () => {
     const sidebar = document.querySelector('.sidebar');
     const toggleBtn = document.getElementById('sidebarToggle');
+    const mainContent = document.querySelector('.main-content');
     const footer = document.querySelector('.site-footer');
 
     if (!sidebar || !toggleBtn) return;
 
     const toggleSidebar = () => {
-      if (!isMobile()) return;
       sidebar.classList.toggle('active');
-      footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
+      mainContent?.classList.toggle('shifted');
+      if (isMobile()) footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
     };
 
     toggleBtn.addEventListener('click', toggleSidebar);
 
+    // Close sidebar if clicking outside on mobile
     document.addEventListener('click', e => {
       if (!isMobile() || !sidebar.classList.contains('active')) return;
       if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
         sidebar.classList.remove('active');
+        mainContent?.classList.remove('shifted');
         footer?.classList.remove('footer-shift');
       }
     });
 
+    // Close sidebar on Escape key
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && isMobile()) {
         sidebar.classList.remove('active');
+        mainContent?.classList.remove('shifted');
         footer?.classList.remove('footer-shift');
       }
     });
 
-    window.addEventListener('resize', () => {
-      if (!isMobile()) {
-        sidebar.classList.remove('active');
-        footer?.classList.remove('footer-shift');
-      }
-      adjustFooter();
-    });
-
+    // Adjust footer on resize
     const adjustFooter = () => {
       if (!footer) return;
       if (isMobile()) {
@@ -1055,6 +1052,15 @@
         Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
       }
     };
+
+    window.addEventListener('resize', () => {
+      if (!isMobile()) {
+        sidebar.classList.remove('active');
+        mainContent?.classList.remove('shifted');
+        footer?.classList.remove('footer-shift');
+      }
+      adjustFooter();
+    });
 
     adjustFooter();
   };
@@ -1072,6 +1078,7 @@
   });
 
 })();
+
 </script>
 
 
