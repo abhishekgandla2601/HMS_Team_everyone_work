@@ -396,6 +396,26 @@
     left: 0;
   }
 }
+/* Mobile: shift header & content when sidebar is open */
+@media (max-width: 768px) {
+  .sidebar.active ~ .main-content {
+    transform: translateX(200px);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.active ~ .main-content .header {
+    transform: translateX(200px);
+    transition: transform 0.3s ease;
+  }
+}
+.sidebar {
+  transition: left 0.3s ease;
+}
+
+.main-content,
+.header {
+  transition: transform 0.3s ease;
+}
 
   </style>
 </head>
