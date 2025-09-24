@@ -1066,6 +1066,28 @@
       const filtered = data.filter(d => (d.department || '').toLowerCase().includes(q) || (d.name || '').toLowerCase().includes(q) || (d.code || '').toLowerCase().includes(q) || (d.status || '').toLowerCase().includes(q) || (d.date || '').toLowerCase().includes(q));
       renderTable(filtered);
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const sidebar = document.querySelector(".sidebar");
+      const toggleBtn = document.getElementById("sidebarToggle");
+
+      toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+      });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const sidebar = document.querySelector(".sidebar");
+      const toggleBtn = document.getElementById("sidebarToggle");
+      const mainContent = document.querySelector(".main-content");
+
+      toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        mainContent.classList.toggle("shifted");
+      });
+    });
+
   </script>
 
 
