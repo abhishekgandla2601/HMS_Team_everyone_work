@@ -386,16 +386,6 @@
       }
 
     }
-
-    .sidebar.active {
-  width: 0;
-  overflow: hidden;
-}
-
-.sidebar.active ~ .main-content {
-  margin-left: 0;
-}
-
   </style>
 </head>
 
@@ -1027,14 +1017,10 @@
     if (!sidebar || !toggleBtn) return;
 
     const toggleSidebar = () => {
-  sidebar.classList.toggle('active');
-  
-  // Adjust footer if mobile
-  if (isMobile()) {
-    footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
-  }
-};
-
+      if (!isMobile()) return;
+      sidebar.classList.toggle('active');
+      footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
+    };
 
     toggleBtn.addEventListener('click', toggleSidebar);
 
