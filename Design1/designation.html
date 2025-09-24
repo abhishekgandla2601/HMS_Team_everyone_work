@@ -450,7 +450,7 @@
       <header class="header d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
           <form class="d-flex me-3">
-            <button class="btn btn-light me-2" type="submit"><i class="fas fa-bars"></i></button>
+            <button class="btn btn-light me-2" id="sidebarToggle" type="button"><i class="fas fa-bars"></i></button>
             <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
           </form>
         </div>
@@ -999,6 +999,47 @@
       );
       renderTable(filtered);
     });
+
+     // Sidebar toggle for mobile (same behavior as specialization page)
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const footer = document.querySelector(".site-footer");
+
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", function () {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle("active");
+          // toggle footer shift class if you have it in CSS
+          if (footer) footer.classList.toggle("footer-shift", sidebar.classList.contains("active"));
+        }
+      });
+    }
+  });
+
+  // Responsive footer adjustment (keeps footer fixed on desktop, static on mobile)
+  document.addEventListener("DOMContentLoaded", function () {
+    const footer = document.querySelector("footer");
+
+    function adjustFooter() {
+      if (!footer) return;
+      if (window.innerWidth <= 768) {
+        footer.style.position = "static";
+        footer.style.width = "100%";
+        footer.style.left = "0";
+        footer.style.bottom = "auto";
+      } else {
+        footer.style.position = "fixed";
+        footer.style.bottom = "0";
+        footer.style.left = "28.1ch";  // keep original layout values
+        footer.style.width = "83.6%";  // keep original layout values
+      }
+    }
+
+    // Run once on load and on resize
+    adjustFooter();
+    window.addEventListener("resize", adjustFooter);
+  });
   </script>
 </body>
 </html>
