@@ -5,15 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R.V.M Hospitals Dashboard</title>
-  <link href="rvm.png" rel="icon" sizes="16*16">
-
-
-  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
   <style>
+     :root {
+      --sidebar-width: 250px;
+      --sidebar-bg: rgb(48, 72, 156);
+      --sidebar-color: #f8f9fa;
+      --header-height: 60px;
+      --main-bg: #f4f7f9;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--main-bg);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
     .upload-box {
       border: 2px dashed #ccc;
       border-radius: 10px;
@@ -33,28 +43,12 @@
       color: #007bff;
     }
 
-    :root {
-      --sidebar-width: 250px;
-      --sidebar-bg: rgb(48, 72, 156);
-      --sidebar-color: #f8f9fa;
-      --header-height: 60px;
-      --main-bg: #f4f7f9;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--main-bg);
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-
     .wrapper {
       display: flex;
       min-height: 100vh;
     }
 
-    /* Sidebar */
+    /* --- Sidebar Styles --- */
     .sidebar {
       width: var(--sidebar-width);
       background-color: var(--sidebar-bg);
@@ -99,15 +93,16 @@
       padding: 1rem 1.5rem 0.5rem;
     }
 
-    /* Main Content */
+    /* --- Main Content Styles --- */
     .main-content {
       margin-left: var(--sidebar-width);
       width: 100%;
       padding: 1rem;
       transition: margin-left 0.3s ease;
+      margin-top: 80px;
     }
 
-    /* Header */
+    /* --- Header Styles --- */
     .header {
       background-color: #fff;
       height: var(--header-height);
@@ -120,8 +115,24 @@
       border-radius: 8px;
     }
 
+    .header {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+      height: 70px;
+      /* adjust based on your header height */
+      background: #fff;
+      /* keeps it solid */
+      border-bottom: 1px solid #ddd;
+      padding: 0 10px;
+      z-index: 1000;
+      /* keeps it above other content */
+    }
+
     .header .search-bar {
-      width: 400px;
+      width: 100%;
+      max-width: 400px;
       border: 1px solid #e0e0e0;
       border-radius: 5px;
     }
@@ -157,7 +168,60 @@
       margin-right: 0.5rem;
     }
 
-    /* Content Box */
+    .dept-card {
+      background-color: #fff;
+      position: fixed;
+      top: 70px;
+      left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+      z-index: 900;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      border: none;
+      border-radius: 12px;
+    }
+
+    .dept-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+    }
+
+    .dept-title {
+      margin: 0;
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .dept-breadcrumb {
+      margin: 0;
+      font-size: 13px;
+      background: transparent;
+    }
+
+    .dept-breadcrumb a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .dept-breadcrumb .active {
+      color: #6c757d;
+    }
+
+    .dept-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+      content: "›";
+      color: #6c757d;
+    }
+
+    /* When sidebar is collapsed */
+    .sidebar.collapsed~.main-content .header,
+    .sidebar.collapsed~.main-content .dept-card {
+      left: 0;
+      width: 100%;
+    }
+
+    /* --- Main Content Box --- */
     .content-box {
       background-color: #fff;
       padding: 1rem;
@@ -165,7 +229,14 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
-    /* Table Actions */
+    .content {
+      margin-top: 70px;
+      /* same as header height */
+      padding: 20px;
+    }
+
+
+    /* --- Table Actions --- */
     .table-actions .btn-group .btn {
       border-radius: 50%;
       width: 30px;
@@ -176,11 +247,29 @@
       padding: 0;
     }
 
-    .pagination-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
+    .table-actions .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    .table-actions .btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+
+    .table-actions .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    a,
+    a:hover,
+    a:focus,
+    a:active,
+    a:visited {
+      text-decoration: none !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     footer {
@@ -192,49 +281,121 @@
       left: 28.1ch;
     }
 
-    /* Remove underline from all links */
-    a,
-    a:hover,
-    a:focus,
-    a:active,
-    a:visited {
-      text-decoration: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-
-    /* Mobile Sidebar */
     @media (max-width: 768px) {
       .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        position: fixed;
+        width: 200px;
+        left: -200px;
+        /* top: 70px;
+                height: calc(100% - 70px); */
+        top: 0;
+        height: 100%;
+        transition: left 0.3s ease;
+        z-index: 1000;
       }
 
       .sidebar.active {
-        transform: translateX(0);
-        z-index: 1050;
+        left: 0;
       }
 
       .main-content {
         margin-left: 0;
-        /* so content is full-width */
+        transition: margin-left 0.3s ease;
+
       }
+
+      .sidebar.active~.main-content {
+        margin-left: 200px;
+
+      }
+
+      .header {
+        /* flex-wrap: wrap; */
+        /* position: relative; */
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 0.5rem;
+        z-index: 1100;
+        transition: margin-left 0.3s ease;
+      }
+
+      .sidebar.active~.main-content .header {
+        transform: translateX(200px);
+
+      }
+
+      .header .d-flex.align-items-center:last-child {
+        flex-shrink: 0;
+        /* don't let icons+user shrink */
+        margin-left: auto;
+        /* push them to far right */
+      }
+
+      .header .search-bar {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .header .header-icons i {
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .header .user-info {
+        margin-top: 0.5rem;
+      }
+
+      .navbar-nav {
+        flex-wrap: wrap;
+      }
+
+      .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+      }
+
+      .dept-card {
+        position: relative;
+        top: auto;
+        margin-top: 10px;
+        left: 0;
+        width: 100%;
+        z-index: auto;
+      }
+
+      footer {
+        position: relative !important;
+        width: 100% !important;
+        left: 0 !important;
+        bottom: auto !important;
+      }
+
+      .site-footer {
+        position: static;
+        width: 100%;
+        left: 0;
+        bottom: auto;
+      }
+
+      .footer-shift {
+        margin-left: 200px;
+        transition: margin-left 0.3s ease;
+      }
+
     }
   </style>
 </head>
 
 <body>
-
-  <div class="wrapper">
+  <div class="wrapper ">
     <!-- Sidebar -->
-    <nav class="sidebar">
+    <nav class="sidebar" style="background-color: rgb(48, 72, 156); color: white;">
       <div class="sidebar-header">
         <h4>RVM</h4>
       </div>
       <div class="list-group sidebar-menu">
         <div class="menu-category">Menu</div>
-        <a href="dashboard.html" class="list-group-item list-group-item-action active"><i class="fas fa-home"></i>
-          Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action active"><i class="fas fa-home"></i> Dashboard</a>
 
         <div class="menu-category">OPD</div>
         <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user-plus"></i> Patient
@@ -278,53 +439,55 @@
         <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-door-open"></i> Rooms Management</a>
 
         <div class="menu-category">Settings</div>
-        <a href="HRM.html" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i> General
+        <a href="hrm.html" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i> General
           Settings</a>
       </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <div class="main-content">
       <!-- Header -->
       <header class="header d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-          <form class="d-flex me-3" onsubmit="return false;">
-            <button class="btn btn-light me-2" id="sidebarToggle" type="button">
-              <i class="fas fa-bars"></i>
-            </button>
-            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+          <button class="btn btn-light me-2 sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <form class="d-flex me-3 search-bar">
+            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
           </form>
-
         </div>
-        <div class="d-flex align-items-center">
-          <div class="header-icons d-flex align-items-center gap-4 me-3">
-            <i class="fas fa-bed text-secondary fs-5" role="button"></i>
-            <i class="fas fa-expand text-secondary fs-5" role="button"></i>
-            <i class="fas fa-moon text-secondary fs-5" role="button"></i>
-            <i class="fas fa-bell text-secondary fs-5 position-relative" role="button">
-              <span
-                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-            </i>
-          </div>
 
+        <div class="d-flex align-items-center">
+          <div class="header-icons me-3">
+            <i class="fas fa-bed"></i>
+            <i class="fas fa-expand"></i>
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-bell"></i>
+          </div>
           <div class="user-info d-flex align-items-center">
-            <div class="user-avatar text-white bg-info rounded-circle d-flex align-items-center justify-content-center">
-              lv
-            </div>
-            <div>
-              <div class="fw-bold dropdown">
-                <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">lvktch</a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="index.html">Logout</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="small text-muted">Master Panel</div>
+            <div class="user-avatar text-white bg-info">lv</div>
+            <div class="fw-bold dropdown">
+              <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">lvktch</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="index.html">Logout</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </header>
+
+      <!-- Breadcrumb card -->
+      <div class="card dept-card">
+        <div class="card-body dept-header">
+          <h6 class="dept-title">Dashboard</h6>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb dept-breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Page spacing -->
+      <div style="margin-top: 130px;"></div>
 
       <!-- Dashboard Stats -->
       <div class="row g-3 mb-4">
@@ -413,51 +576,25 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-white border-top py-2">
-    <div class="container-fluid d-flex justify-content-between align-items-center small text-muted">
-      <span>© 2025 R.V.M Hospitals</span>
-      <span>Powered by <strong>Peramsons Software</strong></span>
+  <footer>
+    <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+      <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
+      <p>Design & develop by Peramsons Software</p>
     </div>
   </footer>
 
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
-
-      if (sidebar && toggleBtn) {
-        toggleBtn.addEventListener("click", function () {
-          sidebar.classList.toggle("active");
-        });
-      }
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
+      const toggleBtn = document.querySelector(".sidebar-toggle");
 
       toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("active");
       });
     });
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
-      const mainContent = document.querySelector(".main-content");
-
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-        mainContent.classList.toggle("shifted");
-      });
-    });
-
   </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
