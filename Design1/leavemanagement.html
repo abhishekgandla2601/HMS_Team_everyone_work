@@ -388,22 +388,25 @@
 
         }
 
-       
-  /* --- Optional small tweaks --- */
-    .input-group-text i {
-      margin-left: -2px;     /* centers the chevron nicely */
-      pointer-events: none;  /* makes icon non-clickable */
-    }
-    /* Larger search box on bigger screens */
-    #employeeSearch {
-      max-width: 400px;
-      margin: 0 auto;
-    }
 
-  .small-card {
-    width: 250px;
-    height: 50px;
-  }
+        /* --- Optional small tweaks --- */
+        .input-group-text i {
+            margin-left: -2px;
+            /* centers the chevron nicely */
+            pointer-events: none;
+            /* makes icon non-clickable */
+        }
+
+        /* Larger search box on bigger screens */
+        #employeeSearch {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .small-card {
+            width: 250px;
+            height: 50px;
+        }
     </style>
 </head>
 
@@ -429,7 +432,8 @@
                 <div class="menu-category">Diagnostics</div>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-flask"></i> Centres</a>
                 <div class="menu-category">Human Resource Management</div>
-                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i> Employees</a>
+                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i>
+                    Employees</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-sitemap"></i> Unit
                     Management</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-graduation-cap"></i>
@@ -513,169 +517,170 @@
                     </nav>
                 </div>
             </div>
-            <br >
+            <br>
             <br>
 
-         <div class="card" >
-  <div class="card-body">
-<div class="container my-4">
-  <!-- Search Bar -->
-   <div class="row mb-4">
-    <div class="col text-end">   <!-- 👈 text-end pushes content to the right -->
-      <input type="text"
-             id="employeeSearch"
-             class="form-control form-control-lg d-inline-block"
-             placeholder="Search by name, employee ID, or phone"
-             style="width: 100%; max-width: 400px;">
-    </div>
-  </div>
-  <!-- Filters -->
-  <form class="row g-3 align-items-end justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container my-4">
+                        <!-- Search Bar -->
+                        <div class="row mb-4">
+                            <div class="col text-end"> <!-- 👈 text-end pushes content to the right -->
+                                <input type="text" id="employeeSearch"
+                                    class="form-control form-control-lg d-inline-block"
+                                    placeholder="Search by name, employee ID, or phone"
+                                    style="width: 100%; max-width: 400px;">
+                            </div>
+                        </div>
+                        <!-- Filters -->
+                        <form class="row g-3 align-items-end justify-content-center">
 
-    <div class="col-sm-6 col-md-4 col-lg-2">
-      <label class="form-label fw-semibold">
-        Department <span class="text-danger">*</span>
-      </label>
-      <select id="departmentSelect" class="form-select">
-        <option value="">Select Department...</option>
-        <option value="aarogyasri">Aarogyasri</option>
-        <option value="blood-bank">Blood Bank</option>
-        <option value="cath-lab">CATH Lab</option>
-        <option value="central-kitchen">Central Kitchen</option>
-        <option value="cardiology">Cardiology</option>
-        <option value="neurology">Neurology</option>
-        <option value="orthopedics">Orthopedics</option>
-      </select>
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <label class="form-label fw-semibold">
+                                    Department <span class="text-danger">*</span>
+                                </label>
+                                <select id="departmentSelect" class="form-select">
+                                    <option value="">Select Department...</option>
+                                    <option value="aarogyasri">Aarogyasri</option>
+                                    <option value="blood-bank">Blood Bank</option>
+                                    <option value="cath-lab">CATH Lab</option>
+                                    <option value="central-kitchen">Central Kitchen</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="orthopedics">Orthopedics</option>
+                                </select>
+                            </div>
 
-    <div class="col-sm-6 col-md-4 col-lg-2">
-      <label class="form-label fw-semibold">
-        Designation <span class="text-danger">*</span>
-      </label>
-      <select id="designationSelect" class="form-select">
-        <option value="">Select Designation...</option>
-        <option value="doctor">Doctor</option>
-        <option value="nurse">Nurse</option>
-        <option value="technician">Technician</option>
-        <option value="admin">Administrator</option>
-        <option value="manager">Manager</option>
-      </select>
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <label class="form-label fw-semibold">
+                                    Designation <span class="text-danger">*</span>
+                                </label>
+                                <select id="designationSelect" class="form-select">
+                                    <option value="">Select Designation...</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="technician">Technician</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="manager">Manager</option>
+                                </select>
+                            </div>
 
-    <div class="col-sm-6 col-md-4 col-lg-2">
-      <label class="form-label fw-semibold">
-        From Date <span class="text-danger">*</span>
-      </label>
-      <input type="date" id="fromDate" class="form-control">
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <label class="form-label fw-semibold">
+                                    From Date <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" id="fromDate" class="form-control">
+                            </div>
 
-    <div class="col-sm-6 col-md-4 col-lg-2">
-      <label class="form-label fw-semibold">
-        To Date <span class="text-danger">*</span>
-      </label>
-      <input type="date" id="toDate" class="form-control">
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <label class="form-label fw-semibold">
+                                    To Date <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" id="toDate" class="form-control">
+                            </div>
 
-    <div class="col-sm-6 col-md-4 col-lg-2">
-      <label class="form-label fw-semibold">
-        Leave Status <span class="text-danger">*</span>
-      </label>
-      <select id="leaveStatusSelect" class="form-select">
-        <option value="">Select Leave Status...</option>
-        <option value="approved">Approved</option>
-        <option value="pending">Pending</option>
-        <option value="rejected">Rejected</option>
-        <option value="cancelled">Cancelled</option>
-      </select>
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <label class="form-label fw-semibold">
+                                    Leave Status <span class="text-danger">*</span>
+                                </label>
+                                <select id="leaveStatusSelect" class="form-select">
+                                    <option value="">Select Leave Status...</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="rejected">Rejected</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
 
-    <div class="col-sm-6 col-md-4 col-lg-2 d-grid">
-      <button type="button" class="btn btn-primary fw-semibold">
-        Clear Filters
-      </button>
-    </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2 d-grid">
+                                <button type="button" class="btn btn-primary fw-semibold">
+                                    Clear Filters
+                                </button>
+                            </div>
 
-  </form>
-  <br>
-  <hr>
-    <!-- Employee Table -->
-  <div class="table-responsive">
+                        </form>
+                        <br>
+                        <hr>
+                        <!-- Employee Table -->
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">S.No
                                         </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Name/EmployeeID 
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                            Name/EmployeeID
                                         </th>
                                         <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
                                             Department/Designation
                                         </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Leave Raised on
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Leave
+                                            Raised on
                                         </th>
                                         <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
                                             Leave Dates</th>
                                         <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                           Total Days
+                                            Total Days
                                         </th>
                                         <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                           Leave Status
+                                            Leave Status
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <tbody>
-        <tr>
-          <td class="text-center">1</td>
-          <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
-          <td>Cardiology<br><small class="text-muted">Doctor</small></td>
-          <td>2025-09-20</td>
-          <td>2025-09-25 to 2025-09-27</td>
-          <td class="text-center">3</td>
-          <td><span class="badge bg-success">Approved</span></td>
-        </tr>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">1</td>
+                                        <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
+                                        <td>Cardiology<br><small class="text-muted">Doctor</small></td>
+                                        <td>2025-09-20</td>
+                                        <td>2025-09-25 to 2025-09-27</td>
+                                        <td class="text-center">3</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                    </tr>
 
-        <tr>
-          <td class="text-center">2</td>
-          <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
-          <td>Blood Bank<br><small class="text-muted">Technician</small></td>
-          <td>2025-09-18</td>
-          <td>2025-09-22 to 2025-09-23</td>
-          <td class="text-center">2</td>
-          <td><span class="badge bg-warning text-dark">Pending</span></td>
-        </tr>
+                                    <tr>
+                                        <td class="text-center">2</td>
+                                        <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
+                                        <td>Blood Bank<br><small class="text-muted">Technician</small></td>
+                                        <td>2025-09-18</td>
+                                        <td>2025-09-22 to 2025-09-23</td>
+                                        <td class="text-center">2</td>
+                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                    </tr>
 
-        <tr>
-          <td class="text-center">3</td>
-          <td>S. Nair<br><small class="text-muted">EMP003</small></td>
-          <td>Neurology<br><small class="text-muted">Nurse</small></td>
-          <td>2025-09-15</td>
-          <td>2025-09-19 to 2025-09-20</td>
-          <td class="text-center">2</td>
-          <td><span class="badge bg-danger">Rejected</span></td>
-        </tr>
-        
-</div>
-                                </tbody>
-                            </table>
+                                    <tr>
+                                        <td class="text-center">3</td>
+                                        <td>S. Nair<br><small class="text-muted">EMP003</small></td>
+                                        <td>Neurology<br><small class="text-muted">Nurse</small></td>
+                                        <td>2025-09-15</td>
+                                        <td>2025-09-19 to 2025-09-20</td>
+                                        <td class="text-center">2</td>
+                                        <td><span class="badge bg-danger">Rejected</span></td>
+                                    </tr>
+
                         </div>
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" style="border-radius: 10px;">Previous</a>
-                                </li>  
-                                <li class="page-item"><a class="page-link" href="#"
-                                        style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
-                                </li>  
-                                <li class="page-item">
-                                    <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        </tbody>
+                        </table>
                     </div>
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" style="border-radius: 10px;">Previous</a>
+                            </li>  
+                            <li class="page-item"><a class="page-link" href="#"
+                                    style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
+                            </li>  
+                            <li class="page-item">
+                                <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-</div>
-</div>
+        </div>
+    </div>
+    </div>
 
 
 
@@ -685,8 +690,7 @@
             <p class="mb-0">Design &amp; develop by Peramsons Software</p>
         </div>
     </footer>
-   
+
 </body>
 
 </html>
-
