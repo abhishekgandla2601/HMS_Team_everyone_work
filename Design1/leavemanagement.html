@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>R.V.M Hospitals Specialization</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="rvm.png" rel="icon" sizes="16*16" />
+    <style>
+        :root {
+            --sidebar-width: 250px;
+            --sidebar-bg: rgb(48, 72, 156);
+            --sidebar-color: #f8f9fa;
+            --header-height: 60px;
+            --main-bg: #f4f7f9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--main-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .upload-box {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: border 0.3s;
+        }
+
+        .upload-box:hover {
+            border-color: #007bff;
+        }
+
+        .upload-box i {
+            font-size: 40px;
+            color: #007bff;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .sidebar-menu .list-group-item {
+            background-color: transparent;
+            color: var(--sidebar-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .sidebar-menu .list-group-item.active,
+        .sidebar-menu .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu .list-group-item i {
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .sidebar-menu .menu-category {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #adb5bd;
+            padding: 1rem 1.5rem 0.5rem;
+        }
+
+        /* --- Main Content Styles --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: 100%;
+            padding: 1rem;
+            transition: margin-left 0.3s ease;
+            margin-top: 80px;
+        }
+
+        /* --- Header Styles --- */
+        .header {
+            background-color: #fff;
+            height: var(--header-height);
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 70px;
+            /* adjust based on your header height */
+            background: #fff;
+            /* keeps it solid */
+            border-bottom: 1px solid #ddd;
+            padding: 0 10px;
+            z-index: 1000;
+            /* keeps it above other content */
+        }
+
+        .header .search-bar {
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .header .search-bar .form-control {
+            border: none;
+            box-shadow: none;
+        }
+
+        .header .header-icons i {
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .header .user-info .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #495057;
+            margin-right: 0.5rem;
+        }
+
+        .dept-card {
+            background-color: #fff;
+            position: fixed;
+            top: 70px;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            z-index: 900;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            border: none;
+            border-radius: 12px;
+        }
+
+        .dept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+        }
+
+        .dept-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .dept-breadcrumb {
+            margin: 0;
+            font-size: 13px;
+            background: transparent;
+        }
+
+        .dept-breadcrumb a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dept-breadcrumb .active {
+            color: #6c757d;
+        }
+
+        .dept-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+            content: "›";
+            color: #6c757d;
+        }
+
+        /* When sidebar is collapsed */
+        .sidebar.collapsed~.main-content .header,
+        .sidebar.collapsed~.main-content .dept-card {
+            left: 0;
+            width: 100%;
+        }
+
+        /* --- Main Content Box --- */
+        .content-box {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .content {
+            margin-top: 70px;
+            /* same as header height */
+            padding: 20px;
+        }
+
+
+        /* --- Table Actions --- */
+        .table-actions .btn-group .btn {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .table-actions .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .table-actions .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .table-actions .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        a,
+        a:hover,
+        a:focus,
+        a:active,
+        a:visited {
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        footer {
+            background-color: white;
+            z-index: 1040;
+            width: 83.6%;
+            position: fixed;
+            bottom: 0;
+            left: 28.1ch;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                width: 200px;
+                left: -200px;
+                /* top: 70px;
+                height: calc(100% - 70px); */
+                top: 0;
+                height: 100%;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                transition: margin-left 0.3s ease;
+
+            }
+
+            .sidebar.active~.main-content {
+                margin-left: 200px;
+
+            }
+
+            .header {
+                /* flex-wrap: wrap; */
+                /* position: relative; */
+                left: 0;
+                width: 100%;
+                height: auto;
+                padding: 0.5rem;
+                z-index: 1100;
+                transition: margin-left 0.3s ease;
+            }
+
+            .sidebar.active~.main-content .header {
+                transform: translateX(200px);
+
+            }
+
+            .header .d-flex.align-items-center:last-child {
+                flex-shrink: 0;
+                /* don't let icons+user shrink */
+                margin-left: auto;
+                /* push them to far right */
+            }
+
+            .header .search-bar {
+                max-width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .header .header-icons i {
+                margin-left: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .header .user-info {
+                margin-top: 0.5rem;
+            }
+
+            .navbar-nav {
+                flex-wrap: wrap;
+            }
+
+            .navbar-nav .nav-item {
+                margin-bottom: 0.5rem;
+            }
+
+            .dept-card {
+                position: relative;
+                top: auto;
+                margin-top: 10px;
+                left: 0;
+                width: 100%;
+                z-index: auto;
+            }
+
+            footer {
+                position: relative !important;
+                width: 100% !important;
+                left: 0 !important;
+                bottom: auto !important;
+            }
+
+            .site-footer {
+                position: static;
+                width: 100%;
+                left: 0;
+                bottom: auto;
+            }
+
+            .footer-shift {
+                margin-left: 200px;
+                transition: margin-left 0.3s ease;
+            }
+
+        }
+
+       
+  /* --- Optional small tweaks --- */
+    .input-group-text i {
+      margin-left: -2px;     /* centers the chevron nicely */
+      pointer-events: none;  /* makes icon non-clickable */
+    }
+    /* Larger search box on bigger screens */
+    #employeeSearch {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+  .small-card {
+    width: 250px;
+    height: 50px;
+  }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h4>RVM</h4>
+            </div>
+            <div class="list-group sidebar-menu">
+                <div class="menu-category">Menu</div>
+                <a class="list-group-item list-group-item-action" href="dashboard.html"><i class="fas fa-home"></i>
+                    Dashboard</a>
+                <div class="menu-category">OPD</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-user-plus"></i> Patient
+                    Registration</a>
+                <div class="menu-category">Emergency</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-ambulance"></i> Emergency
+                    Patient</a>
+                <div class="menu-category">Help Desk</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-headset"></i> Service
+                    Desk</a>
+                <div class="menu-category">Diagnostics</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-flask"></i> Centres</a>
+                <div class="menu-category">Human Resource Management</div>
+                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i> Employees</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-sitemap"></i> Unit
+                    Management</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-graduation-cap"></i>
+                    Trainings</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-notes-medical"></i> Health
+                    Reports</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-syringe"></i> Vaccination
+                    Reports</a>
+                <div class="menu-category">Placements</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-building"></i> Placements
+                    Cell</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-clipboard-list"></i>
+                    Interviews</a>
+                <div class="menu-category">Referral Agents</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-user-friends"></i> Referral
+                    Membership</a>
+                <div class="menu-category">Patients Management</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-file-medical"></i> Patient
+                    Records</a>
+                <div class="menu-category">Marketing &amp; Campaign</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-bullhorn"></i> Campaigns</a>
+                <div class="menu-category">Vendor</div>
+                <!-- If there are vendor-specific links, you can add them here -->
+                <div class="menu-category">Rooms Management</div>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-door-open"></i> Rooms
+                    Management</a>
+                <div class="menu-category">Settings</div>
+                <a class="list-group-item list-group-item-action active" href="HRM.html"><i class="fas fa-cog"></i>
+                    General
+                    Settings</a>
+            </div>
+        </nav>
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <form class="d-flex me-3" onsubmit="return false;">
+                        <button class="btn btn-light me-2" id="sidebarToggle" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                    </form>
+
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="header-icons d-flex align-items-center gap-4 me-3">
+                        <i class="fas fa-bed text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-expand text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-moon text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-bell text-secondary fs-5 position-relative" role="button">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                        </i>
+                    </div>
+                    <div class="user-info d-flex align-items-center">
+                        <div
+                            class="user-avatar text-white bg-info rounded-circle d-flex align-items-center justify-content-center">
+                            lv</div>
+                        <div>
+                            <div class="fw-bold dropdown">
+                                <a aria-expanded="false" data-bs-toggle="dropdown" role="button" style="color: black;">
+                                    lvktch
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="index.html">Logout</a></li>
+                                </ul>
+                            </div>
+                            <div class="small text-muted">Master Panel</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="card dept-card">
+                <div class="card-body dept-header">
+                    <h6 class="dept-title">Department Details</h6>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb dept-breadcrumb">
+                            <li class="breadcrumb-item"><a href="dashboard.html">Dashboards</a></li>
+                            <li class="breadcrumb-item active">Department</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <br >
+            <br>
+
+         <div class="card" >
+  <div class="card-body">
+<div class="container my-4">
+  <!-- Search Bar -->
+   <div class="row mb-4">
+    <div class="col text-end">   <!-- 👈 text-end pushes content to the right -->
+      <input type="text"
+             id="employeeSearch"
+             class="form-control form-control-lg d-inline-block"
+             placeholder="Search by name, employee ID, or phone"
+             style="width: 100%; max-width: 400px;">
+    </div>
+  </div>
+  <!-- Filters -->
+  <form class="row g-3 align-items-end justify-content-center">
+
+    <div class="col-sm-6 col-md-4 col-lg-2">
+      <label class="form-label fw-semibold">
+        Department <span class="text-danger">*</span>
+      </label>
+      <select id="departmentSelect" class="form-select">
+        <option value="">Select Department...</option>
+        <option value="aarogyasri">Aarogyasri</option>
+        <option value="blood-bank">Blood Bank</option>
+        <option value="cath-lab">CATH Lab</option>
+        <option value="central-kitchen">Central Kitchen</option>
+        <option value="cardiology">Cardiology</option>
+        <option value="neurology">Neurology</option>
+        <option value="orthopedics">Orthopedics</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-2">
+      <label class="form-label fw-semibold">
+        Designation <span class="text-danger">*</span>
+      </label>
+      <select id="designationSelect" class="form-select">
+        <option value="">Select Designation...</option>
+        <option value="doctor">Doctor</option>
+        <option value="nurse">Nurse</option>
+        <option value="technician">Technician</option>
+        <option value="admin">Administrator</option>
+        <option value="manager">Manager</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-2">
+      <label class="form-label fw-semibold">
+        From Date <span class="text-danger">*</span>
+      </label>
+      <input type="date" id="fromDate" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-2">
+      <label class="form-label fw-semibold">
+        To Date <span class="text-danger">*</span>
+      </label>
+      <input type="date" id="toDate" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-2">
+      <label class="form-label fw-semibold">
+        Leave Status <span class="text-danger">*</span>
+      </label>
+      <select id="leaveStatusSelect" class="form-select">
+        <option value="">Select Leave Status...</option>
+        <option value="approved">Approved</option>
+        <option value="pending">Pending</option>
+        <option value="rejected">Rejected</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-2 d-grid">
+      <button type="button" class="btn btn-primary fw-semibold">
+        Clear Filters
+      </button>
+    </div>
+
+  </form>
+  <br>
+  <hr>
+    <!-- Employee Table -->
+  <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">S.No
+                                        </th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Name/EmployeeID 
+                                        </th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                            Department/Designation
+                                        </th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Leave Raised on
+                                        </th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                            Leave Dates</th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                           Total Days
+                                        </th>
+                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                           Leave Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tbody>
+        <tr>
+          <td class="text-center">1</td>
+          <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
+          <td>Cardiology<br><small class="text-muted">Doctor</small></td>
+          <td>2025-09-20</td>
+          <td>2025-09-25 to 2025-09-27</td>
+          <td class="text-center">3</td>
+          <td><span class="badge bg-success">Approved</span></td>
+        </tr>
+
+        <tr>
+          <td class="text-center">2</td>
+          <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
+          <td>Blood Bank<br><small class="text-muted">Technician</small></td>
+          <td>2025-09-18</td>
+          <td>2025-09-22 to 2025-09-23</td>
+          <td class="text-center">2</td>
+          <td><span class="badge bg-warning text-dark">Pending</span></td>
+        </tr>
+
+        <tr>
+          <td class="text-center">3</td>
+          <td>S. Nair<br><small class="text-muted">EMP003</small></td>
+          <td>Neurology<br><small class="text-muted">Nurse</small></td>
+          <td>2025-09-15</td>
+          <td>2025-09-19 to 2025-09-20</td>
+          <td class="text-center">2</td>
+          <td><span class="badge bg-danger">Rejected</span></td>
+        </tr>
+        
+</div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" style="border-radius: 10px;">Previous</a>
+                                </li>  
+                                <li class="page-item"><a class="page-link" href="#"
+                                        style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
+                                </li>  
+                                <li class="page-item">
+                                    <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+</div>
+</div>
+
+
+
+    <footer class="site-footer">
+        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+            <p class="mb-0">R.V.M Hospitals © Peramson Software.All Rights Reserved.</p>
+            <p class="mb-0">Design &amp; develop by Peramsons Software</p>
+        </div>
+    </footer>
+   
+</body>
+
+</html>
+
