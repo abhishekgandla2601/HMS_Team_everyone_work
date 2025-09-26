@@ -407,6 +407,16 @@
             width: 250px;
             height: 50px;
         }
+
+        .table th {
+            background-color: rgb(48, 72, 156);
+            color: white;
+            white-space: nowrap;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -523,7 +533,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container my-4">
-                        <br>  <hr>
+                        <br>
+                        <hr>
                         <!-- Search Bar -->
                         <div class="row mb-4">
                             <div class="col text-end"> <!-- 👈 text-end pushes content to the right -->
@@ -607,25 +618,13 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">S.No
-                                        </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                            Name/EmployeeID
-                                        </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                            Department/Designation
-                                        </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">Leave
-                                            Raised on
-                                        </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                            Leave Dates</th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                            Total Days
-                                        </th>
-                                        <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
-                                            Leave Status
-                                        </th>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Name / Employee ID</th>
+                                        <th scope="col">Department / Designation</th>
+                                        <th scope="col">Leave Raised on</th>
+                                        <th scope="col">Leave Dates</th>
+                                        <th scope="col">Total Days</th>
+                                        <th scope="col">Leave Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -634,8 +633,8 @@
                                         <td class="text-center">1</td>
                                         <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
                                         <td>Cardiology<br><small class="text-muted">Doctor</small></td>
-                                        <td>2025-09-20</td>
-                                        <td>2025-09-25 to 2025-09-27</td>
+                                        <td>20-09-2025</td>
+                                        <td>25-09-2025 to 27-09-2025</td>
                                         <td class="text-center">3</td>
                                         <td><span class="badge bg-success">Approved</span></td>
                                     </tr>
@@ -644,8 +643,8 @@
                                         <td class="text-center">2</td>
                                         <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
                                         <td>Blood Bank<br><small class="text-muted">Technician</small></td>
-                                        <td>2025-09-18</td>
-                                        <td>2025-09-22 to 2025-09-23</td>
+                                        <td>18-09-2025</td>
+                                        <td>22-09-2025 to 23-09-2025</td>
                                         <td class="text-center">2</td>
                                         <td><span class="badge bg-warning text-dark">Pending</span></td>
                                     </tr>
@@ -654,8 +653,8 @@
                                         <td class="text-center">3</td>
                                         <td>S. Nair<br><small class="text-muted">EMP003</small></td>
                                         <td>Neurology<br><small class="text-muted">Nurse</small></td>
-                                        <td>2025-09-15</td>
-                                        <td>2025-09-19 to 2025-09-20</td>
+                                        <td>15-09-2025</td>
+                                        <td>19-09-2025 to 20-09-2025</td>
                                         <td class="text-center">2</td>
                                         <td><span class="badge bg-danger">Rejected</span></td>
                                     </tr>
