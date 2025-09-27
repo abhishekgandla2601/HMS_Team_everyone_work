@@ -387,71 +387,25 @@
             }
 
         }
+        body { background:#f8f9fa; }
+    .step-tabs .nav-link {
+        border-radius:0;
+        background:#e9ecef;
+        color:#000;
+        margin-right:2px;
+    }
+    .step-tabs .nav-link.active {
+        background:#0d6efd;
+        color:#fff;
+    }
 
+    /* remove the default bottom border under the nav-tabs */
+.nav-tabs {
+    border-bottom: none;
+}
 
-        /* --- Optional small tweaks --- */
-        .input-group-text i {
-            margin-left: -2px;
-            /* centers the chevron nicely */
-            pointer-events: none;
-            /* makes icon non-clickable */
-        }
-
-        /* Larger search box on bigger screens */
-        #employeeSearch {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .small-card {
-            width: 250px;
-            height: 50px;
-        }
-
-        .table th {
-            background-color: rgb(48, 72, 156);
-            color: white;
-            white-space: nowrap;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-        /* Very-light-purple reverse-cut buttons */
-        .btn-purple-cut {
-            background-color: rgb(216, 227, 230);
-            color: black;
-            /* dark text for contrast */
-            border: 1px solid #d6c2f5;
-            border-radius: 0;
-            clip-path: polygon(10% 0,
-                    /* top-left cut */
-                    90% 0,
-                    /* top-right cut */
-                    100% 100%,
-                    /* bottom-right square */
-                    0 100%
-                    /* bottom-left square */
-                );
-            padding: 0.6rem 1.2rem;
-            transition: background-color 0.2s ease;
-        }
-
-        /* Slightly deeper shade on hover */
-        .btn-purple-cut:hover {
-            background-color: #4b4b94;
-            color: white;
-            /* a touch darker on hover */
-        }
-
-        /* Remove the tiny border gap between connected buttons */
-        .btn-group .btn-purple-cut+.btn-purple-cut {
-            margin-left: -px;
-        }
-    </style>
+        </style>
 </head>
-
 <body>
     <div class="wrapper">
         <nav class="sidebar">
@@ -548,7 +502,7 @@
                     </div>
                 </div>
             </header>
-            <div class="card dept-card">
+             <div class="card dept-card">
                 <div class="card-body dept-header">
                     <h6 class="dept-title">Department Details</h6>
                     <nav aria-label="breadcrumb">
@@ -561,175 +515,123 @@
             </div>
             <br>
             <br>
-            <!-- main content -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="container my-4">
-                        <div class="btn-group w-100 d-flex">
-                            <button class="btn btn-purple-cut flex-fill">Profiles</button>
-                            <button class="btn btn-purple-cut flex-fill">Attendance</button>
-                            <button class="btn btn-purple-cut flex-fill" style="background-color: darkblue; color: white;">Leave Management</button>
-                            <button class="btn btn-purple-cut flex-fill">Notification</button>
-                            <button class="btn btn-purple-cut flex-fill">Schedule</button>
-                        </div>
-                        <hr>
+    
 
-                        <!-- Search Bar -->
-                        <div class="row mb-4">
-                            <div class="col text-end"> 
-                                <input type="text" id="employeeSearch"
-                                    class="form-control form-control-lg d-inline-block"
-                                    placeholder="Search by name, employee ID, or phone"
-                                    style="width: 100%; max-width: 400px;">
-                            </div>
-                        </div>
-                        <!-- Filters -->
-                        <form class="row g-3 align-items-end justify-content-center">
+<body class="p-3">
+    <div class="card">
+    <div class="card-body">
+    <h3 class="mb-4">Create Employee</h3>
+<hr>
+    <!-- Step Tabs -->
+    <ul class="nav nav-tabs step-tabs" id="stepTabs">
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step1" type="button">1. Personal Details</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step2" type="button">2. Address</button></li>
+        
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step3" type="button">3. EDU.Qualification</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step4" type="button">4. Work Experience</button></li>
+        
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step5" type="button">5. Employement Details</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step6" type="button">6. Salary Details</button></li>
+    </ul>
+    </div>
+    <div class="tab-content border border-top-0 p-4 bg-white">
+        <!-- Step 1 : Personal Details -->
+        <div class="tab-pane fade show active" id="step1">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Last Name </label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Date of Birth *</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Phone *</label>
+                    <input type="tel" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Gender *</label>
+                    <select class="form-select">
+                        <option>Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-                            <div class="col-sm-6 col-md-4 col-lg-2">
-                                <label class="form-label fw-semibold">
-                                    Department <span class="text-danger">*</span>
-                                </label>
-                                <select id="departmentSelect" class="form-select">
-                                    <option value="">Select Department...</option>
-                                    <option value="aarogyasri">Aarogyasri</option>
-                                    <option value="blood-bank">Blood Bank</option>
-                                    <option value="cath-lab">CATH Lab</option>
-                                    <option value="central-kitchen">Central Kitchen</option>
-                                    <option value="cardiology">Cardiology</option>
-                                    <option value="neurology">Neurology</option>
-                                    <option value="orthopedics">Orthopedics</option>
-                                </select>
-                            </div>
+        <!-- Step 2 : Address -->
+        <div class="tab-pane fade" id="step2">
+            <div class="mb-3">
+                <label class="form-label">Area<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Search by area or pincode">
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">City<span class="text-primary">*</span></label>
+                    <select class="form-select">
+                        <option>Select City</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">State<span class="text-primary">*</span></label>
+                    <select class="form-select">
+                        <option>Select State</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Country<span class="text-primary">*</span></label>
+                    <select class="form-select">
+                        <option>Select Country</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="form-label">Friendly Address<span class="text-danger">*</span></label>
+                <textarea class="form-control" rows="2" placeholder="Flat no., Street, Locality"></textarea>
+            </div>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="sameAddr">
+                <label class="form-check-label" for="sameAddr">Permanent Address Same as Current Address</label>
+            </div>
 
-                            <div class="col-sm-6 col-md-4 col-lg-2">
-                                <label class="form-label fw-semibold">
-                                    Designation <span class="text-danger">*</span>
-                                </label>
-                                <select id="designationSelect" class="form-select">
-                                    <option value="">Select Designation...</option>
-                                    <option value="doctor">Doctor</option>
-                                    <option value="nurse">Nurse</option>
-                                    <option value="technician">Technician</option>
-                                    <option value="admin">Administrator</option>
-                                    <option value="manager">Manager</option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-6 col-md-4 col-lg-2">
-                                <label class="form-label fw-semibold">
-                                    From Date <span class="text-danger">*</span>
-                                </label>
-                                <input type="date" id="fromDate" class="form-control">
-                            </div>
-
-                            <div class="col-sm-6 col-md-4 col-lg-2">
-                                <label class="form-label fw-semibold">
-                                    To Date <span class="text-danger">*</span>
-                                </label>
-                                <input type="date" id="toDate" class="form-control">
-                            </div>
-
-                            <div class="col-sm-6 col-md-4 col-lg-2">
-                                <label class="form-label fw-semibold">
-                                    Leave Status <span class="text-danger">*</span>
-                                </label>
-                                <select id="leaveStatusSelect" class="form-select">
-                                    <option value="">Select Leave Status...</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="rejected">Rejected</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-6 col-md-4 col-lg-2 d-grid">
-                                <button type="button" class="btn btn-primary fw-semibold">
-                                    Clear Filters
-                                </button>
-                            </div>
-
-                        </form>
-                        <br>
-                        <hr>
-                        <!-- Employee Table -->
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">S.No</th>
-                                        <th scope="col">Name / Employee ID</th>
-                                        <th scope="col">Department / Designation</th>
-                                        <th scope="col">Leave Raised on</th>
-                                        <th scope="col">Leave Dates</th>
-                                        <th scope="col">Total Days</th>
-                                        <th scope="col">Leave Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
-                                        <td>Cardiology<br><small class="text-muted">Doctor</small></td>
-                                        <td>20-09-2025</td>
-                                        <td>25-09-2025 to 27-09-2025</td>
-                                        <td class="text-center">3</td>
-                                        <td><span class="badge bg-success">Approved</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
-                                        <td>Blood Bank<br><small class="text-muted">Technician</small></td>
-                                        <td>18-09-2025</td>
-                                        <td>22-09-2025 to 23-09-2025</td>
-                                        <td class="text-center">2</td>
-                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>S. Nair<br><small class="text-muted">EMP003</small></td>
-                                        <td>Neurology<br><small class="text-muted">Nurse</small></td>
-                                        <td>15-09-2025</td>
-                                        <td>19-09-2025 to 20-09-2025</td>
-                                        <td class="text-center">2</td>
-                                        <td><span class="badge bg-danger">Rejected</span></td>
-                                    </tr>
-
-                        </div>
-                        </tbody>
-                        </table>
-                    </div>
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" style="border-radius: 10px;">Previous</a>
-                            </li>  
-                            <li class="page-item"><a class="page-link" href="#"
-                                    style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
-                            </li>  
-                            <li class="page-item">
-                                <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+            <h6 class="mt-4">Guardian Details</h6>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Guardian Contact *</label>
+                    <input type="text" class="form-control" placeholder="Ex: 9876543210">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Guardian Name *</label>
+                    <input type="text" class="form-control" placeholder="Ex: Pawan Reddy">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Guardian Relation *</label>
+                    <select class="form-select">
+                        <option>Select Relation</option>
+                        <option>Father</option>
+                        <option>Mother</option>
+                        <option>Brother</option>
+                        <option>Sister</option>
+                        <option>Other</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-
-
-
-    <footer class="site-footer">
-        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
-            <p class="mb-0">R.V.M Hospitals © Peramson Software.All Rights Reserved.</p>
-            <p class="mb-0">Design &amp; develop by Peramsons Software</p>
-        </div>
-    </footer>
-
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
+
