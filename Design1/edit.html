@@ -552,190 +552,198 @@
             <br>
             <br>
             <section>
-            <div class="card">
-                <div class="card-header" style="background-color: white;">
-                    <h5>Employee Profile</h5>
-                </div>
-                <div class="card-body">
-                    <div class="form">
-                        <!-- Row -->
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <!-- Avatar container -->
-                                    <div class="avatar position-relative" id="avatarWrap" aria-hidden="false">
-                                        <!-- Replace src with your silhouette file or user image path -->
-                                        <img id="avatarImg" src="profile.jpg"
-                                            alt="Profile avatar (click camera to change)">
-                                        <!-- camera button (uses inline SVG icon) -->
-                                        <button type="button" class="camera-btn" id="changeBtn"
-                                            title="Change profile picture" aria-label="Change profile picture">
-                                            <!-- small camera icon (SVG) -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                                                <path
-                                                    d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
-                                            </svg>
-                                        </button>
+                <div class="card">
+                    <div class="card-header" style="background-color: white;">
+                        <h5>Employee Profile</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form">
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <!-- Avatar container -->
+                                        <div class="avatar position-relative" id="avatarWrap" aria-hidden="false">
+                                            <!-- Replace src with your silhouette file or user image path -->
+                                            <img id="avatarImg" src="profile.jpg"
+                                                alt="Profile avatar (click camera to change)">
+                                            <!-- camera button (uses inline SVG icon) -->
+                                            <button type="button" class="camera-btn" id="changeBtn"
+                                                title="Change profile picture" aria-label="Change profile picture">
+                                                <!-- small camera icon (SVG) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                                                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                                    <path
+                                                        d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <!-- file-type hint -->
+                                        <div class="text-muted small">
+                                            <p style="color:#0d6efd">(PNG, JPG, JPEG)</p>
+                                        </div>
+                                        <input type="file" id="avatarFile" accept="image/png,image/jpeg,image/jpg"
+                                            class="d-none">
                                     </div>
-                                    <!-- file-type hint -->
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="fullname">Full Name</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <br>
+                                    <select class="form-control" name="" id="">
+                                        <option value="">Dr</option>
+                                        <option value="">Adr</option>
+                                        <option value="">Ddr</option>
+                                        <input class="form-control" type="text" name="" id="">
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="staffcode">Staff Code</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <br>
+                                    <input class="form-control" type="text" name="" id="">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="fhname">Father/Husband Name</label><span
+                                        style="color: #dc3545;">*</span>
+                                    <br>
+                                    <br>
+                                    <input class="form-control" type="text" name="" id="">
+
+                                </div>
+
+                                <!-- hidden file input -->
+
+                            </div>
+
+                            <!-- row1 completed -->
+
+                            <!-- row-2 -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="gender">Gender</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioDefault"
+                                            id="radioDefault1">
+                                        <label class="form-check-label" for="radioDefault1">
+                                            Male
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioDefault"
+                                            id="radioDefault2" checked>
+                                        <label class="form-check-label" for="radioDefault2">
+                                            Female
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioDefault"
+                                            id="radioDefault3" checked>
+                                        <label class="form-check-label" for="radioDefault3">
+                                            Others
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="Maritalstatus">Marital Status</label><span
+                                        style="color: #dc3545;">*</span>
+                                    <br>
+                                    <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioDefault" id="yes"
+                                            checked>
+                                        <label class="form-check-label" for="Maritalstatus">
+                                            Yes
+                                        </label>
+
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioDefault" id="no"
+                                            checked>
+                                        <label class="form-check-label" for="Maritalstatus">
+                                            No
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="phonenumber">Phone Number</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <input class="form-control" type="text" id="phnumber" name="phonenumber">
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <label for="alternatephonenumber">Alternate Phone Number</label><span
+                                        style="color: #007bff;">*</span>
+                                    <br>
+                                    <input class="form-control" type="text" id="phnumber" name="phonenumber">
+                                </div>
+
+                            </div>
+
+                            <!-- row-2 completed -->
+                            <!-- row-3 -->
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="email">Email ID</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <input class="form-control" type="text" id="eid" name="email">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="dateofbirth">Date of Birth</label><span style="color: #dc3545;">*</span>
+                                    <br>
+                                    <input class="form-control" type="date" id="dob" name="dateofbirth">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="age">Age</label><span style="color: #007bff;">*</span>
+                                    <br>
+                                    <input class="form-control" type="text" id="age" name="age">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="agegroup">Age Group</label><span style="color: #007bff;">*</span>
+                                    <br>
+                                    <input class="form-control" type="text" id="agegroup" name="agegroup">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="agegroup">Upload ID proof<small>{Aadhaar-card }</small>
+                                    </label><span style="color: gray;">*</span>
                                     <div class="text-muted small">
                                         <p style="color:#0d6efd">(PNG, JPG, JPEG)</p>
                                     </div>
-                                    <input type="file" id="avatarFile" accept="image/png,image/jpeg,image/jpg"
-                                        class="d-none">
-                                </div>
-
-                            </div>
-                            <div class="col-md-3">
-                                <label for="fullname">Full Name</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <br>
-                                <select class="form-control" name="" id="">
-                                    <option value="">Dr</option>
-                                    <option value="">Adr</option>
-                                    <option value="">Ddr</option>
-                                    <input class="form-control" type="text" name="" id="">
-                                </select>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="staffcode">Staff Code</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <br>
-                                <input class="form-control" type="text" name="" id="">
-
-                            </div>
-                            <div class="col-md-3">
-                                <label for="fhname">Father/Husband Name</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <br>
-                                <input class="form-control" type="text" name="" id="">
-
-                            </div>
-
-                            <!-- hidden file input -->
-
-                        </div>
-
-                        <!-- row1 completed -->
-
-                        <!-- row-2 -->
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="gender">Gender</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
-                                    <label class="form-check-label" for="radioDefault1">
-                                        Male
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2"
-                                        checked>
-                                    <label class="form-check-label" for="radioDefault2">
-                                        Female
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault3"
-                                        checked>
-                                    <label class="form-check-label" for="radioDefault3">
-                                        Others
-                                    </label>
-                                </div>
-
-                            </div>
-                            <div class="col-md-3">
-                                <label for="Maritalstatus">Marital Status</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDefault" id="yes" checked>
-                                    <label class="form-check-label" for="Maritalstatus">
-                                        Yes
-                                    </label>
-
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDefault" id="no" checked>
-                                    <label class="form-check-label" for="Maritalstatus">
-                                        No
-                                    </label>
+                                    <input class="form-control" type="file" id="agegroup" name="agegroup">
 
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
-                                <label for="phonenumber">Phone Number</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <input class="form-control" type="text" id="phnumber" name="phonenumber">
-                            </div>
-
-                            
-                            <div class="col-md-3">
-                                <label for="alternatephonenumber">Alternate Phone Number</label><span style="color: #007bff;">*</span>
-                                <br>
-                                <input class="form-control" type="text" id="phnumber" name="phonenumber">
-                            </div>
-
-                        </div>
-
-                        <!-- row-2 completed -->
-                         <!-- row-3 -->
-
-                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="email">Email ID</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <input class="form-control" type="text" id="eid" name="email">
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="dateofbirth">Date of Birth</label><span style="color: #dc3545;">*</span>
-                                <br>
-                                <input class="form-control" type="date" id="dob" name="dateofbirth">
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="age">Age</label><span style="color: #007bff;">*</span>
-                                <br>
-                                <input class="form-control" type="text" id="age" name="age">
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="agegroup">Age Group</label><span style="color: #007bff;">*</span>
-                                <br>
-                                <input class="form-control" type="text" id="agegroup" name="agegroup">
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="agegroup">Upload ID proof<small>{Aadhaar-card }</small>
-                                </label><span style="color: gray;">*</span>
-                                <div class="text-muted small">
-                                        <p style="color:#0d6efd">(PNG, JPG, JPEG)</p>
-                                    </div>
-                                <input class="form-control" type="file" id="agegroup" name="agegroup">
- 
-                            </div>
-                         </div>
-
-                         <!-- row-3 completed -->
+                            <!-- row-3 completed -->
                             <!-- row-4 -->
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="aadharcardno">Aadhar Card Number</label><span style="color: #dc3545;">*</span>
+                                    <label for="aadharcardno">Aadhar Card Number</label><span
+                                        style="color: #dc3545;">*</span>
                                     <input class="form-control" type="text" id="aadharcardno" name="aadharcardno">
                                 </div>
                                 <div class="col-md-3">
-                                   <label for="pancardno">PAN Card Number</label><span style="color: #dc3545;">*</span>
+                                    <label for="pancardno">PAN Card Number</label><span style="color: #dc3545;">*</span>
                                     <input class="form-control" type="text" id="pancardno" name="pancardno">
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="aadharcardno">Employee Signature</label><span style="color: gray">*</span>
+                                    <label for="aadharcardno">Employee Signature</label><span
+                                        style="color: gray">*</span>
                                     <div class="text-muted small">
                                         <p style="color:gray">(PNG, JPG, JPEG)</p>
                                     </div>
@@ -748,12 +756,13 @@
                             </div>
 
                             <!-- row-4 completed -->
-                             <!-- row-5 -->
+                            <!-- row-5 -->
 
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-3">
 
-                                    <label for="guardiancontact">Guardian Contact</label><span style="color:gray">*</span>
+                                    <label for="guardiancontact">Guardian Contact</label><span
+                                        style="color:gray">*</span>
                                     <input class="form-control" type="text" id="guardiancontact" name="guardiancontact">
                                 </div>
 
@@ -762,184 +771,231 @@
                                     <input class="form-control" type="text" id="guardianname" name="guardianname">
                                 </div>
 
-                                
+
                                 <div class="col-md-3">
-                                    <label for="guardiancontact">Guardian Relation</label><span style="color:gray">*</span>
+                                    <label for="guardiancontact">Guardian Relation</label><span
+                                        style="color:gray">*</span>
                                     <input class="form-control" type="text" id="guardianname" name="guardianname">
                                 </div>
-                             </div>
+                            </div>
 
-                             <!-- card-1 completed -->
+                            <!-- card-1 completed -->
 
-                        <!-- Bootstrap JS (optional) -->
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                            <!-- Bootstrap JS (optional) -->
+                            <script
+                                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-                        <script>
-                            // open file picker when camera clicked
-                            const changeBtn = document.getElementById('changeBtn');
-                            const fileInput = document.getElementById('avatarFile');
-                            const avatarImg = document.getElementById('avatarImg');
+                            <script>
+                                // open file picker when camera clicked
+                                const changeBtn = document.getElementById('changeBtn');
+                                const fileInput = document.getElementById('avatarFile');
+                                const avatarImg = document.getElementById('avatarImg');
 
-                            changeBtn.addEventListener('click', () => fileInput.click());
+                                changeBtn.addEventListener('click', () => fileInput.click());
 
-                            // preview selected image
-                            fileInput.addEventListener('change', (e) => {
-                                const f = e.target.files && e.target.files[0];
-                                if (!f) return;
-                                // optional: check type/size here
-                                const url = URL.createObjectURL(f);
-                                avatarImg.src = url;
-                                // revoke object url when image loads to free memory
-                                avatarImg.onload = () => { URL.revokeObjectURL(url); };
-                            });
-                        </script>
+                                // preview selected image
+                                fileInput.addEventListener('change', (e) => {
+                                    const f = e.target.files && e.target.files[0];
+                                    if (!f) return;
+                                    // optional: check type/size here
+                                    const url = URL.createObjectURL(f);
+                                    avatarImg.src = url;
+                                    // revoke object url when image loads to free memory
+                                    avatarImg.onload = () => { URL.revokeObjectURL(url); };
+                                });
+                            </script>
+                        </div>
+
+            </section>
+            <br><br>
+            <section>
+
+                <div class="card">
+                    <div class="card-header" style="background-color: white;">
+                        <h5>Address</h5>
                     </div>
+                    <div class="card-body">
+                        <p><b>Current address:</b></p>
 
-        </section>
-        <br><br>
-        <section>
-
-                    <div class="card">
-                        <div class="card-header" style="background-color: white;">
-                            <h5>Address</h5>
+                        <!-- row-1 -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="area">Area</label><span style="color: #dc3545;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
+                            <!-- city -->
+                            <div class="col-md-3">
+                                <label for="area">City</label><span style="color: gray">*</span>
+                                <input class="form-control" type="text">
+                            </div>
+                            <!-- state -->
+                            <div class="col-md-3">
+                                <label for="area">State</label><span style="color: gray">*</span>
+                                <input class="form-control" type="text">
+                            </div>
+                            <!-- country -->
+                            <div class="col-md-3">
+                                <label for="area">Country</label><span style="color: gray">*</span>
+                                <input class="form-control" type="text">
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <p><b>Current address:</b></p>
 
-                            <!-- row-1 -->
-                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="area">Area</label><span style="color: #dc3545;">*</span>
-                                    <input  class="form-control" type="text">
-                                </div>
-                                <!-- city -->
-                                <div class="col-md-3">
-                                    <label for="area">Area</label><span style="color: #dc3545;">*</span>
-                                    <input  class="form-control" type="text">
-                                </div>
-                                <!-- state -->
-                                <div class="col-md-3">
-                                    <label for="area">Area</label><span style="color: #dc3545;">*</span>
-                                    <input  class="form-control" type="text">
-                                </div>
-                                <!-- country -->
-                                <div class="col-md-3">
-                                    <label for="area">Area</label><span style="color: #dc3545;">*</span>
-                                    <input  class="form-control" type="text">
-                                </div>
-                             </div>
-
-                             <div class="row">
-                                <div class="col-md-12">
-                                    <label for="fa">Friendly Address</label><span style="color: #dc3545;">*</span>
-                                    <input type="textfield" class="form-control" name="" id="description">
-                                </div>
-                             </div>
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="fa">Friendly Address</label><span style="color: #dc3545;">*</span>
+                                <textarea class="form-control" name="description" id="description"></textarea>
+                            </div>
                         </div>
-                        <div class="card-footer" style="background-color: white;">
-                            
-                            <div class="form-check">
-                                                                    <label class="form-check-label" for="radioDefault3">
-                            <p><b>Permanent Address Same as Current Address</b></p>
-                                    </label>
 
-                                    <input class="form-check-input" type="checkbox" name="radioDefault" id="radioDefault3"
-                                        checked>
-                                </div>
+                    </div>
+                    <div class="card-footer" style="background-color: white;">
+
+                        <div class="form-check">
+                            <label class="form-check-label" for="radioDefault3">
+                                <p><b>Permanent Address Same as Current Address</b></p>
+                            </label>
+
+                            <input class="form-check-input" type="checkbox" name="radioDefault" id="radioDefault3"
+                                checked>
                         </div>
                     </div>
-
-        </section>
-
-        <br><br>
-                    <footer class="site-footer">
-                        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
-                            <p class="mb-0">Ramana Hospitals © Peramson Software.All Rights Reserved.</p>
-                            <p class="mb-0">Design &amp; develop by Peramsons Software</p>
-                        </div>
-                    </footer>
-
+                    <hr>
+                    <br>
                 </div>
 
+            </section>
+            <br><br>
+            <section>
+                <div class="card">
+                    <div class="card-header" style="background-color: white;">
+                        <h5>Employement Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="department">Department</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
 
-                <script crossorigin="anonymous"
-                    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+                            <div class="col-md-3">
+                                <label for="department">Designation</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
 
-                <script>
+                            <div class="col-md-3">
+                                <label for="department">Lab Department</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
 
-                        // -------------------- Sidebar & Footer --------------------
-                        const initSidebar = () => {
-                            const sidebar = document.querySelector('.sidebar');
-                            const toggleBtn = document.getElementById('sidebarToggle');
-                            const mainContent = document.querySelector('.main-content');
-                            const footer = document.querySelector('.site-footer');
+                            <div class="col-md-3">
+                                <label for="department">Job Type</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
 
-                            if (!sidebar || !toggleBtn) return;
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="department">Date of Joining</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
 
-                            const toggleSidebar = () => {
-                                sidebar.classList.toggle('active');
-                                mainContent?.classList.toggle('shifted');
-                                if (isMobile()) footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
-                            };
+                            <div class="col-md-3">
+                                <label for="department">Appraisals Repetition</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                            toggleBtn.addEventListener('click', toggleSidebar);
+            <br><br>
+            <footer class="site-footer">
+                <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+                    <p class="mb-0">Ramana Hospitals © Peramson Software.All Rights Reserved.</p>
+                    <p class="mb-0">Design &amp; develop by Peramsons Software</p>
+                </div>
+            </footer>
 
-                            // Close sidebar if clicking outside on mobile
-                            document.addEventListener('click', e => {
-                                if (!isMobile() || !sidebar.classList.contains('active')) return;
-                                if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
-                                    sidebar.classList.remove('active');
-                                    mainContent?.classList.remove('shifted');
-                                    footer?.classList.remove('footer-shift');
-                                }
-                            });
+        </div>
 
-                            // Close sidebar on Escape key
-                            document.addEventListener('keydown', e => {
-                                if (e.key === 'Escape' && isMobile()) {
-                                    sidebar.classList.remove('active');
-                                    mainContent?.classList.remove('shifted');
-                                    footer?.classList.remove('footer-shift');
-                                }
-                            });
 
-                            // Adjust footer on resize
-                            const adjustFooter = () => {
-                                if (!footer) return;
-                                if (isMobile()) {
-                                    Object.assign(footer.style, { position: 'static', width: '100%', left: '0', bottom: 'auto' });
-                                } else {
-                                    Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
-                                }
-                            };
+        <script crossorigin="anonymous"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-                            window.addEventListener('resize', () => {
-                                if (!isMobile()) {
-                                    sidebar.classList.remove('active');
-                                    mainContent?.classList.remove('shifted');
-                                    footer?.classList.remove('footer-shift');
-                                }
-                                adjustFooter();
-                            });
+        <script>
 
-                            adjustFooter();
-                        };
+            // -------------------- Sidebar & Footer --------------------
+            const initSidebar = () => {
+                const sidebar = document.querySelector('.sidebar');
+                const toggleBtn = document.getElementById('sidebarToggle');
+                const mainContent = document.querySelector('.main-content');
+                const footer = document.querySelector('.site-footer');
 
-                        // -------------------- Event Bindings --------------------
-                        document.addEventListener('DOMContentLoaded', () => {
-                            renderTable();
+                if (!sidebar || !toggleBtn) return;
 
-                            document.getElementById('createBtn')?.addEventListener('click', createRecord);
-                            document.getElementById('updateBtn')?.addEventListener('click', updateRecord);
-                            document.getElementById('confirmDelete')?.addEventListener('click', deleteRecord);
-                            document.getElementById('tableSearch')?.addEventListener('input', e => searchTable(e.target.value));
+                const toggleSidebar = () => {
+                    sidebar.classList.toggle('active');
+                    mainContent?.classList.toggle('shifted');
+                    if (isMobile()) footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
+                };
 
-                            initSidebar();
-                        });
-                </script>
+                toggleBtn.addEventListener('click', toggleSidebar);
+
+                // Close sidebar if clicking outside on mobile
+                document.addEventListener('click', e => {
+                    if (!isMobile() || !sidebar.classList.contains('active')) return;
+                    if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                        mainContent?.classList.remove('shifted');
+                        footer?.classList.remove('footer-shift');
+                    }
+                });
+
+                // Close sidebar on Escape key
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape' && isMobile()) {
+                        sidebar.classList.remove('active');
+                        mainContent?.classList.remove('shifted');
+                        footer?.classList.remove('footer-shift');
+                    }
+                });
+
+                // Adjust footer on resize
+                const adjustFooter = () => {
+                    if (!footer) return;
+                    if (isMobile()) {
+                        Object.assign(footer.style, { position: 'static', width: '100%', left: '0', bottom: 'auto' });
+                    } else {
+                        Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
+                    }
+                };
+
+                window.addEventListener('resize', () => {
+                    if (!isMobile()) {
+                        sidebar.classList.remove('active');
+                        mainContent?.classList.remove('shifted');
+                        footer?.classList.remove('footer-shift');
+                    }
+                    adjustFooter();
+                });
+
+                adjustFooter();
+            };
+
+            // -------------------- Event Bindings --------------------
+            document.addEventListener('DOMContentLoaded', () => {
+                renderTable();
+
+                document.getElementById('createBtn')?.addEventListener('click', createRecord);
+                document.getElementById('updateBtn')?.addEventListener('click', updateRecord);
+                document.getElementById('confirmDelete')?.addEventListener('click', deleteRecord);
+                document.getElementById('tableSearch')?.addEventListener('input', e => searchTable(e.target.value));
+
+                initSidebar();
+            });
+        </script>
 
 
 
