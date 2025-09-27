@@ -301,6 +301,41 @@
       padding: 20px;
     }
 
+    .table-responsive {
+      display: block;
+      /* make sure it’s a block container */
+      overflow-x: auto;
+      /* force horizontal scroll only here */
+      -webkit-overflow-scrolling: touch;
+      /* smooth scroll on mobile */
+    }
+
+    .table-responsive table {
+      /* white-space: nowrap; */
+      table-layout: auto;
+      /* min-width: 1500px; */
+    }
+
+    /* Add this new rule to allow text within table data cells to wrap */
+    .table-responsive table td {
+      white-space: normal;
+      word-wrap: break-word;
+      /* For older browsers */
+      word-break: break-word;
+      /* Forces long words to break */
+    }
+
+    /* Re-apply nowrap to the table header cells so they don't break unexpectedly */
+    .table-responsive table th {
+      white-space: nowrap;
+    }
+
+    .table-actions {
+      display: inline-flex;
+      /* keep buttons in a row */
+      gap: 6px;
+      /* space between buttons */
+    }
 
     /* --- Table Actions --- */
     .table-actions .btn-group .btn {
@@ -341,10 +376,12 @@
     footer {
       background-color: white;
       z-index: 1040;
-      width: 83.6%;
-      position: fixed;
-      bottom: 0;
-      left: 28.1ch;
+      /* width: calc(100% - var(--sidebar-width)); */
+      width: 100%;
+      position: static;
+      /* margin-left: var(--sidebar-width); */
+      margin-top: 2rem;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
     }
 
     @media (max-width: 768px) {
@@ -430,10 +467,11 @@
       }
 
       footer {
-        position: relative !important;
-        width: 100% !important;
-        left: 0 !important;
-        bottom: auto !important;
+        position: static;
+        width: 100%;
+        left: 0;
+        bottom: auto;
+        margin-left: 0;
       }
 
       .site-footer {
@@ -443,10 +481,10 @@
         bottom: auto;
       }
 
-      .footer-shift {
+      /* .footer-shift {
         margin-left: 200px;
         transition: margin-left 0.3s ease;
-      }
+      } */
 
     }
   </style>
@@ -506,7 +544,7 @@
         <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-door-open"></i> Rooms Management</a>
 
         <div class="menu-category">Settings</div>
-        <a href="HRM.html" class="list-group-item list-group-item-action active"><i class="fas fa-cog"></i> General
+        <a href="HRM.html" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i> General
           Settings</a>
       </div>
     </nav>
@@ -605,7 +643,7 @@
                       </svg> New Employee</a>
 
                     <a class="btn text-center" data-bs-target="#Pending" data-bs-toggle="modal" href="#" role="button"
-                      style="background-color: rgb(227, 178, 52); color: white;" >
+                      style="background-color: rgb(227, 178, 52); color: white;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-clock-history" viewBox="0 0 16 16">
                         <path
@@ -728,17 +766,15 @@
         </div>
       </div>
 
+      <!-- Footer -->
+      <footer>
+        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+          <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
+          <p>Design & develop by Peramsons Software</p>
+        </div>
+      </footer>
     </div>
-
-
-    <!-- Footer -->
-    <footer>
-      <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
-        <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
-        <p>Design & develop by Peramsons Software</p>
-      </div>
-    </footer>
-
+  </div>
     <!-- Scripts -->
     <script crossorigin="anonymous" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

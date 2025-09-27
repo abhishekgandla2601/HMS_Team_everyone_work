@@ -266,6 +266,27 @@
             border-color: #dc3545;
         }
 
+        /* ensure the table wrapper creates its own horizontal scroll */
+        .table-responsive {
+            display: block;
+            /* bootstrap does this but being explicit helps */
+            overflow-x: auto !important;
+            /* force horizontal scrolling */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* prevent table cells from wrapping and force a minimum width */
+        .table-responsive table,
+        .table-responsive th,
+        .table-responsive td {
+            white-space: nowrap;
+        }
+
+        .table-responsive table {
+            min-width: 900px;
+            /* adjust to your needs; increases table width so scrollbar appears */
+        }
+
         a,
         a:hover,
         a:focus,
@@ -412,7 +433,8 @@
                 <div class="menu-category">Diagnostics</div>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-flask"></i> Centres</a>
                 <div class="menu-category">Human Resource Management</div>
-                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i> Employees</a>
+                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i>
+                    Employees</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-sitemap"></i> Unit
                     Management</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-graduation-cap"></i>
@@ -752,7 +774,8 @@
     <script>
         let specializations = [
             { id: 1, name: "Mark", code: "Otto", status: "Active", date: "22-04-25,08:30 PM" },
-            { id: 2, name: "Fark", code: "Chitto", status: "Deactive", date: "22-04-25,08:30 PM" }
+            { id: 2, name: "Fark", code: "Chitto", status: "Deactive", date: "22-04-25,08:30 PM" },
+            { id: 2, name: "Fark", code: "asdfghjklqwertyuiopzxcvbnmqwertyuiopasdfghjklzxcvbnmasdfghjkasdfghjkasdfghjklasdfghjiklasdfghjklasdfghjklasdfghjkl", status: "Deactive", date: "22-04-25,08:30 PM" }
         ];
         let editId = null;
         let deleteId = null;
@@ -943,25 +966,25 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
 
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-      });
-    });
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+            });
+        });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
-      const mainContent = document.querySelector(".main-content");
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
+            const mainContent = document.querySelector(".main-content");
 
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-        mainContent.classList.toggle("shifted");
-      });
-    });
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+                mainContent.classList.toggle("shifted");
+            });
+        });
 
 
 
