@@ -437,6 +437,7 @@
         .avatar-xs {
             --avatar-size: 48px;
         }
+        
     </style>
 </head>
 
@@ -589,16 +590,21 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="fullname">Full Name</label><span style="color: #dc3545;">*</span>
-                                    <br>
-                                    <br>
-                                    <select class="form-select" name="" id="">
-                                        <option value="">Dr</option>
-                                        <option value="">Adr</option>
-                                        <option value="">Ddr</option>
-                                        <input class="form-control" type="text" name="" id="">
-                                    </select>
+                                    <label for="fullname" class="form-label">
+                                        Full Name <span style="color: #dc3545;">*</span>
+                                    </label>
+
+                                    <div class="input-group">
+                                        <select class="form-select" id="title" name="title">
+                                            <option value="Dr">Dr</option>
+                                            <option value="Mr">Mr</option>
+                                            <option value="Ms">Ms</option>
+                                            <option value="Mrs">Mrs</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="fullname" name="fullname">
+                                    </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <label for="staffcode">Staff Code</label><span style="color: #dc3545;">*</span>
@@ -608,13 +614,19 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="fhname">Father/Husband Name</label><span
-                                        style="color: #dc3545;">*</span>
-                                    <br>
-                                    <br>
-                                    <input class="form-control" type="text" name="" id="">
+                                    <label for="fullname" class="form-label">
+                                        Father/Husband Name<span style="color: #dc3545;">*</span>
+                                    </label>
 
+                                    <div class="input-group">
+                                        <select class="form-select" id="title" name="title">
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="fullname" name="fullname">
+                                    </div>
                                 </div>
+
 
                                 <!-- hidden file input -->
 
@@ -627,44 +639,49 @@
                                 <div class="col-md-3">
                                     <label for="gender">Gender</label><span style="color: #dc3545;">*</span>
                                     <br>
-                                    <br>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioDefault"
-                                            id="radioDefault1">
-                                        <label class="form-check-label" for="radioDefault1">
-                                            Male
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioDefault"
-                                            id="radioDefault2">
-                                        <label class="form-check-label" for="radioDefault2">
-                                            Female
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioDefault"
-                                            id="radioDefault3">
-                                        <label class="form-check-label" for="radioDefault3">
-                                            Others
-                                        </label>
+
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioDefault"
+                                                id="radioDefault1">
+                                            <label class="form-check-label" for="radioDefault1">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioDefault"
+                                                id="radioDefault2">
+                                            <label class="form-check-label" for="radioDefault2">
+                                                Female
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="radioDefault"
+                                                id="radioDefault3">
+                                            <label class="form-check-label" for="radioDefault3">
+                                                Others
+                                            </label>
+                                        </div>
                                     </div>
 
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="yes">Marital Status <span style="color: #dc3545;">*</span></label>
+                                    <label class="form-label">Marital Status <span
+                                            style="color: #dc3545;">*</span></label>
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="maritalstatus" id="yes">
-                                        <label class="form-check-label" for="yes">Yes</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="maritalstatus" id="no"
-                                            checked>
-                                        <label class="form-check-label" for="no">No</label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="maritalstatus" id="yes"
+                                                checked>
+                                            <label class="form-check-label" for="yes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="maritalstatus" id="no">
+                                            <label class="form-check-label" for="no">No</label>
+                                        </div>
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-md-3">
@@ -831,18 +848,39 @@
                             </div>
                             <!-- city -->
                             <div class="col-md-3">
-                                <label for="area">City</label><span style="color: gray">*</span>
-                                <input class="form-control" type="text">
+                                <label for="city">City</label><span style="color: gray">*</span>
+                                <select class="form-select" name="" id="city">
+                                    <option value="HYDERABAD">HYDERABAD</option>
+                                    <option value="MUMBAI">MUMBAI</option>
+                                    <option value="CHEENAI">CHEENAI</option>
+                                    <option value="DELHI">DELHI</option>
+                                    <option value="PUNE">PUNE</option>
+                                    <option value="MOSCOW">MOSCOW</option>
+                                    <option value="KATHMANDU">KATHMANDU</option>
+                                    <option value="KATHMANDU">SYDNEY</option>
+                                    <option value="AUCKLAND">AUCKLAND</option>
+                                </select>
                             </div>
                             <!-- state -->
                             <div class="col-md-3">
                                 <label for="area">State</label><span style="color: gray">*</span>
-                                <input class="form-control" type="text">
+                                <select class="form-select" name="" id="state">
+                                    <option value="TELANGANA">TELANGANA</option>
+                                    <option value="MAHARASTRA">MAHARASTRA</option>
+                                    <option value="TAMILNADU">TAMILNADU</option>
+                                    <option value="DELHI">DELHI</option>
+                                </select>
                             </div>
                             <!-- country -->
                             <div class="col-md-3">
                                 <label for="area">Country</label><span style="color: gray">*</span>
-                                <input class="form-control" type="text">
+                                <select class="form-select" name="" id="city">
+                                    <option value="INDIA">INDIA</option>
+                                    <option value="RUSSIA">RUSSIA</option>
+                                    <option value="NEPAL">NEPAL</option>
+                                    <option value="DELHI">AUSTRALIA</option>
+                                    <option value="NEW ZEALAND">NEW ZEALAND</option>
+                                </select>
                             </div>
                         </div>
 
@@ -880,35 +918,74 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="department">Department</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <select class="form-select" id="deptEdit">
+                                    <option selected>Select Department</option>
+                                    <option value="Emergency Medicine">Emergency Medicine</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Oncology">Oncology</option>
+                                    <option value="Radiology">Radiology</option>
+                                    <option value="Pathology">Pathology</option>
+                                    <option value="Pharmacy">Pharmacy</option>
+                                    <option value="Physical Therapy">Physical Therapy</option>
+                                    <option value="Admissions">Admissions</option>
+                                    <option value="Health Information Management">Health Information Management</option>
+                                    <option value="Housekeeping">Housekeeping</option>
+                                    <option value="Administrative and support">Administrative and support</option>
+                                </select>
                             </div>
 
                             <div class="col-md-3">
-                                <label for="department">Designation</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <label for="designationEdit" class="form-label">Designation <span
+                                        style="color: gray">*</span></label>
+                                <select class="form-select" id="designationEdit">
+                                    <option selected>Select Designation</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Technician">Technician</option>
+                                    <option value="Pharmacist">Pharmacist</option>
+                                    <option value="Therapist">Therapist</option>
+                                    <option value="Administrative Staff">Administrative Staff</option>
+                                    <option value="Support Staff">Support Staff</option>
+                                    <option value="Intern">Intern</option>
+                                </select>
                             </div>
 
                             <div class="col-md-3">
-                                <label for="department">Lab Department</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <label for="labdepartment">Lab Department</label><span style="color: gray;">*</span>
+                                <select class="form-select" name="" id="jobtype">
+                                    <option value="Clinical Chemistry">Clinical Chemistry</option>
+                                    <option value="Hematology">Hematology</option>
+                                    <option value="Microbiology">Microbiology</option>
+                                    <option value="Anatomic Pathology">Anatomic Pathology</option>
+                                </select>
+
                             </div>
 
                             <div class="col-md-3">
-                                <label for="department">Job Type</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <label for="jobtype">Job Type</label><span style="color: gray;">*</span>
+                                <select class="form-select" name="" id="jobtype">
+                                    <option value="">Full Time</option>
+                                    <option value="">Part Time</option>
+                                    <option value="">Contract</option>
+                                </select>
                             </div>
 
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="department">Date of Joining</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <label for="doj">Date of Joining</label><span style="color: gray;">*</span>
+                                <input class="form-control" type="text" placeholder="02/01/2021" id="doj">
                             </div>
 
                             <div class="col-md-3">
-                                <label for="department">Appraisals Repetition</label><span style="color: gray;">*</span>
-                                <input class="form-control" type="text">
+                                <label for="appraisals repetition">Appraisals Repetition</label><span
+                                    style="color: gray;">*</span>
+                                <select class="form-select" name="" id="">
+                                    <option value="30 days - 1M">30 days - 1M</option>
+                                    <option value="60 days - 2M">60 days - 2M</option>
+                                    <option value="90 days - 3M">90 days - 3M</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -928,22 +1005,24 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="bankname">Bank Name</label><span style="color: gray;">*</span>
-                                <input type="text" class="form-control" name="" id="bankname">
+                                <input type="text" class="form-control" name="" id="bankname" placeholder="Ex:HDFC">
                             </div>
 
                             <div class="col-md-3">
                                 <label for="branchname">Branch Name</label><span style="color: gray;">*</span>
-                                <input type="text" class="form-control" name="" id="branchname">
+                                <input type="text" class="form-control" name="" id="branchname" placeholder="Ex:KPHB">
                             </div>
 
                             <div class="col-md-3">
                                 <label for="accountnumber">Account Number</label><span style="color: gray;">*</span>
-                                <input type="text" class="form-control" name="" id="accountnumber">
+                                <input type="text" class="form-control" name="" id="accountnumber"
+                                    placeholder="8899668877445511">
                             </div>
 
                             <div class="col-md-3">
                                 <label for="ifsccode">IFSC Code</label><span style="color: gray;">*</span>
-                                <input type="text" class="form-control" name="" id="ifsccode">
+                                <input type="text" class="form-control" name="" id="ifsccode"
+                                    placeholder="Ex:HDFC0005623">
                             </div>
                         </div>
 
