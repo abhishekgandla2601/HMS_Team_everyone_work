@@ -592,7 +592,7 @@
                                     <label for="fullname">Full Name</label><span style="color: #dc3545;">*</span>
                                     <br>
                                     <br>
-                                    <select class="form-control" name="" id="">
+                                    <select class="form-select" name="" id="">
                                         <option value="">Dr</option>
                                         <option value="">Adr</option>
                                         <option value="">Ddr</option>
@@ -637,14 +637,14 @@
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="radioDefault"
-                                            id="radioDefault2" checked>
+                                            id="radioDefault2">
                                         <label class="form-check-label" for="radioDefault2">
                                             Female
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="radioDefault"
-                                            id="radioDefault3" checked>
+                                            id="radioDefault3">
                                         <label class="form-check-label" for="radioDefault3">
                                             Others
                                         </label>
@@ -652,27 +652,20 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="Maritalstatus">Marital Status</label><span
-                                        style="color: #dc3545;">*</span>
-                                    <br>
-                                    <br>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioDefault" id="yes"
-                                            checked>
-                                        <label class="form-check-label" for="Maritalstatus">
-                                            Yes
-                                        </label>
+                                    <label for="yes">Marital Status <span style="color: #dc3545;">*</span></label>
 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="maritalstatus" id="yes">
+                                        <label class="form-check-label" for="yes">Yes</label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioDefault" id="no"
-                                            checked>
-                                        <label class="form-check-label" for="Maritalstatus">
-                                            No
-                                        </label>
 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="maritalstatus" id="no"
+                                            checked>
+                                        <label class="form-check-label" for="no">No</label>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <label for="phonenumber">Phone Number</label><span style="color: #dc3545;">*</span>
@@ -751,7 +744,15 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="bloodgroup">Blood Group</label><span style="color: gray;">*</span>
-                                    <input class="form-control" type="text" id="bloodgroup" name="bloodgroup">
+                                    <select class="form-select" name="" id="guardianrelation">
+                                        <option value="Select Blood Group">Select Blood Group</option>
+                                        <option value="BROTHER">O+<sub>ve</sub></option>
+                                        <option value="SISTER">A+<sub>ve</sub></option>
+                                        <option value="UNCLE">B+<sub>ve</sub></option>
+                                        <option value="AUNT">A-<sub>ve</sub></option>
+                                        <option value="AUNT">B-<sub>ve</sub></option>
+                                        <option value="AUNT">AB-<sub>ve</sub></option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -775,7 +776,12 @@
                                 <div class="col-md-3">
                                     <label for="guardiancontact">Guardian Relation</label><span
                                         style="color:gray">*</span>
-                                    <input class="form-control" type="text" id="guardianname" name="guardianname">
+                                    <select class="form-select" name="" id="guardianrelation">
+                                        <option value="BROTHER">BROTHER</option>
+                                        <option value="SISTER">SISTER</option>
+                                        <option value="UNCLE">UNCLE</option>
+                                        <option value="AUNT">AUNT</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -962,8 +968,8 @@
                 <center>
                     <button type="button" id="updateBtn" class="btn btn-primary"
                         style="background-color: rgb(48, 72, 156);">Update</button>
-                        <a href="employees.html">
-                    <button type="button" class="btn btn-primary">Cancel</button>
+                    <a href="employees.html">
+                        <button type="button" class="btn btn-primary">Cancel</button>
                     </a>
                 </center>
             </section>
