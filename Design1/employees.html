@@ -541,7 +541,7 @@
 
     }
 
-    /* Use Bootstrap's font and background */
+    /* << Attendance styles >>*/
     body {
       background: #f4f7f9;
       font-family: Arial, sans-serif;
@@ -723,6 +723,49 @@
     .collapse-table {
       min-width: 700px;
       width: max-content;
+    }
+
+    /* << Notification Styles >> */
+
+    .tabs {
+      display: flex;
+      gap: 20px;
+    }
+
+    .tab {
+      position: relative;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding-bottom: 5px;
+    }
+
+
+
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: rgb(77, 76, 76);
+      /* Change underline color */
+      border-radius: 20px;
+    }
+
+    .count {
+      background: #fdd;
+      color: #d33;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 5px;
+    }
+
+    .star {
+      color: #f0ad4e;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -1016,870 +1059,1218 @@
 
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
-                <div class="container py-4 mt-0">
-                  <hr>
-                  <div class="row g-3" style="margin-bottom:0;">
-                    <!-- Total Employees -->
-                    <div class="col-md-3 col-sm-6 mb-3">
-                      <div class="summary-box d-flex align-items-center justify-content-between">
-                        <div class="summary-text">
-                          <h5>Total Employees</h5>
-                          <h3>1547</h3>
-                        </div>
-                        <div class="icon icon-total-bg ms-2">
-                          <i class="fa-solid fa-users"></i>
-                        </div>
+              <div class="container py-4 mt-0">
+                <hr>
+                <div class="row g-3" style="margin-bottom:0;">
+                  <!-- Total Employees -->
+                  <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="summary-box d-flex align-items-center justify-content-between">
+                      <div class="summary-text">
+                        <h5>Total Employees</h5>
+                        <h3>1547</h3>
                       </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                      <div class="summary-box d-flex align-items-center justify-content-between">
-                        <div class="summary-text">
-                          <h5>Present</h5>
-                          <h3>0</h3>
-                        </div>
-                        <div class="icon icon-present-bg ms-2">
-                          <i class="fa-solid fa-user-check"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                      <div class="summary-box d-flex align-items-center justify-content-between">
-                        <div class="summary-text">
-                          <h5>Leave</h5>
-                          <h3>0</h3>
-                        </div>
-                        <div class="icon icon-leave-bg ms-2">
-                          <i class="fa-solid fa-user-minus"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                      <div class="summary-box d-flex align-items-center justify-content-between">
-                        <div class="summary-text">
-                          <h5>Absent</h5>
-                          <h3>0</h3>
-                        </div>
-                        <div class="icon icon-absent-bg ms-2">
-                          <i class="fa-solid fa-user-xmark"></i>
-                        </div>
+                      <div class="icon icon-total-bg ms-2">
+                        <i class="fa-solid fa-users"></i>
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="summary-box d-flex align-items-center justify-content-between">
+                      <div class="summary-text">
+                        <h5>Present</h5>
+                        <h3>0</h3>
+                      </div>
+                      <div class="icon icon-present-bg ms-2">
+                        <i class="fa-solid fa-user-check"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="summary-box d-flex align-items-center justify-content-between">
+                      <div class="summary-text">
+                        <h5>Leave</h5>
+                        <h3>0</h3>
+                      </div>
+                      <div class="icon icon-leave-bg ms-2">
+                        <i class="fa-solid fa-user-minus"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="summary-box d-flex align-items-center justify-content-between">
+                      <div class="summary-text">
+                        <h5>Absent</h5>
+                        <h3>0</h3>
+                      </div>
+                      <div class="icon icon-absent-bg ms-2">
+                        <i class="fa-solid fa-user-xmark"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                  <hr>
-                  <div class="card">
-                    <div class="container">
-                      <!-- Department Rows -->
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept1" aria-expanded="false"
-                        aria-controls="dept1">
-                        <strong>Aarogyasri :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept1" class="collapse mt-2">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Mahi</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>On Time</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Kumar</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:25</td>
-                                  <td>17:05</td>
-                                  <td>7h 30m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                <hr>
+                <div class="card">
+                  <div class="container">
+                    <!-- Department Rows -->
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept1" aria-expanded="false"
+                      aria-controls="dept1">
+                      <strong>Aarogyasri :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept1" class="collapse mt-2">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Mahi</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>On Time</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Kumar</td>
+                                <td>2025-09-29</td>
+                                <td>09:25</td>
+                                <td>17:05</td>
+                                <td>7h 30m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept2" aria-expanded="false"
-                        aria-controls="dept2">
-                        <strong>Blood Bank :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept2" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Yash</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:15</td>
-                                  <td>17:05</td>
-                                  <td>7h 50m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>15 min</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Sai</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept2" aria-expanded="false"
+                      aria-controls="dept2">
+                      <strong>Blood Bank :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept2" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Yash</td>
+                                <td>2025-09-29</td>
+                                <td>09:15</td>
+                                <td>17:05</td>
+                                <td>7h 50m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>15 min</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Sai</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept3" aria-expanded="false"
-                        aria-controls="dept3">
-                        <strong>CATH Lab :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept3" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Ravi</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:35</td>
-                                  <td>7h 40m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Mahi</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>On Time</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept3" aria-expanded="false"
+                      aria-controls="dept3">
+                      <strong>CATH Lab :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept3" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Ravi</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:35</td>
+                                <td>7h 40m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Mahi</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>On Time</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept4" aria-expanded="false"
-                        aria-controls="dept4">
-                        <strong>Central Kitchen :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept4" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Kumar</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:25</td>
-                                  <td>17:05</td>
-                                  <td>7h 30m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Mahi</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>On Time</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept4" aria-expanded="false"
+                      aria-controls="dept4">
+                      <strong>Central Kitchen :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept4" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Kumar</td>
+                                <td>2025-09-29</td>
+                                <td>09:25</td>
+                                <td>17:05</td>
+                                <td>7h 30m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Mahi</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>On Time</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept5" aria-expanded="false"
-                        aria-controls="dept5">
-                        <strong>Central Laboratory :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept5" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Raj</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Ravi</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:35</td>
-                                  <td>7h 40m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept5" aria-expanded="false"
+                      aria-controls="dept5">
+                      <strong>Central Laboratory :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept5" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Raj</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Ravi</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:35</td>
+                                <td>7h 40m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept6" aria-expanded="false"
-                        aria-controls="dept6">
-                        <strong>Central Sterile Supply Department :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept6" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Kowshik</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Raj</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept6" aria-expanded="false"
+                      aria-controls="dept6">
+                      <strong>Central Sterile Supply Department :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept6" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Kowshik</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Raj</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept7" aria-expanded="false"
-                        aria-controls="dept7">
-                        <strong>Civil Department :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept7" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Mahesh</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Kowshik</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept7" aria-expanded="false"
+                      aria-controls="dept7">
+                      <strong>Civil Department :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept7" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Mahesh</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Kowshik</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept8" aria-expanded="false"
-                        aria-controls="dept8">
-                        <strong>Closed Circuit Television and Surveillance :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept8" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Charan</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:15</td>
-                                  <td>17:08</td>
-                                  <td>7h 53m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Mahesh</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept8" aria-expanded="false"
+                      aria-controls="dept8">
+                      <strong>Closed Circuit Television and Surveillance :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept8" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Charan</td>
+                                <td>2025-09-29</td>
+                                <td>09:15</td>
+                                <td>17:08</td>
+                                <td>7h 53m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Mahesh</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept9" aria-expanded="false"
-                        aria-controls="dept9">
-                        <strong>CT Surgery :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept9" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Sri</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Charan</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:15</td>
-                                  <td>17:08</td>
-                                  <td>7h 53m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept9" aria-expanded="false"
+                      aria-controls="dept9">
+                      <strong>CT Surgery :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept9" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Sri</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Charan</td>
+                                <td>2025-09-29</td>
+                                <td>09:15</td>
+                                <td>17:08</td>
+                                <td>7h 53m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept10" aria-expanded="false"
-                        aria-controls="dept10">
-                        <strong>Dentistry :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept10" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Charan</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:15</td>
-                                  <td>17:08</td>
-                                  <td>7h 53m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Sri</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:00</td>
-                                  <td>17:00</td>
-                                  <td>8h</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept10" aria-expanded="false"
+                      aria-controls="dept10">
+                      <strong>Dentistry :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept10" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Charan</td>
+                                <td>2025-09-29</td>
+                                <td>09:15</td>
+                                <td>17:08</td>
+                                <td>7h 53m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Sri</td>
+                                <td>2025-09-29</td>
+                                <td>09:00</td>
+                                <td>17:00</td>
+                                <td>8h</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept11" aria-expanded="false"
-                        aria-controls="dept11">
-                        <strong>Dermatology :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept11" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Ravi Kumar</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Charan</td>
-                                  <td>2025-09-29</td>
-                                  <td>09:15</td>
-                                  <td>17:08</td>
-                                  <td>7h 53m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>18 min</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>Late Arrival</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept11" aria-expanded="false"
+                      aria-controls="dept11">
+                      <strong>Dermatology :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept11" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Ravi Kumar</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Charan</td>
+                                <td>2025-09-29</td>
+                                <td>09:15</td>
+                                <td>17:08</td>
+                                <td>7h 53m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>18 min</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Late Arrival</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept12" aria-expanded="false"
-                        aria-controls="dept12">
-                        <strong>Doctor :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept12" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Tej</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Ravi Kumar</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept12" aria-expanded="false"
+                      aria-controls="dept12">
+                      <strong>Doctor :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept12" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Tej</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Ravi Kumar</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <hr>
-                      <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept13" aria-expanded="false"
-                        aria-controls="dept13">
-                        <strong>Finance and Accounts :</strong>
-                        <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
-                            class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
-                        <div class="expand-btn"><i class="fa fa-plus"></i></div>
-                      </div>
-                      <div id="dept13" class="collapse">
-                        <div class="table-scroll-x">
-                          <div class="collapse-table">
-                            <table class="table table-bordered custom-table mb-0">
-                              <thead>
-                                <tr>
-                                  <th>S.No</th>
-                                  <th>Name</th>
-                                  <th>Attendance Date</th>
-                                  <th>In Time</th>
-                                  <th>Out Time</th>
-                                  <th>Duration</th>
-                                  <th>On Leave</th>
-                                  <th>Holiday</th>
-                                  <th>Late By</th>
-                                  <th>Missed In Punch</th>
-                                  <th>Missed Out Punch</th>
-                                  <th>Remarks</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Sai</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>No</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Time</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Tej</td>
-                                  <td>2025-09-29</td>
-                                  <td>08:55</td>
-                                  <td>16:45</td>
-                                  <td>7h 50m</td>
-                                  <td>Yes</td>
-                                  <td>No</td>
-                                  <td>0 min</td>
-                                  <td>No</td>
-                                  <td>Yes</td>
-                                  <td>On Leave</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <hr>
+                    <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept13" aria-expanded="false"
+                      aria-controls="dept13">
+                      <strong>Finance and Accounts :</strong>
+                      <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                          class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                      <div class="expand-btn"><i class="fa fa-plus"></i></div>
+                    </div>
+                    <div id="dept13" class="collapse">
+                      <div class="table-scroll-x">
+                        <div class="collapse-table">
+                          <table class="table table-bordered custom-table mb-0">
+                            <thead>
+                              <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Attendance Date</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Duration</th>
+                                <th>On Leave</th>
+                                <th>Holiday</th>
+                                <th>Late By</th>
+                                <th>Missed In Punch</th>
+                                <th>Missed Out Punch</th>
+                                <th>Remarks</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Sai</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Time</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Tej</td>
+                                <td>2025-09-29</td>
+                                <td>08:55</td>
+                                <td>16:45</td>
+                                <td>7h 50m</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>0 min</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>On Leave</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
+
+          <!-- Leave Management -->
+
+
+          <!-- Notification -->
+           <hr>
+          <div class="tab-content mt-3" id="myTabContent">
+            <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+              <div class="tabs nav nav-tabs">
+                <button class="nav-link" id="All-tab" data-bs-toggle="tab" data-bs-target="#All" type="button">
+                  All <span class="count">12</span>
+                </button>
+                <button class="nav-link" id="Vaccine-tab" data-bs-toggle="tab" data-bs-target="#Vaccine" type="button">
+                  Vaccine <span class="count">5</span>
+                </button>
+                <button class="nav-link" id="Health-tab" data-bs-toggle="tab" data-bs-target="#Health" type="button">
+                  Health checkups
+                </button>
+                <button class="nav-link" id="Resignation-tab" data-bs-toggle="tab" data-bs-target="#Resignation"
+                  type="button">
+                  Resignation
+                </button>
+                <button class="nav-link" id="Grievances-tab" data-bs-toggle="tab" data-bs-target="#Grievances"
+                  type="button">
+                  Grievances
+                </button>
+                <button class="nav-link" id="Interview-tab" data-bs-toggle="tab" data-bs-target="#Interview"
+                  type="button">
+                  Interview Rescheduling
+                </button>
+                <button class="nav-link" id="Appraisals-tab" data-bs-toggle="tab" data-bs-target="#Appraisals"
+                  type="button">
+                  Appraisals <span class="count">1612</span>
+                </button>
+              </div>
+
+              <br>
+
+
+              <div class="tab-content mt-3">
+                <div class="tab-pane fade show active" id="All" role="tabpanel">
+                  <!-- Table -->
+                  <table class="table table-hover">
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                      </td>
+                      <td>
+                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                          Dennis(7)</b>
+                      </td>
+                      <td>
+                        <center><b>Re: New mail Settings - Will....
+                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                            5</b></center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                      </td>
+                      <td>
+                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          27</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
+                          Berggern</b>
+                      </td>
+                      <td>
+                        <center><b>Let's go fishing!</b>- Hey,You
+                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          23</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Train/Bus - Yes ok, great! I'....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          19</center>
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="Vaccine" role="tabpanel">
+                  <!-- Table -->
+                  <table class="table table-hover">
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                      </td>
+                      <td>
+                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                          Dennis(7)</b>
+                      </td>
+                      <td>
+                        <center><b>Re: New mail Settings - Will....
+                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                            5</b></center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
+                          Berggern</b>
+                      </td>
+                      <td>
+                        <center><b>Let's go fishing!</b>- Hey,You
+                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          23</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Train/Bus - Yes ok, great! I'....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          19</center>
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="Health" role="tabpanel">
+                  <table class="table table-hover">
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                      </td>
+                      <td>
+                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                          Dennis(7)</b>
+                      </td>
+                      <td>
+                        <center><b>Re: New mail Settings - Will....
+                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                            5</b></center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                      </td>
+                      <td>
+                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          27</center>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="Resignation" role="tabpanel">
+                  <table class="table table-hover">
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                      </td>
+                      <td>
+                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                          Dennis(7)</b>
+                      </td>
+                      <td>
+                        <center><b>Re: New mail Settings - Will....
+                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                            5</b></center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                      </td>
+                      <td>
+                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          27</center>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="Grievances" role="tabpanel">
+                  <center>
+                    <p>No grievances found</p>
+                  </center>
+                </div>
+                <div class="tab-pane fade" id="Interview" role="tabpanel">
+                  <table class="table table-hover">
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                      </td>
+                      <td>
+                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                      </td>
+                      <td>
+                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          7</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                          Dennis(7)</b>
+                      </td>
+                      <td>
+                        <center><b>Re: New mail Settings - Will....
+                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                            5</b></center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                      </td>
+                      <td>
+                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                          27</center>
+                      </td>
+
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="Appraisals" role="tabpanel">
+                  <!-- Table -->
+                  <table class="table table-hover">
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. MANOHAR Gupta-25EMP09231777(CATH Lab / Diagnostics HOD)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;23 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Mr. Raman -25EMP09221776(Doctor / Senior Doctor)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. Prashanth -25EMP09091762(Doctor / Senior Doctor)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. Ramesh -25EMP09091761(Aarogyasri / Aarogyasri Inchange
+                        Assistant)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Mrs. Sumathi -25EMP09091760(Pharmacy / Assistant Pharmacist)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><i class="bi bi-person-fill"></i> Dr. Supriya -25EMP09091758(Doctor / Senior Doctor)
+                      </td>
+                      <td>
+                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                      </td>
+                    </tr>
+
+
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- << Schedules >> -->
+          <div class="tab-content mt-3" id="myTabContent">
+            <div class="tab-pane fade" id="schedules" role="tabpanel" aria-labelledby="schedules-tab">
+              <p class="text-muted"> Schedules </p>
+
+            </div>
+          </div>
+
+
         </div>
       </div>
 
