@@ -671,7 +671,7 @@
         width: 200px;
         left: -200px;
         /* top: 70px;
-                height: calc(100% - 70px); */
+        height: calc(100% - 70px); */
         top: 0;
         height: 100%;
         transition: left 0.3s ease;
@@ -684,6 +684,7 @@
 
       .main-content {
         margin-left: 0;
+        width: 100%;
         transition: margin-left 0.3s ease;
 
       }
@@ -762,41 +763,6 @@
         bottom: auto;
       }
 
-      .jumbotron-custom,
-      .header-area {
-        padding: 10px;
-        /* Reduce padding */
-        margin-bottom: 15px;
-        /* Adjust margin */
-      }
-
-      /* Center and reduce font size for better fit */
-      .jumbotron-custom h1,
-      .header-area h1 {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-
-      /* Adjustments for the main content container if necessary */
-      .container-fluid {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-      }
-
-      /* Column Stacking for Cards/Stats */
-      /* Assuming your cards are inside columns (like col-xl-3) in a row */
-      .row>[class*='col-'] {
-        width: 100%;
-        margin-bottom: 15px;
-        /* Add some space between stacked elements */
-      }
-
-      /* Card Customizations for better fit */
-      .card-custom {
-        padding: 15px;
-        /* Reduce padding on cards for smaller screens */
-      }
-
       /* Making the table responsive by enabling horizontal scroll */
       .table-responsive {
         overflow-x: auto;
@@ -823,7 +789,7 @@
       .btn-sm {
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
-      }
+      } 
 
       /* .footer-shift {
         margin-left: 200px;
