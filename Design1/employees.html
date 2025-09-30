@@ -203,7 +203,10 @@
     /* --- Main Content Styles --- */
     .main-content {
       margin-left: var(--sidebar-width);
-      width: 100%;
+      /* Calculate the width relative to the viewport (100vw) */
+      width: calc(100vw - var(--sidebar-width));
+      /* Hide any horizontal overflow within the main content */ 
+      overflow-x: hidden;
       padding: 1rem;
       transition: margin-left 0.3s ease;
       margin-top: 80px;
@@ -352,9 +355,12 @@
     }
 
     .table-responsive table {
-      /* white-space: nowrap; */
       table-layout: auto;
-      /* min-width: 1500px; */
+      min-width: 1500px;
+      /* This is necessary for position: sticky on <td>/<th> to work horizontally */
+      border-collapse: separate;
+      border-spacing: 0;
+      /* Optional: ensures no weird gaps */
     }
 
     /* Add this new rule to allow text within table data cells to wrap */
@@ -402,6 +408,11 @@
     .table-actions .btn-danger {
       background-color: #dc3545;
       border-color: #dc3545;
+    }
+
+    /* Ensure the header cell has the blue background */
+    .table-responsive table th:last-child {
+      background-color: rgb(48, 72, 156) !important;
     }
 
     a,
@@ -761,7 +772,7 @@
                   <!-- Table -->
 
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table custom-table">
                       <thead>
                         <tr>
                           <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">S.No

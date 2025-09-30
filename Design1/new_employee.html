@@ -143,7 +143,8 @@
         /* --- Main Content Styles --- */
         .main-content {
             margin-left: var(--sidebar-width);
-            width: 100%;
+            width: calc(100vw - var(--sidebar-width));
+            overflow: hidden;
             padding: 1rem;
             transition: margin-left 0.3s ease;
             margin-top: 80px;
@@ -281,6 +282,77 @@
             /* same as header height */
             padding: 20px;
         }
+
+        .table-responsive {
+            display: block;
+            /* make sure it’s a block container */
+            overflow-x: auto;
+            /* force horizontal scroll only here */
+            -webkit-overflow-scrolling: touch;
+            /* smooth scroll on mobile */
+        }
+
+        .table-responsive table {
+            table-layout: auto;
+            min-width: 1500px;
+            /* This is necessary for position: sticky on <td>/<th> to work horizontally */
+            border-collapse: separate;
+            border-spacing: 0;
+            /* Optional: ensures no weird gaps */
+        }
+
+        /* Add this new rule to allow text within table data cells to wrap */
+        .table-responsive table td {
+            white-space: normal;
+            word-wrap: break-word;
+            /* For older browsers */
+            word-break: break-word;
+            /* Forces long words to break */
+        }
+
+        /* Re-apply nowrap to the table header cells so they don't break unexpectedly */
+        .table-responsive table th {
+            white-space: nowrap;
+        }
+
+        .table-actions {
+            display: inline-flex;
+            /* keep buttons in a row */
+            gap: 6px;
+            /* space between buttons */
+        }
+
+        /* --- Table Actions --- */
+        .table-actions .btn-group .btn {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .table-actions .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .table-actions .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .table-actions .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        /* Ensure the header cell has the blue background */
+        .table-responsive table th:last-child {
+            background-color: rgb(48, 72, 156) !important;
+        }
+
 
         a,
         a:hover,
@@ -907,7 +979,7 @@
                             <h6 class="mb-3"><strong>Education Qualification Details:</strong></h6>
 
                             <div class="table-responsive">
-                                <table class="table align-middle" id="educationTable">
+                                <table class="table custom-table align-middle" id="educationTable">
                                     <thead>
                                         <tr class="table-light">
                                             <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
@@ -957,7 +1029,7 @@
                         <form id="workExperienceTableForm">
                             <h6 class="mb-3"><strong>Work Experience Details:</strong></h6>
                             <div class="table-responsive">
-                                <table class="table align-middle" id="workExperienceTable">
+                                <table class="table custom-table align-middle" id="workExperienceTable">
                                     <thead>
                                         <tr class="table-light">
                                             <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
