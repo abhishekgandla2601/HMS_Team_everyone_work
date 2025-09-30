@@ -978,17 +978,24 @@
                       <p class="fw-bold">Department <span class="text-danger">*</span></p>
                       <select class="form-select">
                         <option selected disabled>Select Department</option>
-                        <option>Doctor</option>
-                        <option>Nurse</option>
-                        <option>Lab</option>
+                        <option value="aarogyasri">Aarogyasri</option>
+                        <option value="blood-bank">Blood Bank</option>
+                        <option value="cath-lab">CATH Lab</option>
+                        <option value="central-kitchen">Central Kitchen</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="neurology">Neurology</option>
+                        <option value="orthopedics">Orthopedics</option>
                       </select>
                     </div>
                     <div class="col-md-3">
                       <p class="fw-bold">Designation <span class="text-danger">*</span></p>
                       <select class="form-select">
                         <option selected disabled>Select Designation</option>
-                        <option>Senior</option>
-                        <option>Junior</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="technician">Technician</option>
+                        <option value="admin">Administrator</option>
+                        <option value="manager">Manager</option>
                       </select>
                     </div>
                     <div class="col-md-5 flex-grow-1">
@@ -1925,363 +1932,508 @@
           </div>
 
           <!-- Leave Management -->
-
-
-          <!-- Notification -->
-           <hr>
           <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-              <div class="tabs nav nav-tabs">
-                <button class="nav-link" id="All-tab" data-bs-toggle="tab" data-bs-target="#All" type="button">
-                  All <span class="count">12</span>
-                </button>
-                <button class="nav-link" id="Vaccine-tab" data-bs-toggle="tab" data-bs-target="#Vaccine" type="button">
-                  Vaccine <span class="count">5</span>
-                </button>
-                <button class="nav-link" id="Health-tab" data-bs-toggle="tab" data-bs-target="#Health" type="button">
-                  Health checkups
-                </button>
-                <button class="nav-link" id="Resignation-tab" data-bs-toggle="tab" data-bs-target="#Resignation"
-                  type="button">
-                  Resignation
-                </button>
-                <button class="nav-link" id="Grievances-tab" data-bs-toggle="tab" data-bs-target="#Grievances"
-                  type="button">
-                  Grievances
-                </button>
-                <button class="nav-link" id="Interview-tab" data-bs-toggle="tab" data-bs-target="#Interview"
-                  type="button">
-                  Interview Rescheduling
-                </button>
-                <button class="nav-link" id="Appraisals-tab" data-bs-toggle="tab" data-bs-target="#Appraisals"
-                  type="button">
-                  Appraisals <span class="count">1612</span>
-                </button>
+            <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+              <hr>
+              <div class="row mb-4">
+                <div class="col text-end">
+                  <input type="text" id="employeeSearch" class="form-control form-control-lg d-inline-block"
+                    placeholder="Search by name, employee ID, or phone" style="width: 100%; max-width: 400px;">
+                </div>
               </div>
+              <!-- Filters -->
+              <form class="row g-3 align-items-end justify-content-center">
 
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <label class="form-label fw-semibold">
+                    Department <span class="text-danger">*</span>
+                  </label>
+                  <select id="departmentSelect" class="form-select">
+                    <option value="">Select Department...</option>
+                    <option value="aarogyasri">Aarogyasri</option>
+                    <option value="blood-bank">Blood Bank</option>
+                    <option value="cath-lab">CATH Lab</option>
+                    <option value="central-kitchen">Central Kitchen</option>
+                    <option value="cardiology">Cardiology</option>
+                    <option value="neurology">Neurology</option>
+                    <option value="orthopedics">Orthopedics</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <label class="form-label fw-semibold">
+                    Designation <span class="text-danger">*</span>
+                  </label>
+                  <select id="designationSelect" class="form-select">
+                    <option value="">Select Designation...</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="technician">Technician</option>
+                    <option value="admin">Administrator</option>
+                    <option value="manager">Manager</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <label class="form-label fw-semibold">
+                    From Date <span class="text-danger">*</span>
+                  </label>
+                  <input type="date" id="fromDate" class="form-control">
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <label class="form-label fw-semibold">
+                    To Date <span class="text-danger">*</span>
+                  </label>
+                  <input type="date" id="toDate" class="form-control">
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <label class="form-label fw-semibold">
+                    Leave Status <span class="text-danger">*</span>
+                  </label>
+                  <select id="leaveStatusSelect" class="form-select">
+                    <option value="">Select Leave Status...</option>
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-2 d-grid">
+                  <button type="button" class="btn btn-primary fw-semibold">
+                    Clear Filters
+                  </button>
+                </div>
+
+              </form>
               <br>
-
-
-              <div class="tab-content mt-3">
-                <div class="tab-pane fade show active" id="All" role="tabpanel">
-                  <!-- Table -->
-                  <table class="table table-hover">
+              <hr>
+              <!-- Employee Table -->
+              <div class="table-responsive">
+                <table class="table custom-table">
+                  <thead>
                     <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
-                      </td>
-                      <td>
-                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
+                      <th scope="col">S.No</th>
+                      <th scope="col">Name / Employee ID</th>
+                      <th scope="col">Department / Designation</th>
+                      <th scope="col">Leave Raised on</th>
+                      <th scope="col">Leave Dates</th>
+                      <th scope="col">Total Days</th>
+                      <th scope="col">Leave Status</th>
                     </tr>
+                  </thead>
+                  <tbody>
+                  <tbody>
                     <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
-                          Dennis(7)</b>
-                      </td>
-                      <td>
-                        <center><b>Re: New mail Settings - Will....
-                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                            5</b></center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
-                      </td>
-                      <td>
-                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          27</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
-                          Berggern</b>
-                      </td>
-                      <td>
-                        <center><b>Let's go fishing!</b>- Hey,You
-                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          23</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Train/Bus - Yes ok, great! I'....
-                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          19</center>
-                      </td>
+                      <td class="text-center">1</td>
+                      <td>Dr. A. Sharma<br><small class="text-muted">EMP001</small></td>
+                      <td>Cardiology<br><small class="text-muted">Doctor</small></td>
+                      <td>20-09-2025</td>
+                      <td>25-09-2025 to 27-09-2025</td>
+                      <td class="text-center">3</td>
+                      <td><span class="badge bg-success">Approved</span></td>
                     </tr>
 
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="Vaccine" role="tabpanel">
-                  <!-- Table -->
-                  <table class="table table-hover">
                     <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
-                      </td>
-                      <td>
-                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
-                          Dennis(7)</b>
-                      </td>
-                      <td>
-                        <center><b>Re: New mail Settings - Will....
-                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                            5</b></center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
-                          Berggern</b>
-                      </td>
-                      <td>
-                        <center><b>Let's go fishing!</b>- Hey,You
-                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          23</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Train/Bus - Yes ok, great! I'....
-                          &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          19</center>
-                      </td>
+                      <td class="text-center">2</td>
+                      <td>R. Kumar<br><small class="text-muted">EMP002</small></td>
+                      <td>Blood Bank<br><small class="text-muted">Technician</small></td>
+                      <td>18-09-2025</td>
+                      <td>22-09-2025 to 23-09-2025</td>
+                      <td class="text-center">2</td>
+                      <td><span class="badge bg-warning text-dark">Pending</span></td>
                     </tr>
 
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="Health" role="tabpanel">
-                  <table class="table table-hover">
                     <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
-                      </td>
-                      <td>
-                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
-                          Dennis(7)</b>
-                      </td>
-                      <td>
-                        <center><b>Re: New mail Settings - Will....
-                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                            5</b></center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
-                      </td>
-                      <td>
-                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          27</center>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="Resignation" role="tabpanel">
-                  <table class="table table-hover">
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
-                      </td>
-                      <td>
-                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
-                          Dennis(7)</b>
-                      </td>
-                      <td>
-                        <center><b>Re: New mail Settings - Will....
-                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                            5</b></center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
-                      </td>
-                      <td>
-                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          27</center>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="Grievances" role="tabpanel">
-                  <center>
-                    <p>No grievances found</p>
-                  </center>
-                </div>
-                <div class="tab-pane fade" id="Interview" role="tabpanel">
-                  <table class="table table-hover">
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
-                      </td>
-                      <td>
-                        <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
-                      </td>
-                      <td>
-                        <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                          7</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
-                          Dennis(7)</b>
-                      </td>
-                      <td>
-                        <center><b>Re: New mail Settings - Will....
-                            &nbsp;&nbsp;&nbsp;&nbsp;Mar
-                            5</b></center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
-                      </td>
-                      <td>
-                        <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
-                          27</center>
-                      </td>
-
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="Appraisals" role="tabpanel">
-                  <!-- Table -->
-                  <table class="table table-hover">
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. MANOHAR Gupta-25EMP09231777(CATH Lab / Diagnostics HOD)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;23 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Mr. Raman -25EMP09221776(Doctor / Senior Doctor)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. Prashanth -25EMP09091762(Doctor / Senior Doctor)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. Ramesh -25EMP09091761(Aarogyasri / Aarogyasri Inchange
-                        Assistant)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Mrs. Sumathi -25EMP09091760(Pharmacy / Assistant Pharmacist)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-person-fill"></i> Dr. Supriya -25EMP09091758(Doctor / Senior Doctor)
-                      </td>
-                      <td>
-                        <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
-                      </td>
+                      <td class="text-center">3</td>
+                      <td>S. Nair<br><small class="text-muted">EMP003</small></td>
+                      <td>Neurology<br><small class="text-muted">Nurse</small></td>
+                      <td>15-09-2025</td>
+                      <td>19-09-2025 to 20-09-2025</td>
+                      <td class="text-center">2</td>
+                      <td><span class="badge bg-danger">Rejected</span></td>
                     </tr>
 
-
-                  </table>
-                </div>
               </div>
-
+              </tbody>
+              </table>
             </div>
+            <nav aria-label="...">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" style="border-radius: 10px;">Previous</a>
+                </li>  
+                <li class="page-item"><a class="page-link" href="#"
+                    style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
+                </li>  
+                <li class="page-item">
+                  <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
+                </li>
+              </ul>
+            </nav>
+
           </div>
-
-
-          <!-- << Schedules >> -->
-          <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade" id="schedules" role="tabpanel" aria-labelledby="schedules-tab">
-              <p class="text-muted"> Schedules </p>
-
-            </div>
-          </div>
-
-
         </div>
+
+
+
+        <!-- Notification -->
+        <hr>
+        <div class="tab-content mt-3" id="myTabContent">
+          <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+            <div class="tabs nav nav-tabs">
+              <button class="nav-link" id="All-tab" data-bs-toggle="tab" data-bs-target="#All" type="button">
+                All <span class="count">12</span>
+              </button>
+              <button class="nav-link" id="Vaccine-tab" data-bs-toggle="tab" data-bs-target="#Vaccine" type="button">
+                Vaccine <span class="count">5</span>
+              </button>
+              <button class="nav-link" id="Health-tab" data-bs-toggle="tab" data-bs-target="#Health" type="button">
+                Health checkups
+              </button>
+              <button class="nav-link" id="Resignation-tab" data-bs-toggle="tab" data-bs-target="#Resignation"
+                type="button">
+                Resignation
+              </button>
+              <button class="nav-link" id="Grievances-tab" data-bs-toggle="tab" data-bs-target="#Grievances"
+                type="button">
+                Grievances
+              </button>
+              <button class="nav-link" id="Interview-tab" data-bs-toggle="tab" data-bs-target="#Interview"
+                type="button">
+                Interview Rescheduling
+              </button>
+              <button class="nav-link" id="Appraisals-tab" data-bs-toggle="tab" data-bs-target="#Appraisals"
+                type="button">
+                Appraisals <span class="count">1612</span>
+              </button>
+            </div>
+
+            <br>
+
+
+            <div class="tab-content mt-3">
+              <div class="tab-pane fade show active" id="All" role="tabpanel">
+                <!-- Table -->
+                <table class="table table-hover">
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                    </td>
+                    <td>
+                      <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                        Dennis(7)</b>
+                    </td>
+                    <td>
+                      <center><b>Re: New mail Settings - Will....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          5</b></center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                    </td>
+                    <td>
+                      <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        27</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
+                        Berggern</b>
+                    </td>
+                    <td>
+                      <center><b>Let's go fishing!</b>- Hey,You
+                        &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        23</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Train/Bus - Yes ok, great! I'....
+                        &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        19</center>
+                    </td>
+                  </tr>
+
+                </table>
+              </div>
+              <div class="tab-pane fade" id="Vaccine" role="tabpanel">
+                <!-- Table -->
+                <table class="table table-hover">
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                    </td>
+                    <td>
+                      <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                        Dennis(7)</b>
+                    </td>
+                    <td>
+                      <center><b>Re: New mail Settings - Will....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          5</b></center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i><b>Tobias
+                        Berggern</b>
+                    </td>
+                    <td>
+                      <center><b>Let's go fishing!</b>- Hey,You
+                        &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        23</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Train/Bus - Yes ok, great! I'....
+                        &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        19</center>
+                    </td>
+                  </tr>
+
+                </table>
+              </div>
+              <div class="tab-pane fade" id="Health" role="tabpanel">
+                <table class="table table-hover">
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                    </td>
+                    <td>
+                      <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                        Dennis(7)</b>
+                    </td>
+                    <td>
+                      <center><b>Re: New mail Settings - Will....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          5</b></center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                    </td>
+                    <td>
+                      <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        27</center>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="Resignation" role="tabpanel">
+                <table class="table table-hover">
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                    </td>
+                    <td>
+                      <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                        Dennis(7)</b>
+                    </td>
+                    <td>
+                      <center><b>Re: New mail Settings - Will....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          5</b></center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                    </td>
+                    <td>
+                      <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        27</center>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="Grievances" role="tabpanel">
+                <center>
+                  <p>No grievances found</p>
+                </center>
+              </div>
+              <div class="tab-pane fade" id="Interview" role="tabpanel">
+                <table class="table table-hover">
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Dr Azaruddhin
+                    </td>
+                    <td>
+                      <center>Hello - Trip home from colo.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Susanna
+                    </td>
+                    <td>
+                      <center>Freelance - Since you asked.... &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                        7</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;<b>Web Suport
+                        Dennis(7)</b>
+                    </td>
+                    <td>
+                      <center><b>Re: New mail Settings - Will....
+                          &nbsp;&nbsp;&nbsp;&nbsp;Mar
+                          5</b></center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"> <i class="fa fa-star star"></i>Infinity HR
+                    </td>
+                    <td>
+                      <center>Sveriges Hetaste sammarjo.... &nbsp;&nbsp;&nbsp;&nbsp;Feb
+                        27</center>
+                    </td>
+
+                </table>
+              </div>
+              <div class="tab-pane fade" id="Appraisals" role="tabpanel">
+                <!-- Table -->
+                <table class="table table-hover">
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. MANOHAR Gupta-25EMP09231777(CATH Lab / Diagnostics HOD)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;23 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Mr. Raman -25EMP09221776(Doctor / Senior Doctor)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. Prashanth -25EMP09091762(Doctor / Senior Doctor)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. Ramesh -25EMP09091761(Aarogyasri / Aarogyasri Inchange
+                      Assistant)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Mrs. Sumathi -25EMP09091760(Pharmacy / Assistant Pharmacist)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-fill"></i> Dr. Supriya -25EMP09091758(Doctor / Senior Doctor)
+                    </td>
+                    <td>
+                      <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                    </td>
+                  </tr>
+
+
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- << Schedules >> -->
+        <div class="tab-content mt-3" id="myTabContent">
+          <div class="tab-pane fade" id="schedules" role="tabpanel" aria-labelledby="schedules-tab">
+            <p class="text-muted"> Schedules </p>
+
+          </div>
+        </div>
+
+
       </div>
-
-      <!-- Footer -->
-      <footer>
-        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
-          <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
-          <p>Design & develop by Peramsons Software</p>
-        </div>
-      </footer>
     </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+        <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
+        <p>Design & develop by Peramsons Software</p>
+      </div>
+    </footer>
+  </div>
   </div>
 
 
@@ -2291,7 +2443,13 @@
   <script>
     let employees = [
       { id: 1, name: "DR.MANOHAR GUPTA", code: "CATH Lab/ Diagnostic HOD", phone_number: "9090456456", email: "manohar@gmail.com", join_date: "01-Feb-2021", status: "Active" },
-      { id: 2, name: "DR.RAMAN", code: "Senior Doctor", phone_number: "9090123123", email: "muddapativenkataramana@gmail.com", join_date: "10-Sep-2025", status: "Deactive" },
+      { id: 2, name: "DR.RAMAN", code: "Doctor/ Senior Doctor", phone_number: "9090123123", email: "muddapativenkataramana@gmail.com", join_date: "10-Sep-2025", status: "Deactive" },
+      { id: 2, name: "DR.RAGHAVA", code: "Doctor/ Senior Doctor", phone_number: "9123456789", email: "raghava13@gmail.com", join_date: "08-Mar-2023", status: "Active" },
+      { id: 2, name: "DR.PRASHANTH", code: "Doctor/ Junior Doctor", phone_number: "9094567890", email: "prashu@gmail.com", join_date: "12-Sep-2024", status: "Active" },
+      { id: 2, name: "DR.RAMESH", code: "Aarogyasri/ Aarogyasri Incharge Assistant", phone_number: "9090098765", email: "ram@gmail.com", join_date: "06-May-2012", status: "Deactive" },
+      { id: 2, name: "MRS.SUMATHI", code: "Pharmacy/ Assistant Pharmacist", phone_number: "9090124123", email: "sumathi@gmail.com", join_date: "23-July-2003", status: "Active" },
+      { id: 2, name: "DR.PRIYA", code: "Doctor/ Assistant Professor", phone_number: "9090123789", email: "priya334@gmail.com", join_date: "01-Sep-2017", status: "Deactive" },
+      { id: 2, name: "DR.SUPRIYA", code: "Doctor/ Senior Doctor", phone_number: "9090123098", email: "supriya123@gmail.com", join_date: "16-Feb-2022", status: "Active" },
     ];
     let editId = null;
     let deleteId = null;
