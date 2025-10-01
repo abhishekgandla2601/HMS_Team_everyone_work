@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R.V.M Hospitals Employees</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .card-custom {
+      background-color: #f8f9fc;
+      border: none;
+      border-radius: 10px;
+      text-align: center;
+      padding: 20px;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-custom:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-custom i {
+      font-size: 2rem;
+      color: #4a5fc1;
+      margin-bottom: 10px;
+    }
+
+    a,
+    a:hover,
+    a:focus,
+    a:active,
+    a:visited {
+      text-decoration: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    h6 {
+      color: black;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+
+      /* Sidebar hidden by default */
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 220px;
+        /* slightly narrower for mobile */
+      }
+
+      /* Show sidebar when active */
+      .sidebar.active {
+        transform: translateX(0);
+        z-index: 1050;
+      }
+
+      /* Main content takes full width */
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      /* Footer spans full width */
+      footer {
+        position: static;
+        width: 100%;
+        left: 0;
+      }
+    }
+
+    :root {
+      --sidebar-width: 250px;
+      --sidebar-bg: rgb(48, 72, 156);
+      --sidebar-color: #f8f9fa;
+      --header-height: 60px;
+      --main-bg: #f4f7f9;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--main-bg);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .upload-box {
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      transition: border 0.3s;
+    }
+
+    .upload-box:hover {
+      border-color: #007bff;
+    }
+
+    .upload-box i {
+      font-size: 40px;
+      color: #007bff;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* --- Sidebar Styles --- */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--sidebar-bg);
+      color: var(--sidebar-color);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .sidebar-menu .list-group-item {
+      background-color: transparent;
+      color: var(--sidebar-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    .sidebar-menu .list-group-item.active,
+    .sidebar-menu .list-group-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-menu .list-group-item i {
+      margin-right: 1rem;
+      width: 20px;
+    }
+
+    .sidebar-menu .menu-category {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: #adb5bd;
+      padding: 1rem 1.5rem 0.5rem;
+    }
+
+    /* --- Main Content Styles --- */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      width: 100%;
+      padding: 1rem;
+      transition: margin-left 0.3s ease;
+      margin-top: 80px;
+    }
+
+    /* --- Header Styles --- */
+    .header {
+      background-color: #fff;
+      height: var(--header-height);
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+      height: 70px;
+      /* adjust based on your header height */
+      background: #fff;
+      /* keeps it solid */
+      border-bottom: 1px solid #ddd;
+      padding: 0 10px;
+      z-index: 1000;
+      /* keeps it above other content */
+    }
+
+    .header .search-bar {
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .header .search-bar .form-control {
+      border: none;
+      box-shadow: none;
+    }
+
+    .header .header-icons i {
+      color: #6c757d;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+
+    .header .user-info {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+    }
+
+    .header .user-info .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #495057;
+      margin-right: 0.5rem;
+    }
+
+    .dept-card {
+      background-color: #fff;
+      position: fixed;
+      top: 70px;
+      left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+      z-index: 900;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      border: none;
+      border-radius: 12px;
+    }
+
+    .dept-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+    }
+
+    .dept-title {
+      margin: 0;
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .dept-breadcrumb {
+      margin: 0;
+      font-size: 13px;
+      background: transparent;
+    }
+
+    .dept-breadcrumb a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .dept-breadcrumb .active {
+      color: #6c757d;
+    }
+
+    .dept-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+      content: "›";
+      color: #6c757d;
+    }
+
+    /* When sidebar is collapsed */
+    .sidebar.collapsed~.main-content .header,
+    .sidebar.collapsed~.main-content .dept-card {
+      left: 0;
+      width: 100%;
+    }
+
+    /* --- Main Content Box --- */
+    .content-box {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .content {
+      margin-top: 70px;
+      /* same as header height */
+      padding: 20px;
+    }
+
+
+    /* --- Table Actions --- */
+    .table-actions .btn-group .btn {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .table-actions .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    .table-actions .btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+
+    .table-actions .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    a,
+    a:hover,
+    a:focus,
+    a:active,
+    a:visited {
+      text-decoration: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    footer {
+      background-color: white;
+      z-index: 1040;
+      width: 83.6%;
+      position: fixed;
+      bottom: 0;
+      left: 28.1ch;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        width: 200px;
+        left: -200px;
+        /* top: 70px;
+                height: calc(100% - 70px); */
+        top: 0;
+        height: 100%;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+
+      }
+
+      .sidebar.active~.main-content {
+        margin-left: 200px;
+
+      }
+
+      .header {
+        /* flex-wrap: wrap; */
+        /* position: relative; */
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 0.5rem;
+        z-index: 1100;
+        transition: margin-left 0.3s ease;
+      }
+
+      .sidebar.active~.main-content .header {
+        transform: translateX(200px);
+
+      }
+
+      .header .d-flex.align-items-center:last-child {
+        flex-shrink: 0;
+        /* don't let icons+user shrink */
+        margin-left: auto;
+        /* push them to far right */
+      }
+
+      .header .search-bar {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .header .header-icons i {
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .header .user-info {
+        margin-top: 0.5rem;
+      }
+
+      .navbar-nav {
+        flex-wrap: wrap;
+      }
+
+      .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+      }
+
+      .dept-card {
+        position: relative;
+        top: auto;
+        margin-top: 10px;
+        left: 0;
+        width: 100%;
+        z-index: auto;
+      }
+
+      footer {
+        position: relative !important;
+        width: 100% !important;
+        left: 0 !important;
+        bottom: auto !important;
+      }
+
+      .site-footer {
+        position: static;
+        width: 100%;
+        left: 0;
+        bottom: auto;
+      }
+
+      .footer-shift {
+        margin-left: 200px;
+        transition: margin-left 0.3s ease;
+      }
+
+    }
+
+    /* Use Bootstrap's font and background */
+    body {
+      background: #f4f7f9;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Summary Box Modern Look */
+    .summary-box {
+      background: #e3e9fa;
+      border-radius: 14px;
+      padding: 28px 22px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      min-height: 110px;
+    }
+
+    .summary-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .summary-box .icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      display: inline-flex;
+      width: 54px;
+      height: 54px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #f2f4fa;
+      color: #4b5079;
+    }
+
+    .icon-total-bg {
+      background: #f2f4fa !important;
+      color: #4b5079 !important;
+    }
+
+    .icon-present-bg {
+      background: #d7f3ed !important;
+      color: #00b894 !important;
+    }
+
+    .icon-leave-bg {
+      background: #fbe6eb !important;
+      color: #e17055 !important;
+    }
+
+    .icon-absent-bg {
+      background: #fdf4e5 !important;
+      color: #fdcb6e !important;
+    }
+
+    .summary-box h5 {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #555;
+    }
+
+    .summary-box h3 {
+      font-weight: bold;
+      margin-top: 8px;
+      font-size: 1.1rem;
+    }
+
+    .dept-row {
+      background: #fff;
+      /* border: 1px solid #e5e7eb; */
+      border-radius: 3px;
+      padding: 6px 10px;
+      margin-bottom: 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .dept-row .stats,
+    .dept-row .expand-btn {
+      font-weight: bold;
+    }
+
+    /* Further reduce gap for <hr> between rows */
+    .dept-row+hr,
+    hr+.dept-row {
+      margin-top: 1px;
+      margin-bottom: 1px;
+    }
+
+    .dept-row strong {
+      color: #1d4ed8;
+      /* blue dept name */
+      font-weight: 700;
+    }
+
+    .dept-row .stats {
+      flex: 1;
+      margin-left: 20px;
+      color: #374151;
+    }
+
+    .dept-row .stats span.green {
+      color: #22c55e;
+    }
+
+    .dept-row .stats span.red {
+      color: #ef4444;
+    }
+
+    .dept-row .expand-btn {
+      font-size: 1.2rem;
+      color: #555;
+      cursor: pointer;
+    }
+
+    /* Table Styles */
+    .collapse-table {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+
+    .custom-table {
+      min-width: 700px;
+      width: max-content;
+      background: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .custom-table th {
+      background: #30489c;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 16px;
+      border: none !important;
+      text-align: center;
+    }
+
+    .custom-table td {
+      background: #fff;
+      color: #333;
+      padding: 8px 14px;
+      border: none !important;
+      text-align: center;
+    }
+
+    .custom-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .custom-table thead th:first-child {
+      border-top-left-radius: 8px;
+    }
+
+    .custom-table thead th:last-child {
+      border-top-right-radius: 8px;
+    }
+
+    .custom-table tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 8px;
+    }
+
+    .custom-table tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 8px;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #6b7280;
+      padding: 12px;
+      background: #f4f7fa;
+    }
+
+    .table-scroll-x {
+      overflow-x: auto !important;
+      width: 100%;
+      display: block;
+    }
+
+    .collapse-table {
+      min-width: 700px;
+      width: max-content;
+    }
+
+    .custom-table {
+      min-width: 700px;
+      width: max-content;
+    }
+
+    /* Very-light-purple reverse-cut buttons */
+    .btn-purple-cut {
+      background-color: rgb(216, 227, 230);
+      color: black;
+      /* dark text for contrast */
+      border: 1px solid #d6c2f5;
+      border-radius: 0;
+      clip-path: polygon(10% 0,
+          /* top-left cut */
+          90% 0,
+          /* top-right cut */
+          100% 100%,
+          /* bottom-right square */
+          0 100%
+          /* bottom-left square */
+        );
+      padding: 0.6rem 1.2rem;
+      transition: background-color 0.2s ease;
+    }
+
+    /* Slightly deeper shade on hover */
+    .btn-purple-cut:hover {
+      background-color: darkblue;
+      color: white;
+      /* a touch darker on hover */
+    }
+
+    /* Remove the tiny border gap between connected buttons */
+    .btn-group .btn-purple-cut+.btn-purple-cut {
+      margin-left: -px;
+    }
+
+    .main-content,
+    .container {
+      max-width: 100vw !important;
+      overflow-x: auto;
+    }
+
+    .table-scroll-x,
+    .collapse-table {
+      width: 100% !important;
+      overflow-x: auto !important;
+      /* display: block; */
+    }
+
+    .custom-table {
+      min-width: 700px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper ">
+    <!-- Sidebar -->
+    <nav class="sidebar" style="background-color: rgb(48, 72, 156); color: white;">
+      <div class="sidebar-header">
+        <h4>RVM</h4>
+      </div>
+      <div class="list-group sidebar-menu">
+        <div class="menu-category">Menu</div>
+        <a href="dashboard.html" class="list-group-item list-group-item-action"><i class="fas fa-home"></i>
+          Dashboard</a>
+
+        <div class="menu-category">OPD</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user-plus"></i> Patient
+          Registration</a>
+
+        <div class="menu-category">Emergency</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-ambulance"></i> Emergency
+          Patient</a>
+
+        <div class="menu-category">Help Desk</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-headset"></i> Service Desk</a>
+
+        <div class="menu-category">Diagnostics</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-flask"></i> Centres</a>
+
+        <div class="menu-category">Human Resource Management</div>
+        <a href="#" class="list-group-item list-group-item-action active"><i class="fas fa-users"></i> Employees</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-sitemap"></i> Unit Management</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-graduation-cap"></i> Trainings</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-notes-medical"></i> Health
+          Reports</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-syringe"></i> Vaccination
+          Reports</a>
+
+        <div class="menu-category">Placements</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-building"></i> Placements Cell</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-clipboard-list"></i> Interviews</a>
+
+        <div class="menu-category">Referral Agents</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user-friends"></i> Referral
+          Membership</a>
+
+        <div class="menu-category">Patients Management</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-file-medical"></i> Patient
+          Records</a>
+
+        <div class="menu-category">Marketing & Campaign</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-bullhorn"></i> Campaigns</a>
+
+        <div class="menu-category">Rooms Management</div>
+        <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-door-open"></i> Rooms Management</a>
+
+        <div class="menu-category">Settings</div>
+        <a href="HRM.html" class="list-group-item list-group-item-action active"><i class="fas fa-cog"></i> General
+          Settings</a>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="main-content">
+      <!-- Header -->
+      <header class="header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light me-2 sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <form class="d-flex me-3 search-bar">
+            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+          </form>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <div class="header-icons me-3">
+            <i class="fas fa-bed"></i>
+            <i class="fas fa-expand"></i>
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="user-info d-flex align-items-center">
+            <div class="user-avatar text-white bg-info">lv</div>
+            <div class="fw-bold dropdown">
+              <a role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">lvktch</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="index.html">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Breadcrumb card -->
+      <div class="card dept-card">
+        <div class="card-body dept-header">
+          <h6 class="dept-title">EMPLOYEE MANAGEMENT</h6>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb dept-breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item active">HRM</li>
+              <li class="breadcrumb-item active">Employee Management</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <br><br>
+      <div class="card">
+        <div class="container py-4">
+          <div class="btn-group w-100 d-flex">
+            <button class="btn btn-purple-cut flex-fill">Profiles</button>
+            <button class="btn btn-purple-cut flex-fill"
+              style="background-color: darkblue; color: white;">Attendance</button>
+            <button class="btn btn-purple-cut flex-fill">Leave Management</button>
+            <button class="btn btn-purple-cut flex-fill">Notification</button>
+            <button class="btn btn-purple-cut flex-fill">Schedule</button>
+          </div>
+          <hr>
+          <div class="row g-3" style="margin-bottom:0;">
+            <!-- Total Employees -->
+            <div class="col-md-3 col-sm-6 mb-3">
+              <div class="summary-box d-flex align-items-center justify-content-between">
+                <div class="summary-text">
+                  <h5>Total Employees</h5>
+                  <h3>1547</h3>
+                </div>
+                <div class="icon icon-total-bg ms-2">
+                  <i class="fa-solid fa-users"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+              <div class="summary-box d-flex align-items-center justify-content-between">
+                <div class="summary-text">
+                  <h5>Present</h5>
+                  <h3>0</h3>
+                </div>
+                <div class="icon icon-present-bg ms-2">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+              <div class="summary-box d-flex align-items-center justify-content-between">
+                <div class="summary-text">
+                  <h5>Leave</h5>
+                  <h3>0</h3>
+                </div>
+                <div class="icon icon-leave-bg ms-2">
+                  <i class="fa-solid fa-user-minus"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+              <div class="summary-box d-flex align-items-center justify-content-between">
+                <div class="summary-text">
+                  <h5>Absent</h5>
+                  <h3>0</h3>
+                </div>
+                <div class="icon icon-absent-bg ms-2">
+                  <i class="fa-solid fa-user-xmark"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="card">
+            <div class="container">
+              <!-- Department Rows -->
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept1" aria-expanded="false"
+                aria-controls="dept1">
+                <strong>Aarogyasri :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept1" class="collapse mt-2">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Mahi</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>On Time</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Kumar</td>
+                          <td>2025-09-29</td>
+                          <td>09:25</td>
+                          <td>17:05</td>
+                          <td>7h 30m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept2" aria-expanded="false"
+                aria-controls="dept2">
+                <strong>Blood Bank :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept2" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Yash</td>
+                          <td>2025-09-29</td>
+                          <td>09:15</td>
+                          <td>17:05</td>
+                          <td>7h 50m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>15 min</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Sai</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept3" aria-expanded="false"
+                aria-controls="dept3">
+                <strong>CATH Lab :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept3" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Ravi</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:35</td>
+                          <td>7h 40m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Mahi</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>On Time</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept4" aria-expanded="false"
+                aria-controls="dept4">
+                <strong>Central Kitchen :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept4" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Kumar</td>
+                          <td>2025-09-29</td>
+                          <td>09:25</td>
+                          <td>17:05</td>
+                          <td>7h 30m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Mahi</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>On Time</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept5" aria-expanded="false"
+                aria-controls="dept5">
+                <strong>Central Laboratory :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept5" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Raj</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Ravi</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:35</td>
+                          <td>7h 40m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept6" aria-expanded="false"
+                aria-controls="dept6">
+                <strong>Central Sterile Supply Department :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept6" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Kowshik</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Raj</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept7" aria-expanded="false"
+                aria-controls="dept7">
+                <strong>Civil Department :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept7" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Mahesh</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Kowshik</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept8" aria-expanded="false"
+                aria-controls="dept8">
+                <strong>Closed Circuit Television and Surveillance :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept8" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Charan</td>
+                          <td>2025-09-29</td>
+                          <td>09:15</td>
+                          <td>17:08</td>
+                          <td>7h 53m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                         <tr>
+                          <td>2</td>
+                          <td>Mahesh</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept9" aria-expanded="false"
+                aria-controls="dept9">
+                <strong>CT Surgery :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept9" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Sri</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Charan</td>
+                          <td>2025-09-29</td>
+                          <td>09:15</td>
+                          <td>17:08</td>
+                          <td>7h 53m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept10" aria-expanded="false"
+                aria-controls="dept10">
+                <strong>Dentistry :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept10" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Charan</td>
+                          <td>2025-09-29</td>
+                          <td>09:15</td>
+                          <td>17:08</td>
+                          <td>7h 53m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Sri</td>
+                          <td>2025-09-29</td>
+                          <td>09:00</td>
+                          <td>17:00</td>
+                          <td>8h</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept11" aria-expanded="false"
+                aria-controls="dept11">
+                <strong>Dermatology :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept11" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Ravi Kumar</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Charan</td>
+                          <td>2025-09-29</td>
+                          <td>09:15</td>
+                          <td>17:08</td>
+                          <td>7h 53m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>18 min</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>Late Arrival</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept12" aria-expanded="false"
+                aria-controls="dept12">
+                <strong>Doctor :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept12" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Tej</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Ravi Kumar</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="dept-row" data-bs-toggle="collapse" data-bs-target="#dept13" aria-expanded="false"
+                aria-controls="dept13">
+                <strong>Finance and Accounts :</strong>
+                <div class="stats">Total: 0 | Present: <span class="green">89</span> | Leave: <span
+                    class="red">11</span> | Pending Biometric: <span class="red">11</span></div>
+                <div class="expand-btn"><i class="fa fa-plus"></i></div>
+              </div>
+              <div id="dept13" class="collapse">
+                <div class="table-scroll-x">
+                  <div class="collapse-table">
+                    <table class="table table-bordered custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Attendance Date</th>
+                          <th>In Time</th>
+                          <th>Out Time</th>
+                          <th>Duration</th>
+                          <th>On Leave</th>
+                          <th>Holiday</th>
+                          <th>Late By</th>
+                          <th>Missed In Punch</th>
+                          <th>Missed Out Punch</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Sai</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Time</td>
+                        </tr>
+                         <tr>
+                          <td>2</td>
+                          <td>Tej</td>
+                          <td>2025-09-29</td>
+                          <td>08:55</td>
+                          <td>16:45</td>
+                          <td>7h 50m</td>
+                          <td>Yes</td>
+                          <td>No</td>
+                          <td>0 min</td>
+                          <td>No</td>
+                          <td>Yes</td>
+                          <td>On Leave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Footer -->
+          <footer>
+            <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+              <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
+              <p>Design & develop by Peramsons Software</p>
+            </div>
+          </footer>
+
+          <!-- Scripts -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const sidebar = document.querySelector(".sidebar");
+              const toggleBtn = document.querySelector(".sidebar-toggle");
+
+              toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+              });
+            });
+
+            // Toggle + / - icon for department rows with collapse
+            document.querySelectorAll('.dept-row[data-bs-toggle="collapse"]').forEach(row => {
+              const collapseId = row.getAttribute('data-bs-target');
+              const icon = row.querySelector('.expand-btn i');
+              const collapseEl = document.querySelector(collapseId);
+              if (collapseEl && icon) {
+                collapseEl.addEventListener('show.bs.collapse', () => {
+                  icon.classList.remove('fa-plus');
+                  icon.classList.add('fa-minus');
+                });
+                collapseEl.addEventListener('hide.bs.collapse', () => {
+                  icon.classList.remove('fa-minus');
+                  icon.classList.add('fa-plus');
+                });
+              }
+            });
+
+          </script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

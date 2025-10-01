@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R.V.M Hospitals Employees</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .card-custom {
+            background-color: #f8f9fc;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-custom i {
+            font-size: 2rem;
+            color: #4a5fc1;
+            margin-bottom: 10px;
+        }
+
+        a,
+        a:hover,
+        a:focus,
+        a:active,
+        a:visited {
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        h6 {
+            color: black;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+
+            /* Sidebar hidden by default */
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                width: 220px;
+                /* slightly narrower for mobile */
+            }
+
+            /* Show sidebar when active */
+            .sidebar.active {
+                transform: translateX(0);
+                z-index: 1050;
+            }
+
+            /* Main content takes full width */
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            /* Footer spans full width */
+            footer {
+                position: static;
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        :root {
+            --sidebar-width: 250px;
+            --sidebar-bg: rgb(48, 72, 156);
+            --sidebar-color: #f8f9fa;
+            --header-height: 60px;
+            --main-bg: #f4f7f9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--main-bg);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .sidebar-menu .list-group-item {
+            background-color: transparent;
+            color: var(--sidebar-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .sidebar-menu .list-group-item.active,
+        .sidebar-menu .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu .list-group-item i {
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .sidebar-menu .menu-category {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #adb5bd;
+            padding: 1rem 1.5rem 0.5rem;
+        }
+
+        /* --- Main Content Styles --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100vw - var(--sidebar-width));
+            overflow: hidden;
+            padding: 1rem;
+            transition: margin-left 0.3s ease;
+            margin-top: 80px;
+        }
+
+        /* --- Header Styles --- */
+        .header {
+            background-color: #fff;
+            height: var(--header-height);
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 70px;
+            /* adjust based on your header height */
+            background: #fff;
+            /* keeps it solid */
+            border-bottom: 1px solid #ddd;
+            padding: 0 10px;
+            z-index: 1000;
+            /* keeps it above other content */
+        }
+
+        .header .search-bar {
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .header .search-bar .form-control {
+            border: none;
+            box-shadow: none;
+        }
+
+        .header .header-icons i {
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .header .user-info .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #495057;
+            margin-right: 0.5rem;
+        }
+
+        .dept-card {
+            background-color: #fff;
+            position: fixed;
+            top: 70px;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            z-index: 900;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            border: none;
+            border-radius: 12px;
+        }
+
+        .dept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+        }
+
+        .dept-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .dept-breadcrumb {
+            margin: 0;
+            font-size: 13px;
+            background: transparent;
+        }
+
+        .dept-breadcrumb a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dept-breadcrumb .active {
+            color: #6c757d;
+        }
+
+        .dept-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+            content: "›";
+            color: #6c757d;
+        }
+
+        /* When sidebar is collapsed */
+        .sidebar.collapsed~.main-content .header,
+        .sidebar.collapsed~.main-content .dept-card {
+            left: 0;
+            width: 100%;
+        }
+
+        /* --- Main Content Box --- */
+        .content-box {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .content {
+            margin-top: 70px;
+            /* same as header height */
+            padding: 20px;
+        }
+
+        .table-responsive {
+            display: block;
+            /* make sure it’s a block container */
+            overflow-x: auto;
+            /* force horizontal scroll only here */
+            -webkit-overflow-scrolling: touch;
+            /* smooth scroll on mobile */
+        }
+
+        .table-responsive table {
+            table-layout: auto;
+            min-width: 1500px;
+            /* This is necessary for position: sticky on <td>/<th> to work horizontally */
+            border-collapse: separate;
+            border-spacing: 0;
+            /* Optional: ensures no weird gaps */
+        }
+
+        /* Add this new rule to allow text within table data cells to wrap */
+        .table-responsive table td {
+            white-space: normal;
+            word-wrap: break-word;
+            /* For older browsers */
+            word-break: break-word;
+            /* Forces long words to break */
+        }
+
+        /* Re-apply nowrap to the table header cells so they don't break unexpectedly */
+        .table-responsive table th {
+            white-space: nowrap;
+        }
+
+        .table-actions {
+            display: inline-flex;
+            /* keep buttons in a row */
+            gap: 6px;
+            /* space between buttons */
+        }
+
+        /* --- Table Actions --- */
+        .table-actions .btn-group .btn {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .table-actions .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .table-actions .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .table-actions .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        /* Ensure the header cell has the blue background */
+        .table-responsive table th:last-child {
+            background-color: rgb(48, 72, 156) !important;
+        }
+
+
+        a,
+        a:hover,
+        a:focus,
+        a:active,
+        a:visited {
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Custom CSS for Vertical Pill Tabs */
+        .nav-pills .nav-link {
+            /* Basic styling for all pills */
+            text-align: left;
+            margin-bottom: 5px;
+            /* Spacing between pills */
+            border-radius: 10px;
+            /* Rounded corners */
+            color: #495057;
+            /* Default text color */
+            background-color: #f8f9fa;
+            /* Light background for inactive */
+            transition: all 0.2s ease-in-out;
+            padding: 10px 15px;
+            /* Add padding for a better pill look */
+            /* Remove the default rounded corners from the `nav-link` element itself for a cleaner look */
+        }
+
+        .nav-pills .nav-link:hover:not(.active) {
+            /* Hover state for inactive tabs */
+            background-color: #e9ecef;
+            /* Slightly darker grey on hover */
+            color: #000000;
+            /* Darker text on hover */
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .nav-link.active:focus,
+        .nav-pills .nav-link.active:hover {
+            /* Active tab style (matching your blue) */
+            color: #fff;
+            /* White text for active tab */
+            background-color: #0d6efd;
+            /* Bootstrap primary blue */
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            /* Subtle shadow for depth */
+        }
+
+        .nav-pills {
+            /* Ensure the list itself doesn't have unnecessary padding/margin */
+            padding: 0;
+        }
+
+        footer {
+            background-color: white;
+            z-index: 1040;
+            /* width: calc(100% - var(--sidebar-width)); */
+            width: 100%;
+            position: static;
+            /* margin-left: var(--sidebar-width); */
+            margin-top: 2rem;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                width: 200px;
+                left: -200px;
+                /* top: 70px;
+                height: calc(100% - 70px); */
+                top: 0;
+                height: 100%;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                transition: margin-left 0.3s ease;
+
+            }
+
+            .sidebar.active~.main-content {
+                margin-left: 200px;
+
+            }
+
+            .header {
+                /* flex-wrap: wrap; */
+                /* position: relative; */
+                left: 0;
+                width: 100%;
+                height: auto;
+                padding: 0.5rem;
+                z-index: 1100;
+                transition: margin-left 0.3s ease;
+            }
+
+            .sidebar.active~.main-content .header {
+                transform: translateX(200px);
+
+            }
+
+            .header .d-flex.align-items-center:last-child {
+                flex-shrink: 0;
+                /* don't let icons+user shrink */
+                margin-left: auto;
+                /* push them to far right */
+            }
+
+            .header .search-bar {
+                max-width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .header .header-icons i {
+                margin-left: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .header .user-info {
+                margin-top: 0.5rem;
+            }
+
+            .navbar-nav {
+                flex-wrap: wrap;
+            }
+
+            .navbar-nav .nav-item {
+                margin-bottom: 0.5rem;
+            }
+
+            .dept-card {
+                position: relative;
+                top: auto;
+                margin-top: 10px;
+                left: 0;
+                width: 100%;
+                z-index: auto;
+            }
+
+            footer {
+                position: static;
+                width: 100%;
+                left: 0;
+                bottom: auto;
+                margin-left: 0;
+            }
+
+            .site-footer {
+                position: static;
+                width: 100%;
+                left: 0;
+                bottom: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper ">
+        <!-- Sidebar -->
+        <nav class="sidebar" style="background-color: rgb(48, 72, 156); color: white;">
+            <div class="sidebar-header">
+                <h4>RVM</h4>
+            </div>
+            <div class="list-group sidebar-menu">
+                <div class="menu-category">Menu</div>
+                <a href="dashboard.html" class="list-group-item list-group-item-action"><i class="fas fa-home"></i>
+                    Dashboard</a>
+
+                <div class="menu-category">OPD</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user-plus"></i> Patient
+                    Registration</a>
+
+                <div class="menu-category">Emergency</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-ambulance"></i> Emergency
+                    Patient</a>
+
+                <div class="menu-category">Help Desk</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-headset"></i> Service
+                    Desk</a>
+
+                <div class="menu-category">Diagnostics</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-flask"></i> Centres</a>
+
+                <div class="menu-category">Human Resource Management</div>
+                <a href="employees.html" class="list-group-item list-group-item-action active"><i
+                        class="fas fa-users"></i>
+                    Employees</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-sitemap"></i> Unit
+                    Management</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-graduation-cap"></i>
+                    Trainings</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-notes-medical"></i> Health
+                    Reports</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-syringe"></i> Vaccination
+                    Reports</a>
+
+                <div class="menu-category">Placements</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-building"></i> Placements
+                    Cell</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-clipboard-list"></i>
+                    Interviews</a>
+
+                <div class="menu-category">Referral Agents</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user-friends"></i> Referral
+                    Membership</a>
+
+                <div class="menu-category">Patients Management</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-file-medical"></i> Patient
+                    Records</a>
+
+                <div class="menu-category">Marketing & Campaign</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-bullhorn"></i> Campaigns</a>
+
+                <div class="menu-category">Rooms Management</div>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-door-open"></i> Rooms
+                    Management</a>
+
+                <div class="menu-category">Settings</div>
+                <a href="HRM.html" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i> General
+                    Settings</a>
+            </div>
+        </nav>
+
+        <!-- Main -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-light me-2 sidebar-toggle"><i class="fas fa-bars"></i></button>
+                    <form class="d-flex me-3 search-bar">
+                        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                    </form>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="header-icons d-flex align-items-center gap-4 me-3">
+                        <i class="fas fa-bed text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-expand text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-moon text-secondary fs-5" role="button"></i>
+                        <i class="fas fa-bell text-secondary fs-5 position-relative" role="button">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                        </i>
+                    </div>
+                    <div class="user-info d-flex align-items-center">
+                        <div
+                            class="user-avatar text-white bg-info rounded-circle d-flex align-items-center justify-content-center">
+                            lv</div>
+                        <div>
+                            <div class="fw-bold dropdown">
+                                <a aria-expanded="false" data-bs-toggle="dropdown" role="button" style="color: black;">
+                                    lvktch
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="index.html">Logout</a></li>
+                                </ul>
+                            </div>
+                            <div class="small text-muted">Master Panel</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Breadcrumb card -->
+            <div class="card dept-card">
+                <div class="card-body dept-header">
+                    <h6 class="dept-title">EMPLOYEE MANAGEMENT</h6>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb dept-breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                            <li class="breadcrumb-item active">HRM</li>
+                            <li class="breadcrumb-item active">Employee Management</li>
+                            <li class="breadcrumb-item active">Create New Employee</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="content-box">
+                <h5 class="mb-4">Create Employee</h5>
+                <hr>
+
+                <ul class="nav nav-pills mb-3" id="employeeTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="personal-details-tab" data-bs-toggle="pill"
+                            data-bs-target="#personal-details" type="button" role="tab" aria-controls="personal-details"
+                            aria-selected="true">1. Personal Details</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="address-tab" data-bs-toggle="pill" data-bs-target="#address"
+                            type="button" role="tab" aria-controls="address" aria-selected="false">2. Address</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="edu-qualification-tab" data-bs-toggle="pill"
+                            data-bs-target="#edu-qualification" type="button" role="tab"
+                            aria-controls="edu-qualification" aria-selected="false">3. EDU. Qualification</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="work-experience-tab" data-bs-toggle="pill"
+                            data-bs-target="#work-experience" type="button" role="tab" aria-controls="work-experience"
+                            aria-selected="false">4. Work Experience</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="employment-details-tab" data-bs-toggle="pill"
+                            data-bs-target="#employment-details" type="button" role="tab"
+                            aria-controls="employment-details" aria-selected="false">5. Employment Details</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="salary-details-tab" data-bs-toggle="pill"
+                            data-bs-target="#salary-details" type="button" role="tab" aria-controls="salary-details"
+                            aria-selected="false">6. Salary Details</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="employeeTabContent">
+
+                    <div class="tab-pane fade show active" id="personal-details" role="tabpanel"
+                        aria-labelledby="personal-details-tab">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="profileUpload" class="form-label"><strong>Upload Profile Image</strong>
+                                        <small class="text-secondary">(PNG, JPG, JPEG)</small></label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="profileUpload"
+                                            accept=".png,.jpg,.jpeg">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fullName" class="form-label required"><strong>Full Name</strong></label>
+                                    <input type="text" class="form-control" id="fullName" placeholder="Ex: Shiva Reddy">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="staffCode" class="form-label"><strong>Staff Code</strong> <small
+                                            class="text-secondary">(Auto generated)</small></label>
+                                    <input type="text" class="form-control" id="staffCode" value="UID000000" readonly>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="parentName" class="form-label required"><strong>Father/Husband
+                                            Name</strong></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text p-0 border-0 bg-transparent">
+                                            <select class="form-select border-end-0"
+                                                style="width: 50px; background-color: #e9ecef; border-top-right-radius: 0; border-bottom-right-radius: 0; ">
+                                                <option selected>Mr</option>
+                                                <option>Smt</option>
+                                            </select>
+                                        </span>
+                                        <input type="text" class="form-control" id="parentName"
+                                            placeholder="Ex: Krishna Reddy">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label required mb-1"><strong>Gender</strong></label>
+                                    <div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="genderRadio"
+                                                id="genderMale" value="male" checked>
+                                            <label class="form-check-label" for="genderMale">Male</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="genderRadio"
+                                                id="genderFemale" value="female">
+                                            <label class="form-check-label" for="genderFemale">Female</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="genderRadio"
+                                                id="genderOther" value="other">
+                                            <label class="form-check-label" for="genderOther">Other</label>
+                                        </div>
+                                    </div>
+
+                                    <label class="form-label required mt-3 mb-1"><strong>Marital Status</strong></label>
+                                    <div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="maritalStatusRadio"
+                                                id="maritalYes" value="yes">
+                                            <label class="form-check-label" for="maritalYes">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="maritalStatusRadio"
+                                                id="maritalNo" value="no" checked>
+                                            <label class="form-check-label" for="maritalNo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phoneNumber" class="form-label required"><strong>Phone
+                                            Number</strong></label>
+                                    <input type="tel" class="form-control" id="phoneNumber"
+                                        placeholder="Ex: 9876543210">
+                                    <label for="alternatePhoneNumber" class="form-label mt-2">Alternate Phone
+                                        Number</label>
+                                    <input type="tel" class="form-control" id="alternatePhoneNumber"
+                                        placeholder="Ex: 9998887776">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="emailId" class="form-label"><strong>Email Id</strong></label>
+                                    <input type="email" class="form-control" id="emailId"
+                                        placeholder="Ex: shivareddy88@gmail.com">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="dateOfBirth" class="form-label required"><strong>Date of
+                                            Birth</strong></label>
+                                    <input type="date" class="form-control" id="dateOfBirth" placeholder="mm/dd/yyyy">
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="age" class="form-label"><strong>Age</strong></label>
+                                    <input type="text" class="form-control" id="age" value="00 year" readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="ageGroup" class="form-label"><strong>Age Group</strong></label>
+                                    <select class="form-select" id="ageGroup">
+                                        <option selected>Adult</option>
+                                        <option>Child</option>
+                                        <option>Senior</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="idProofUpload" class="form-label required"><strong>Upload ID
+                                            Proof </strong> <small>{Aadhar-card}</small> <small
+                                            class="text-secondary">(PDF, PNG, JPG,
+                                            JPEG)</small></label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="idProofUpload"
+                                            accept=".pdf,.png,.jpg,.jpeg">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="aadhaarCardNumber" class="form-label required"><strong>Aadhaar Card
+                                            Number</strong></label>
+                                    <input type="text" class="form-control" id="aadhaarCardNumber"
+                                        placeholder="Ex: 123489558745">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="panCardNumber" class="form-label"><strong>PAN Card
+                                            Number</strong></label>
+                                    <input type="text" class="form-control" id="panCardNumber"
+                                        placeholder="Ex: AAAPA1234A">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="signatureUpload" class="form-label"><strong>Employee
+                                            Signature</strong><small
+                                            class="text-secondary">(PNG,JPG,JPEG)</small></label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="signatureUpload"
+                                            accept=".png,.jpg,.jpeg">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="bloodGroup" class="form-label"><strong>Blood Group</strong></label>
+                                    <select class="form-select" id="bloodGroup">
+                                        <option selected>Select Blood Group</option>
+                                        <option>A+</option>
+                                        <option>A-</option>
+                                        <option>B+</option>
+                                        <option>B-</option>
+                                        <option>AB+</option>
+                                        <option>AB-</option>
+                                        <option>O+</option>
+                                        <option>O-</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="button" class="btn btn-success tab-navigation"
+                                    data-target-tab-id="address-tab">Next <i
+                                        class="fas fa-arrow-right ms-2"></i></button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                        <form>
+                            <h6 class="mb-3"><strong>Current address:</strong></h6>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <label for="currentArea" class="form-label required"><strong>Area</strong></label>
+                                    <input type="text" class="form-control" id="currentArea"
+                                        placeholder="Search by area or pincode">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="currentCity" class="form-label required"><strong>City</strong></label>
+                                    <select class="form-select" id="currentCity">
+                                        <option selected>Select City</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="currentState" class="form-label required"><strong>State</strong></label>
+                                    <select class="form-select" id="currentState">
+                                        <option selected>Select State</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="currentCountry"
+                                        class="form-label required"><strong>Country</strong></label>
+                                    <select class="form-select" id="currentCountry">
+                                        <option selected>Select Country</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-12">
+                                    <label for="currentFriendlyAddress" class="form-label required"><strong>Friendly
+                                            Address</strong></label>
+                                    <textarea class="form-control" id="currentFriendlyAddress" rows="3"
+                                        placeholder="Flat no. 408, Annapoorna Block, ADITYA ENCLAVE, Kumar Basti, Ameerpet, Hyderabad, Telangana 500016"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="sameAsCurrentAddress"
+                                    checked>
+                                <label class="form-check-label" for="sameAsCurrentAddress">
+                                    <strong>Permanent Address Same as Current Address</strong>
+                                </label>
+                            </div>
+
+                            <div id="permanentAddressFields" style="display: none;">
+                                <h6 class="mb-3"><strong>Permanent address:</strong></h6>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-3">
+                                        <label for="permanentArea"
+                                            class="form-label required"><strong>Area</strong></label>
+                                        <input type="text" class="form-control" id="permanentArea"
+                                            placeholder="Search by area or pincode">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="permanentCity"
+                                            class="form-label required"><strong>City</strong></label>
+                                        <select class="form-select" id="permanentCity">
+                                            <option selected>Select City</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="permanentState"
+                                            class="form-label required"><strong>State</strong></label>
+                                        <select class="form-select" id="permanentState">
+                                            <option selected>Select State</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="permanentCountry"
+                                            class="form-label required"><strong>Country</strong></label>
+                                        <select class="form-select" id="permanentCountry">
+                                            <option selected>Select Country</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-12">
+                                        <label for="permanentFriendlyAddress"
+                                            class="form-label required"><strong>Friendly
+                                                Address</strong></label>
+                                        <textarea class="form-control" id="permanentFriendlyAddress" rows="3"
+                                            placeholder="Flat no., Street Name, Landmark, etc."></textarea>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+
+
+                            <div class="row g-3 mb-5">
+                                <div class="col-md-4">
+                                    <label for="guardianContact" class="form-label required"><strong>Guardian
+                                            Contact</strong></label>
+                                    <input type="tel" class="form-control" id="guardianContact"
+                                        placeholder="Ex: 9876543210">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="guardianName" class="form-label required"><strong>Guardian
+                                            Name</strong></label>
+                                    <input type="text" class="form-control" id="guardianName"
+                                        placeholder="Ex: Pawan Reddy">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="guardianRelation" class="form-label required"><strong>Guardian
+                                            Relation</strong></label>
+                                    <select class="form-select" id="guardianRelation">
+                                        <option selected>Select Relation</option>
+                                        <option>Father</option>
+                                        <option>Mother</option>
+                                        <option>Spouse</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary tab-navigation"
+                                    data-target-tab-id="personal-details-tab">
+                                    <i class="fas fa-arrow-left me-2"></i> Previous
+                                </button>
+                                <button type="button" class="btn btn-success tab-navigation"
+                                    data-target-tab-id="edu-qualification-tab">
+                                    Next <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="edu-qualification" role="tabpanel"
+                        aria-labelledby="edu-qualification-tab">
+                        <form id="educationTableForm">
+
+                            <h6 class="mb-3"><strong>Education Qualification Details:</strong></h6>
+
+                            <div class="table-responsive">
+                                <table class="table custom-table align-middle" id="educationTable">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Scholling/Degree</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Streams/Branch</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Institution Name</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                YOP</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Pct or Grade</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Reg.No</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Issue Date</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                State Coucil</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Certificate Attachment</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;"
+                                                class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="educationTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary tab-navigation"
+                                    data-target-tab-id="address-tab">
+                                    <i class="fas fa-arrow-left me-2"></i> Previous
+                                </button>
+                                <button type="button" class="btn btn-success tab-navigation"
+                                    data-target-tab-id="work-experience-tab">
+                                    Next <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <div class="tab-pane fade" id="work-experience" role="tabpanel"
+                        aria-labelledby="work-experience-tab">
+                        <form id="workExperienceTableForm">
+                            <h6 class="mb-3"><strong>Work Experience Details:</strong></h6>
+                            <div class="table-responsive">
+                                <table class="table custom-table align-middle" id="workExperienceTable">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Organization Name</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Role/Designation</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Date of joining</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Date of leaving</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Duration(Years)</th>
+                                            <th scope="col" style="background-color: rgb(48, 72, 156); color: white;">
+                                                Certificate Attachment (PDF,PNG,JPG,JPEG)</th>
+                                            <th scope="col" class="text-center"
+                                                style="background-color: rgb(48, 72, 156); color: white;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="workExperienceTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary tab-navigation"
+                                    data-target-tab-id="edu-qualification-tab">
+                                    <i class="fas fa-arrow-left me-2"></i> Previous
+                                </button>
+                                <button type="button" class="btn btn-success tab-navigation"
+                                    data-target-tab-id="employment-details-tab">
+                                    Next <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="employment-details" role="tabpanel"
+                        aria-labelledby="employment-details-tab">
+                        <form>
+                            <div class="row g-3">
+
+                                <div class="col-md-3">
+                                    <label for="department"
+                                        class="form-label required"><strong>Department</strong></label>
+                                    <select class="form-select" id="department" required>
+                                        <option value="" selected>Select Department</option>
+                                        <option value="Nursing">Nursing</option>
+                                        <option value="Pathology">Pathology</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="Emergency">Emergency</option>
+                                        <option value="ICU">ICU</option>
+                                        <option value="Pharmacy">Pharmacy</option>
+                                        <option value="HRM">HRM</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="designation"
+                                        class="form-label required"><strong>Designation</strong></label>
+                                    <select class="form-select" id="designation" required>
+                                        <option value="" selected>Select Designation</option>
+                                        <option value="Staff Nurse">Staff Nurse</option>
+                                        <option value="Attender">Attender</option>
+                                        <option value="Technician">Technician</option>
+                                        <option value="Doctor">Doctor (Consultant)</option>
+                                        <option value="Manager">Manager</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="jobtype" class="form-label required"><strong>Job Type</strong></label>
+                                    <select class="form-select" id="jobtype" required>
+                                        <option value="" selected>Select Job Type</option>
+                                        <option value="Full-Time">Full-Time</option>
+                                        <option value="Part-Time">Part-Time</option>
+                                        <option value="Contractual">Contractual</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="dateOfJoining" class="form-label required"><strong>Date of
+                                            Joining</strong></label>
+                                    <input type="date" class="form-control" id="dateOfJoining" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="appraisals" class="form-label required"><strong>Appraisals
+                                            Repetition</strong></label>
+                                    <select class="form-select" id="appraisals" required>
+                                        <option value="" selected>Select Appraisals Repetition</option>
+                                        <option value="Yearly">Yearly(Anually)</option>
+                                        <option value="Half-Yearly">Half-Yearly(Bi-Anually)</option>
+                                        <option value="Quaterly">Quaterly</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary tab-navigation"
+                                    data-target-tab-id="work-experience-tab">
+                                    <i class="fas fa-arrow-left me-2"></i> Previous
+                                </button>
+                                <button type="button" class="btn btn-success tab-navigation"
+                                    data-target-tab-id="salary-details-tab">
+                                    Next <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="salary-details" role="tabpanel" aria-labelledby="salary-details-tab">
+                        <form>
+                            <h6 class="mb-3"><strong>Bank Details:</strong></h6>
+                            <div class="row g-3 mb-4">
+
+                                <div class="col-md-3">
+                                    <label for="bankName" class="form-label required"><strong>Bank Name</strong></label>
+                                    <input type="text" class="form-control" id="bankName"
+                                        placeholder="Ex: State Bank of India" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="branchName" class="form-label required"><strong>Branch
+                                            Name</strong></label>
+                                    <input type="text" class="form-control" id="branchName"
+                                        placeholder="Ex: Ameerpet Branch" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="accountNumber" class="form-label required"><strong>Account
+                                            Number</strong></label>
+                                    <input type="text" class="form-control" id="accountNumber"
+                                        placeholder="Enter account number" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="ifscCode" class="form-label required"><strong>IFSC Code</strong></label>
+                                    <input type="text" class="form-control" id="ifscCode" placeholder="Ex: SBIN0001234"
+                                        required>
+                                </div>
+
+                            </div>
+
+                            <h6 class="mb-3"><strong>Salary Figures:</strong></h6>
+                            <div class="row g-3">
+
+                                <div class="col-md-3">
+                                    <label for="monthlySalary" class="form-label required"><strong>Monthly
+                                            Salary</strong></label>
+                                    <input type="number" class="form-control" id="monthlySalary"
+                                        placeholder="Enter monthly net salary" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="annualSalary" class="form-label required"><strong>Annual
+                                            Salary</strong></label>
+                                    <input type="number" class="form-control" id="annualSalary"
+                                        placeholder="Calculated Annual Salary" required>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary tab-navigation"
+                                    data-target-tab-id="employment-details-tab">
+                                    <i class="fas fa-arrow-left me-2"></i> Previous
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    Submit <i class="fas fa-check ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Footer -->
+            <footer>
+                <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+                    <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
+                    <p>Design & develop by Peramsons Software</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="modal fade" id="lastRowModal" tabindex="-1" aria-labelledby="lastRowModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="lastRowModalLabel"><i class="fas fa-exclamation-triangle me-2"></i>
+                        Cannot Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You must **maintain at least one entry** in the table.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <script crossorigin="anonymous" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Use a single DOMContentLoaded block for all custom scripts
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // =========================================================
+            // 1. REQUIRED ASTERISK FIX
+            // Adds red asterisk (*) to all labels with the 'required' class
+            // =========================================================
+            const labels = document.querySelectorAll('.form-label.required');
+            labels.forEach(label => {
+                // Check if the asterisk is already added to prevent duplicates
+                if (!label.querySelector('.required-asterisk')) {
+                    const asteriskSpan = document.createElement('span');
+                    asteriskSpan.className = 'required-asterisk';
+                    asteriskSpan.style.color = 'red';
+                    asteriskSpan.innerHTML = ' *';
+
+                    // Append the asterisk to the label element
+                    label.appendChild(asteriskSpan);
+                }
+            });
+
+            // =========================================================
+            // 2. ADDRESS TAB LOGIC (Permanent Address Toggle)
+            // =========================================================
+            const addressCheckbox = document.getElementById('sameAsCurrentAddress');
+            const permanentFieldsDiv = document.getElementById('permanentAddressFields');
+
+            // Function to toggle display
+            function togglePermanentAddressFields() {
+                // If checked, hide the permanent address fields.
+                // If unchecked, show them using 'block' for the container div.
+                if (addressCheckbox.checked) {
+                    permanentFieldsDiv.style.display = 'none';
+                } else {
+                    permanentFieldsDiv.style.display = 'block';
+                }
+            }
+
+            // Initial check on load (Since it's checked by default, it will hide them)
+            togglePermanentAddressFields();
+
+            // Add event listener to toggle on change
+            addressCheckbox.addEventListener('change', togglePermanentAddressFields);
+
+            // =========================================================
+            // 3. TAB NAVIGATION LOGIC (Previous/Next Buttons)
+            // =========================================================
+            document.querySelectorAll('.tab-navigation').forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetTabId = this.getAttribute('data-target-tab-id');
+
+                    if (targetTabId) {
+                        const targetTabElement = document.getElementById(targetTabId);
+
+                        // Check if Bootstrap is available and the target element exists
+                        if (window.bootstrap && targetTabElement) {
+                            // Get the Bootstrap Tab instance for the target tab button
+                            const tab = new bootstrap.Tab(targetTabElement);
+                            tab.show();
+                        }
+                    }
+                });
+            });
+
+            // =========================================================
+            // 4. EDUCATION QUALIFICATION DYNAMIC TABLE SCRIPT (with inline buttons)
+            // =========================================================
+            const tableBody = document.getElementById('educationTableBody');
+            let rowCounter = 0;
+
+            // Function to create the HTML for a new table row with fields
+            function createNewRow(id) {
+                // Combine both Add and Remove buttons into one HTML string for the Action column
+                const actionButtonsHtml = `
+                <div class = "d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-success add-education-inline" title="Add New Row">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger remove-education-row ms-1" title="Remove">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>`;
+
+                const selectOptions = `
+                    <option value="" selected>Select</option>
+                    <option value="B.E / B.Tech">B.E / B.Tech</option>
+                    <option value="M.E / M.Tech">M.E / M.Tech</option>
+                    <option value="Degree">Degree</option>
+                    <option value="Post-Graduation">Post-Graduation</option>
+                    <option value="HSC">HSC (12th)</option>
+                    <option value="SSC">SSC (10th)</option>
+                `;
+
+                const row = document.createElement('tr');
+                row.setAttribute('data-row-id', id);
+                row.innerHTML = `
+                    <td>
+                        <select class="form-select form-select-sm" name="degree_${id}" required>
+                            ${selectOptions}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="stream_${id}" placeholder="Ex: CSE" required>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="institution_${id}" placeholder="Ex: JNTUH" required>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control form-control-sm" name="yop_${id}" placeholder="YYYY" required min="1900" max="${new Date().getFullYear()}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="pct_grade_${id}" placeholder="Ex: 8.5" required>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="reg_no_${id}" placeholder="Reg No">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control form-control-sm" name="issue_date_${id}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="state_council_${id}" placeholder="Council Name">
+                    </td>
+                    <td>
+                        <input type="file" class="form-control form-control-sm" name="certificate_${id}" accept=".pdf,.png,.jpg,.jpeg">
+                    </td>
+                    <td class="text-center">
+                        ${actionButtonsHtml}
+                    </td>
+                `;
+                return row;
+            }
+
+            // Add Row Functionality: increments counter and appends new row
+            function addRow() {
+                rowCounter++;
+                const newRow = createNewRow(rowCounter);
+                tableBody.appendChild(newRow);
+            }
+
+            // Handle both Add (+) and Remove (-) actions via delegation on the table body
+            tableBody.addEventListener('click', function (e) {
+
+                // Add Row functionality (clicking the new inline '+' button)
+                if (e.target.closest('.add-education-inline')) {
+                    addRow();
+                }
+
+                // Remove Row functionality (clicking the delete button)
+                if (e.target.closest('.remove-education-row')) {
+                    const rowToRemove = e.target.closest('tr');
+                    if (rowToRemove) {
+                        // Logic to prevent removing the last remaining row
+                        if (tableBody.children.length > 1) {
+                            rowToRemove.remove();
+                        } else {
+                            // === MODAL TRIGGER REPLACEMENT FOR ALERT() ===
+                            const lastRowModalElement = document.getElementById('lastRowModal');
+                            // Ensure Bootstrap JS is loaded before creating the Modal object
+                            if (window.bootstrap && lastRowModalElement) {
+                                const lastRowModal = new bootstrap.Modal(lastRowModalElement);
+                                lastRowModal.show();
+                            } else {
+                                // Fallback if Bootstrap JS fails to load
+                                alert("You must maintain at least one education entry.");
+                            }
+                            // ===========================================
+                        }
+                    }
+                }
+            });
+
+            // Load the initial row when the page loads
+            addRow();
+
+
+            // =========================================================
+            // 5. WORK EXPERIENCE DYNAMIC TABLE SCRIPT
+            // =========================================================
+            const workTableBody = document.getElementById('workExperienceTableBody');
+            let workRowCounter = 0;
+
+            // Function to create the HTML for a new table row
+            function createNewWorkRow(id) {
+                const actionButtonsHtml = `
+                    <div class="d-flex justify-content-center"> 
+                        <button type="button" class="btn btn-sm btn-success add-work-inline" title="Add New Row">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger remove-work-row ms-1" title="Remove">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>`;
+
+                const row = document.createElement('tr');
+                row.setAttribute('data-row-id', id);
+                row.innerHTML = `
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="designation_${id}" placeholder="Ex: ABC Corp" required>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="employer_name_${id}" placeholder="Ex: Software Eng." required>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control form-control-sm" name="from_date_${id}" required>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control form-control-sm" name="to_date_${id}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm" name="exp_years_${id}" placeholder="Ex: 2 years" readonly>
+                    </td>
+                    <td>
+                        <input type="file" class="form-control form-control-sm" name="appt_attachment_${id}" accept=".pdf,.png,.jpg,.jpeg">
+                    </td>
+                    <td class="text-center">
+                        ${actionButtonsHtml}
+                    </td>
+                `;
+                return row;
+            }
+
+            // Add Row Functionality
+            function addWorkRow() {
+                workRowCounter++;
+                const newRow = createNewWorkRow(workRowCounter);
+                workTableBody.appendChild(newRow);
+            }
+
+            // Handle both Add (+) and Remove (-) actions via delegation on the table body
+            workTableBody.addEventListener('click', function (e) {
+
+                // Add Row functionality (clicking the new inline '+' button)
+                if (e.target.closest('.add-work-inline')) {
+                    addWorkRow();
+                }
+
+                // Remove Row functionality (clicking the delete button)
+                if (e.target.closest('.remove-work-row')) {
+                    const rowToRemove = e.target.closest('tr');
+                    if (rowToRemove) {
+                        // Logic to prevent removing the last remaining row
+                        if (workTableBody.children.length > 1) {
+                            rowToRemove.remove();
+                        } else {
+                            // Modal Trigger (using the same education modal)
+                            const lastRowModalElement = document.getElementById('lastRowModal');
+                            if (window.bootstrap && lastRowModalElement) {
+                                const lastRowModal = new bootstrap.Modal(lastRowModalElement);
+                                lastRowModal.show();
+                            } else {
+                                alert("You must maintain at least one work experience entry.");
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Load the initial row when the page loads
+            addWorkRow();
+
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>
