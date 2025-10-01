@@ -497,7 +497,8 @@
                 <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-flask"></i> Centres</a>
 
                 <div class="menu-category">Human Resource Management</div>
-                <a href="employees.html" class="list-group-item list-group-item-action active"><i class="fas fa-users"></i>
+                <a href="employees.html" class="list-group-item list-group-item-action active"><i
+                        class="fas fa-users"></i>
                     Employees</a>
                 <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-sitemap"></i> Unit
                     Management</a>
@@ -813,18 +814,54 @@
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
-            <footer>
-                <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
-                    <p>R.V.M Hospitals © Peramson Software. All Rights Reserved.</p>
-                    <p>Design & develop by Peramsons Software</p>
-                </div>
-            </footer>
+
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
+            <p class="mb-0">Ramana Hospitals © Peramson Software.All Rights Reserved.</p>
+            <p class="mb-0">Design &amp; develop by Peramsons Software</p>
+        </div>
+    </footer>
 </body>
 <script crossorigin="anonymous" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const footer = document.querySelector("footer");
 
+        function adjustFooter() {
+            if (window.innerWidth <= 768) {
+                footer.style.position = "static";
+                footer.style.width = "100%";
+                footer.style.left = "0";
+                footer.style.bottom = "auto";
+            } else {
+                footer.style.position = "fixed";
+                footer.style.bottom = "0";
+                footer.style.left = "28.1ch";  // your original value
+                footer.style.width = "83.6%"; // your original value
+            }
+        }
+
+        // Run once on load
+        adjustFooter();
+
+        // Run on resize to keep it responsive
+        window.addEventListener("resize", adjustFooter);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector(".sidebar");
+        const toggleBtn = document.querySelector(".sidebar-toggle");
+
+        toggleBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("active");
+        });
+
+        renderTable();
+    });
+</script>
 
 </html>
