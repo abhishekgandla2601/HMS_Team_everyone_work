@@ -578,6 +578,37 @@
 
   <br><br><br>
 
+   <!-- top nav button -->
+  <button type="button" class="btn btn-danger" id="scrollTopBtn" style="
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 9999;
+    display: none;
+  " onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      // Show button when scrolled down 200px, hide when near top
+      if (window.scrollY > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    });
+
+    // Optional: hide it again after scrolling to top
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        scrollBtn.style.display = "none";
+      }, 600); // matches the smooth scroll duration
+    });
+  </script>
   <!-- Footer -->
   <footer>
     <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
