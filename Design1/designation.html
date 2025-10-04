@@ -411,7 +411,8 @@
         <div class="menu-category">Diagnostics</div>
         <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-flask"></i> Centres</a>
         <div class="menu-category">Human Resource Management</div>
-        <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i> Employees</a>
+        <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i>
+          Employees</a>
         <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-sitemap"></i> Unit
           Management</a>
         <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-graduation-cap"></i>
@@ -827,12 +828,44 @@
             <br>
           </div>
         </div>
-<!-- 
-      <nav>
-      <button type="button" class="btn btn-danger" style="float: right;" >
-      <i class="bi bi-arrow-up"></i>
-      </button>
-      </nav> -->
+      </div>
+
+      <!-- top nav button -->
+  <button type="button" class="btn btn-danger" id="scrollTopBtn" style="
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 9999;
+    display: none;
+  " onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      // Show button when scrolled down 200px, hide when near top
+      if (window.scrollY > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    });
+
+    // Optional: hide it again after scrolling to top
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        scrollBtn.style.display = "none";
+      }, 600); // matches the smooth scroll duration
+    });
+  </script>
+
+  
+      <!-- Footer -->
+
+
 
       <footer class="site-footer">
         <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
@@ -848,38 +881,38 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-(() => {
-  // -------------------- Sample Data --------------------
-  let data = [
-    { id: 1, department: 'Cardiology', name: 'Doctor', code: 'DR', status: 'Active', date: '22-04-25,08:30 PM', desc: 'Cardiology doctor' },
-    { id: 2, department: 'Oncology', name: 'Doctor', code: 'DR', status: 'Active', date: '23-04-25,10:30 AM', desc: 'Oncology doctor' }
-  ];
+    (() => {
+      // -------------------- Sample Data --------------------
+      let data = [
+        { id: 1, department: 'Cardiology', name: 'Doctor', code: 'DR', status: 'Active', date: '22-04-25,08:30 PM', desc: 'Cardiology doctor' },
+        { id: 2, department: 'Oncology', name: 'Doctor', code: 'DR', status: 'Active', date: '23-04-25,10:30 AM', desc: 'Oncology doctor' }
+      ];
 
-  let editId = null;
-  let deleteId = null;
+      let editId = null;
+      let deleteId = null;
 
-  // -------------------- Utilities --------------------
-  const esc = s => s == null ? '' : String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-  const isMobile = () => window.innerWidth <= 768;
+      // -------------------- Utilities --------------------
+      const esc = s => s == null ? '' : String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+      const isMobile = () => window.innerWidth <= 768;
 
-  // -------------------- Table Rendering --------------------
-  const renderTable = (items = data) => {
-    const tbody = document.getElementById('designationsTableBody');
-    if (!tbody) return;
+      // -------------------- Table Rendering --------------------
+      const renderTable = (items = data) => {
+        const tbody = document.getElementById('designationsTableBody');
+        if (!tbody) return;
 
-    tbody.innerHTML = items.length === 0
-      ? '<tr><td class="text-center" colspan="6">No records found</td></tr>'
-      : '';
+        tbody.innerHTML = items.length === 0
+          ? '<tr><td class="text-center" colspan="6">No records found</td></tr>'
+          : '';
 
-    items.forEach((row, idx) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
+        items.forEach((row, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
         <td>${idx + 1}</td>
         <td>${esc(row.department)}</td>
         <td>${esc(row.code)}</td>
-        <td>${row.status === 'Active' 
-          ? '<span class="badge text-bg-success">Active</span>' 
-          : '<span class="badge text-bg-danger">Deactive</span>'}</td>
+        <td>${row.status === 'Active'
+              ? '<span class="badge text-bg-success">Active</span>'
+              : '<span class="badge text-bg-danger">Deactive</span>'}</td>
         <td>${esc(row.date)}</td>
         <td>
           <div class="btn view-btn" style="background-color: rgb(48, 72, 156);" data-bs-toggle="modal" data-bs-target="#view" data-id="${row.id}">
@@ -900,191 +933,191 @@
           </div>
         </td>
       `;
-      tbody.appendChild(tr);
-    });
-  };
+          tbody.appendChild(tr);
+        });
+      };
 
-  // -------------------- Modals Handling --------------------
-  const initModal = (modalId, callback) => {
-    const el = document.getElementById(modalId);
-    if (!el) return;
-    el.addEventListener('show.bs.modal', callback);
-  };
+      // -------------------- Modals Handling --------------------
+      const initModal = (modalId, callback) => {
+        const el = document.getElementById(modalId);
+        if (!el) return;
+        el.addEventListener('show.bs.modal', callback);
+      };
 
-  // View Modal
-  initModal('view', (e) => {
-    const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
-    if (!rec) return;
-    document.getElementById('viewDept').innerText = rec.department;
-    document.getElementById('viewName').innerText = rec.name;
-    document.getElementById('viewCode').innerText = rec.code;
-    document.getElementById('viewStatusCell').innerHTML = rec.status === 'Active'
-      ? '<span class="badge text-bg-success">Active</span>'
-      : '<span class="badge text-bg-danger">Deactive</span>';
-    document.getElementById('viewDate').innerText = rec.date;
-    document.getElementById('viewDesc').innerText = rec.desc || '';
-  });
+      // View Modal
+      initModal('view', (e) => {
+        const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
+        if (!rec) return;
+        document.getElementById('viewDept').innerText = rec.department;
+        document.getElementById('viewName').innerText = rec.name;
+        document.getElementById('viewCode').innerText = rec.code;
+        document.getElementById('viewStatusCell').innerHTML = rec.status === 'Active'
+          ? '<span class="badge text-bg-success">Active</span>'
+          : '<span class="badge text-bg-danger">Deactive</span>';
+        document.getElementById('viewDate').innerText = rec.date;
+        document.getElementById('viewDesc').innerText = rec.desc || '';
+      });
 
-  // Edit Modal
-  initModal('edit', (e) => {
-    const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
-    if (!rec) return;
-    editId = rec.id;
-    document.getElementById('deptEdit').value = rec.department;
-    document.getElementById('nameEdit').value = rec.name;
-    document.getElementById('codeEdit').value = rec.code;
-    document.getElementById('descEdit').value = rec.desc || '';
-    document.getElementById('statusEdit').value = rec.status;
-  });
+      // Edit Modal
+      initModal('edit', (e) => {
+        const rec = data.find(d => d.id == e.relatedTarget.dataset.id);
+        if (!rec) return;
+        editId = rec.id;
+        document.getElementById('deptEdit').value = rec.department;
+        document.getElementById('nameEdit').value = rec.name;
+        document.getElementById('codeEdit').value = rec.code;
+        document.getElementById('descEdit').value = rec.desc || '';
+        document.getElementById('statusEdit').value = rec.status;
+      });
 
-  // Delete Modal
-  initModal('delete', (e) => {
-    deleteId = Number(e.relatedTarget.dataset.id);
-    const rec = data.find(d => d.id === deleteId);
-    document.getElementById('deleteName').innerText = rec ? rec.name : '';
-  });
+      // Delete Modal
+      initModal('delete', (e) => {
+        deleteId = Number(e.relatedTarget.dataset.id);
+        const rec = data.find(d => d.id === deleteId);
+        document.getElementById('deleteName').innerText = rec ? rec.name : '';
+      });
 
-  // -------------------- CRUD --------------------
-  const createRecord = () => {
-    const dept = document.getElementById('deptCreate').value.trim();
-    const name = document.getElementById('nameCreate').value.trim();
-    const code = document.getElementById('codeCreate').value.trim();
-    const desc = document.getElementById('descCreate').value.trim();
-    const status = document.getElementById('statusCreate').value || 'Active';
+      // -------------------- CRUD --------------------
+      const createRecord = () => {
+        const dept = document.getElementById('deptCreate').value.trim();
+        const name = document.getElementById('nameCreate').value.trim();
+        const code = document.getElementById('codeCreate').value.trim();
+        const desc = document.getElementById('descCreate').value.trim();
+        const status = document.getElementById('statusCreate').value || 'Active';
 
-    if (!dept || !name || !code) return alert('Please fill required fields');
+        if (!dept || !name || !code) return alert('Please fill required fields');
 
-    data.push({
-      id: Date.now(),
-      department: dept,
-      name,
-      code,
-      status,
-      date: new Date().toLocaleString(),
-      desc
-    });
+        data.push({
+          id: Date.now(),
+          department: dept,
+          name,
+          code,
+          status,
+          date: new Date().toLocaleString(),
+          desc
+        });
 
-    renderTable();
-    document.getElementById('designationForm')?.reset();
-    bootstrap.Modal.getInstance(document.getElementById('exampleModal'))?.hide();
-  };
+        renderTable();
+        document.getElementById('designationForm')?.reset();
+        bootstrap.Modal.getInstance(document.getElementById('exampleModal'))?.hide();
+      };
 
-  const updateRecord = () => {
-    if (!editId) return;
-    const rec = data.find(d => d.id === editId);
-    if (!rec) return;
+      const updateRecord = () => {
+        if (!editId) return;
+        const rec = data.find(d => d.id === editId);
+        if (!rec) return;
 
-    const dept = document.getElementById('deptEdit').value.trim();
-    const name = document.getElementById('nameEdit').value.trim();
-    const code = document.getElementById('codeEdit').value.trim();
-    const desc = document.getElementById('descEdit').value.trim();
-    const status = document.getElementById('statusEdit').value;
+        const dept = document.getElementById('deptEdit').value.trim();
+        const name = document.getElementById('nameEdit').value.trim();
+        const code = document.getElementById('codeEdit').value.trim();
+        const desc = document.getElementById('descEdit').value.trim();
+        const status = document.getElementById('statusEdit').value;
 
-    if (!dept || !name || !code) return alert('Please fill required fields');
+        if (!dept || !name || !code) return alert('Please fill required fields');
 
-    Object.assign(rec, { department: dept, name, code, desc, status, date: new Date().toLocaleString() });
-    renderTable();
-    bootstrap.Modal.getInstance(document.getElementById('edit'))?.hide();
-    editId = null;
-  };
+        Object.assign(rec, { department: dept, name, code, desc, status, date: new Date().toLocaleString() });
+        renderTable();
+        bootstrap.Modal.getInstance(document.getElementById('edit'))?.hide();
+        editId = null;
+      };
 
-  const deleteRecord = () => {
-    if (!deleteId) return;
-    data = data.filter(d => d.id !== deleteId);
-    renderTable();
-    bootstrap.Modal.getInstance(document.getElementById('delete'))?.hide();
-    deleteId = null;
-  };
+      const deleteRecord = () => {
+        if (!deleteId) return;
+        data = data.filter(d => d.id !== deleteId);
+        renderTable();
+        bootstrap.Modal.getInstance(document.getElementById('delete'))?.hide();
+        deleteId = null;
+      };
 
-  // -------------------- Search --------------------
-  const searchTable = (query) => {
-    query = query.trim().toLowerCase();
-    renderTable(
-      query
-        ? data.filter(d =>
-            (d.department || '').toLowerCase().includes(query) ||
-            (d.name || '').toLowerCase().includes(query) ||
-            (d.code || '').toLowerCase().includes(query) ||
-            (d.status || '').toLowerCase().includes(query) ||
-            (d.date || '').toLowerCase().includes(query)
-          )
-        : data
-    );
-  };
+      // -------------------- Search --------------------
+      const searchTable = (query) => {
+        query = query.trim().toLowerCase();
+        renderTable(
+          query
+            ? data.filter(d =>
+              (d.department || '').toLowerCase().includes(query) ||
+              (d.name || '').toLowerCase().includes(query) ||
+              (d.code || '').toLowerCase().includes(query) ||
+              (d.status || '').toLowerCase().includes(query) ||
+              (d.date || '').toLowerCase().includes(query)
+            )
+            : data
+        );
+      };
 
-  // -------------------- Sidebar & Footer --------------------
-  const initSidebar = () => {
-    const sidebar = document.querySelector('.sidebar');
-    const toggleBtn = document.getElementById('sidebarToggle');
-    const mainContent = document.querySelector('.main-content');
-    const footer = document.querySelector('.site-footer');
+      // -------------------- Sidebar & Footer --------------------
+      const initSidebar = () => {
+        const sidebar = document.querySelector('.sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const mainContent = document.querySelector('.main-content');
+        const footer = document.querySelector('.site-footer');
 
-    if (!sidebar || !toggleBtn) return;
+        if (!sidebar || !toggleBtn) return;
 
-    const toggleSidebar = () => {
-      sidebar.classList.toggle('active');
-      mainContent?.classList.toggle('shifted');
-      if (isMobile()) footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
-    };
+        const toggleSidebar = () => {
+          sidebar.classList.toggle('active');
+          mainContent?.classList.toggle('shifted');
+          if (isMobile()) footer?.classList.toggle('footer-shift', sidebar.classList.contains('active'));
+        };
 
-    toggleBtn.addEventListener('click', toggleSidebar);
+        toggleBtn.addEventListener('click', toggleSidebar);
 
-    // Close sidebar if clicking outside on mobile
-    document.addEventListener('click', e => {
-      if (!isMobile() || !sidebar.classList.contains('active')) return;
-      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
-        sidebar.classList.remove('active');
-        mainContent?.classList.remove('shifted');
-        footer?.classList.remove('footer-shift');
-      }
-    });
+        // Close sidebar if clicking outside on mobile
+        document.addEventListener('click', e => {
+          if (!isMobile() || !sidebar.classList.contains('active')) return;
+          if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+            mainContent?.classList.remove('shifted');
+            footer?.classList.remove('footer-shift');
+          }
+        });
 
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && isMobile()) {
-        sidebar.classList.remove('active');
-        mainContent?.classList.remove('shifted');
-        footer?.classList.remove('footer-shift');
-      }
-    });
+        // Close sidebar on Escape key
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && isMobile()) {
+            sidebar.classList.remove('active');
+            mainContent?.classList.remove('shifted');
+            footer?.classList.remove('footer-shift');
+          }
+        });
 
-    // Adjust footer on resize
-    const adjustFooter = () => {
-      if (!footer) return;
-      if (isMobile()) {
-        Object.assign(footer.style, { position: 'static', width: '100%', left: '0', bottom: 'auto' });
-      } else {
-        Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
-      }
-    };
+        // Adjust footer on resize
+        const adjustFooter = () => {
+          if (!footer) return;
+          if (isMobile()) {
+            Object.assign(footer.style, { position: 'static', width: '100%', left: '0', bottom: 'auto' });
+          } else {
+            Object.assign(footer.style, { position: 'fixed', bottom: '0', left: '28.1ch', width: '83.6%' });
+          }
+        };
 
-    window.addEventListener('resize', () => {
-      if (!isMobile()) {
-        sidebar.classList.remove('active');
-        mainContent?.classList.remove('shifted');
-        footer?.classList.remove('footer-shift');
-      }
-      adjustFooter();
-    });
+        window.addEventListener('resize', () => {
+          if (!isMobile()) {
+            sidebar.classList.remove('active');
+            mainContent?.classList.remove('shifted');
+            footer?.classList.remove('footer-shift');
+          }
+          adjustFooter();
+        });
 
-    adjustFooter();
-  };
+        adjustFooter();
+      };
 
-  // -------------------- Event Bindings --------------------
-  document.addEventListener('DOMContentLoaded', () => {
-    renderTable();
+      // -------------------- Event Bindings --------------------
+      document.addEventListener('DOMContentLoaded', () => {
+        renderTable();
 
-    document.getElementById('createBtn')?.addEventListener('click', createRecord);
-    document.getElementById('updateBtn')?.addEventListener('click', updateRecord);
-    document.getElementById('confirmDelete')?.addEventListener('click', deleteRecord);
-    document.getElementById('tableSearch')?.addEventListener('input', e => searchTable(e.target.value));
+        document.getElementById('createBtn')?.addEventListener('click', createRecord);
+        document.getElementById('updateBtn')?.addEventListener('click', updateRecord);
+        document.getElementById('confirmDelete')?.addEventListener('click', deleteRecord);
+        document.getElementById('tableSearch')?.addEventListener('input', e => searchTable(e.target.value));
 
-    initSidebar();
-  });
+        initSidebar();
+      });
 
-})();
+    })();
 
-</script>
+  </script>
 
 
 </body>
