@@ -412,7 +412,8 @@
                 <div class="menu-category">Diagnostics</div>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-flask"></i> Centres</a>
                 <div class="menu-category">Human Resource Management</div>
-                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i> Employees</a>
+                <a class="list-group-item list-group-item-action" href="employees.html"><i class="fas fa-users"></i>
+                    Employees</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-sitemap"></i> Unit
                     Management</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-graduation-cap"></i>
@@ -590,22 +591,23 @@
                                 </tbody>
                             </table>
                         </div>
+                     <!-- Pagination -->
                         <nav aria-label="...">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" style="border-radius: 10px;">Previous</a>
-                                </li>  
-                                <li class="page-item"><a class="page-link" href="#"
-                                        style="border-radius: 10px; background-color: rgb(48, 72, 156); color: white;">1</a>
-                                </li>  
-                                <li class="page-item">
-                                    <a class="page-link" href="#" style="border-radius: 10px;">Next</a>
+                                <li class="page-item me-2">
+                                    <a class="page-link" href="#" id="prevPage" style="border-radius: 10px;">Previous</a>
+                                </li>
+                                <li class="page-item me-2"><a class="page-link" href="#" id="page1" style="border-radius: 10px;">1</a></li>
+                                <li class="page-item me-2"><a class="page-link" href="#" id="page2" style="border-radius: 10px;">2</a></li>
+                                <li class="page-item me-2">
+                                    <a class="page-link" href="#" id="nextPage" style="border-radius: 10px;">Next</a>
                                 </li>
                             </ul>
                         </nav>
-                    </div>
-                </div>
-            </div>
+          </div>
+        </div>
+      </div>
+
             <!-- container -->
             <div class="container">
                 <div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal" data-bs-backdrop="static"
@@ -743,37 +745,37 @@
         </div>
     </div>
 
-     <!-- top nav button -->
-  <button type="button" class="btn btn-danger" id="scrollTopBtn" style="
+    <!-- top nav button -->
+    <button type="button" class="btn btn-danger" id="scrollTopBtn" style="
     position: fixed;
     bottom: 40px;
     right: 20px;
     z-index: 9999;
     display: none;
   " onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
-    <i class="bi bi-arrow-up"></i>
-  </button>
+        <i class="bi bi-arrow-up"></i>
+    </button>
 
-  <script>
-    const scrollBtn = document.getElementById("scrollTopBtn");
+    <script>
+        const scrollBtn = document.getElementById("scrollTopBtn");
 
-    window.addEventListener("scroll", () => {
-      // Show button when scrolled down 200px, hide when near top
-      if (window.scrollY > 200) {
-        scrollBtn.style.display = "block";
-      } else {
-        scrollBtn.style.display = "none";
-      }
-    });
+        window.addEventListener("scroll", () => {
+            // Show button when scrolled down 200px, hide when near top
+            if (window.scrollY > 200) {
+                scrollBtn.style.display = "block";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        });
 
-    // Optional: hide it again after scrolling to top
-    scrollBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(() => {
-        scrollBtn.style.display = "none";
-      }, 600); // matches the smooth scroll duration
-    });
-  </script>
+        // Optional: hide it again after scrolling to top
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                scrollBtn.style.display = "none";
+            }, 600); // matches the smooth scroll duration
+        });
+    </script>
     <footer class="site-footer">
         <div class="text-secondary small p-2 d-flex justify-content-between align-items-center">
             <p class="mb-0">Ramana Hospitals © Peramson Software.All Rights Reserved.</p>
@@ -785,19 +787,53 @@
     <script>
         let Departments = [
             { id: 1, name: "DOCTOR", code: "DR", status: "Active", date: "22-04-25,08:30 PM" },
-            { id: 2, name: "Information Technology", code: "IT", status: "Deactive", date: "22-04-25,08:30 PM" }
+            { id: 2, name: "Information Technology", code: "IT", status: "Deactive", date: "22-04-25,08:30 PM" },
+            { id: 3, name: "Cardiology", code: "CARD", status: "Active", date: "23-04-25,10:15 AM" },
+            { id: 4, name: "Neurology", code: "NEU", status: "Active", date: "23-04-25,02:45 PM" },
+            { id: 5, name: "Orthopedics", code: "ORTHO", status: "Active", date: "24-04-25,09:20 AM" },
+            { id: 6, name: "Pediatrics", code: "PED", status: "Active", date: "24-04-25,11:10 AM" },
+            { id: 7, name: "Gynecology", code: "GYN", status: "Active", date: "25-04-25,01:00 PM" },
+            { id: 8, name: "Radiology", code: "RAD", status: "Deactive", date: "25-04-25,04:30 PM" },
+            { id: 9, name: "Oncology", code: "ONC", status: "Active", date: "26-04-25,03:45 PM" },
+            { id: 10, name: "Dermatology", code: "DERM", status: "Active", date: "26-04-25,05:10 PM" },
+            { id: 11, name: "ENT (Ear, Nose, Throat)", code: "ENT", status: "Active", date: "27-04-25,09:00 AM" },
+            { id: 12, name: "Emergency", code: "EMR", status: "Active", date: "27-04-25,11:20 AM" },
+            { id: 13, name: "Pharmacy", code: "PHAR", status: "Deactive", date: "27-04-25,06:40 PM" },
+            { id: 14, name: "Pathology", code: "PATH", status: "Active", date: "28-04-25,09:10 AM" },
+            { id: 15, name: "Ophthalmology", code: "OPH", status: "Active", date: "28-04-25,01:55 PM" },
+           { id: 16, name: "Anesthesiology", code: "ANES", status: "Active", date: "28-04-25,04:25 PM" },
+            { id:17, name: "Physiotherapy", code: "PHY", status: "Deactive", date: "29-04-25,09:45 AM" },
+            { id:18, name: "Urology", code: "URO", status: "Active", date: "29-04-25,03:30 PM" },
+            { id: 19, name: "Nephrology", code: "NEPH", status: "Active", date: "29-04-25,05:10 PM" },
+            { id: 20, name: "Gastroenterology", code: "GAST", status: "Active", date: "30-04-25,11:00 AM" },
+            { id: 21, name: "Pulmonology", code: "PUL", status: "Active", date: "30-04-25,02:00 PM" },
+            { id: 22, name: "Psychiatry", code: "PSY", status: "Deactive", date: "30-04-25,06:15 PM" },
+            { id: 23, name: "Dentistry", code: "DEN", status: "Active", date: "01-05-25,09:50 AM" },
+            { id: 24, name: "Surgery", code: "SURG", status: "Active", date: "01-05-25,03:40 PM" },
+            { id: 25, name: "Administration", code: "ADMIN", status: "Active", date: "02-05-25,08:30 AM" },
+            { id: 26, name: "Finance", code: "FIN", status: "Active", date: "02-05-25,10:20 AM" },
+            { id: 27, name: "Human Resources", code: "HR", status: "Active", date: "02-05-25,01:15 PM" },
+            { id: 28, name: "Security", code: "SEC", status: "Deactive", date: "03-05-25,09:25 AM" },
+            { id: 29, name: "Cafeteria", code: "CAF", status: "Active", date: "03-05-25,12:35 PM" },
+            { id: 30, name: "Housekeeping", code: "HK", status: "Active", date: "03-05-25,05:50 PM" } 
         ];
         let editId = null;
         let deleteId = null;
 
-        // Render Table
-        function renderTable() {
+        // Pagination variables
+        let currentPage = 1;
+        const pageSize = Math.ceil(Departments.length / 2); // half per page
+
+        function renderTable(page = 1) {
             const tbody = document.querySelector("table tbody");
             tbody.innerHTML = "";
-            Departments.forEach((item, index) => {
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+            const pageDepartments = Departments.slice(start, end);
+            pageDepartments.forEach((item, index) => {
                 tbody.innerHTML += `
         <tr>
-            <th scope="row">${index + 1}</th>
+            <th scope="row">${start + index + 1}</th>
             <td>${item.name}</td>
             <td>${item.code}</td>
             <td><span class="badge ${item.status === "Active" ? "text-bg-success" : "text-bg-danger"}">${item.status}</span></td>
@@ -933,7 +969,46 @@
         }
 
         // Initialize
-        document.addEventListener("DOMContentLoaded", renderTable);
+        document.addEventListener("DOMContentLoaded", function() {
+            renderTable(currentPage);
+            // Setup pagination click events
+            document.getElementById('page1').addEventListener('click', function(e) {
+                e.preventDefault();
+                currentPage = 1;
+                renderTable(currentPage);
+                setActivePage(1);
+            });
+            document.getElementById('page2').addEventListener('click', function(e) {
+                e.preventDefault();
+                currentPage = 2;
+                renderTable(currentPage);
+                setActivePage(2);
+            });
+            document.getElementById('prevPage').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(currentPage);
+                    setActivePage(currentPage);
+                }
+            });
+            document.getElementById('nextPage').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage < 2) {
+                    currentPage++;
+                    renderTable(currentPage);
+                    setActivePage(currentPage);
+                }
+            });
+            setActivePage(currentPage);
+        });
+
+        function setActivePage(page) {
+            document.getElementById('page1').style.backgroundColor = page === 1 ? 'rgb(48, 72, 156)' : '';
+            document.getElementById('page1').style.color = page === 1 ? 'white' : '';
+            document.getElementById('page2').style.backgroundColor = page === 2 ? 'rgb(48, 72, 156)' : '';
+            document.getElementById('page2').style.color = page === 2 ? 'white' : '';
+        }
 
         // Sidebar toggle for mobile
         document.addEventListener("DOMContentLoaded", function () {
@@ -975,25 +1050,25 @@
             window.addEventListener("resize", adjustFooter);
         });
         document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
 
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-      });
-    });
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+            });
+        });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleBtn = document.getElementById("sidebarToggle");
-      const mainContent = document.querySelector(".main-content");
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
+            const mainContent = document.querySelector(".main-content");
 
-      toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("active");
-        mainContent.classList.toggle("shifted");
-      });
-    });
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+                mainContent.classList.toggle("shifted");
+            });
+        });
 
 
 
