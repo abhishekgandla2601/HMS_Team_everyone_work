@@ -822,11 +822,21 @@
 
         // Pagination variables
         let currentPage = 1;
-        const pageSize = Math.ceil(Departments.length / 2); // half per page
+
+        // Return how many items to show per page (half of total, like the original behavior)
+        function getPageSize() {
+            return Math.ceil(Departments.length / 2);
+        }
+
+        function getTotalPages() {
+            const size = getPageSize();
+            return size > 0 ? Math.ceil(Departments.length / size) : 1;
+        }
 
         function renderTable(page = 1) {
             const tbody = document.querySelector("table tbody");
             tbody.innerHTML = "";
+            const pageSize = getPageSize();
             const start = (page - 1) * pageSize;
             const end = start + pageSize;
             const pageDepartments = Departments.slice(start, end);
@@ -899,17 +909,24 @@
                 record.date = new Date().toLocaleString();
                 editId = null;
             } else {
-                Departments.push({
+                const newRecord = {
                     id: Date.now(),
                     name,
                     code,
                     status,
                     date: new Date().toLocaleString()
-                });
+                };
+                Departments.push(newRecord);
+
+                // After adding, move to the page that contains the new record
+                const pageSize = getPageSize();
+                const newIndex = Departments.findIndex(d => d.id === newRecord.id);
+                currentPage = Math.floor(newIndex / pageSize) + 1;
             }
 
             document.getElementById("DeptForm").reset();
-            renderTable();
+            renderTable(currentPage);
+            renderPagination();
             bootstrap.Modal.getInstance(document.getElementById('Department')).hide();
         }
 
@@ -971,43 +988,95 @@
         // Initialize
         document.addEventListener("DOMContentLoaded", function() {
             renderTable(currentPage);
-            // Setup pagination click events
-            document.getElementById('page1').addEventListener('click', function(e) {
-                e.preventDefault();
-                currentPage = 1;
-                renderTable(currentPage);
-                setActivePage(1);
-            });
-            document.getElementById('page2').addEventListener('click', function(e) {
-                e.preventDefault();
-                currentPage = 2;
-                renderTable(currentPage);
-                setActivePage(2);
-            });
-            document.getElementById('prevPage').addEventListener('click', function(e) {
+            renderPagination();
+        });
+
+        function renderPagination() {
+            const pagination = document.querySelector('.pagination');
+            const totalPages = getTotalPages();
+            pagination.innerHTML = '';
+
+            // Previous
+            const prevLi = document.createElement('li');
+            prevLi.className = 'page-item me-2';
+            const prevA = document.createElement('a');
+            prevA.className = 'page-link';
+            prevA.href = '#';
+            prevA.id = 'prevPage';
+            prevA.style.borderRadius = '10px';
+            prevA.innerText = 'Previous';
+            prevA.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (currentPage > 1) {
                     currentPage--;
                     renderTable(currentPage);
                     setActivePage(currentPage);
+                    renderPagination();
                 }
             });
-            document.getElementById('nextPage').addEventListener('click', function(e) {
+            prevLi.appendChild(prevA);
+            pagination.appendChild(prevLi);
+
+            // Page numbers
+            for (let p = 1; p <= totalPages; p++) {
+                const li = document.createElement('li');
+                li.className = 'page-item me-2';
+                const a = document.createElement('a');
+                a.className = 'page-link';
+                a.href = '#';
+                a.innerText = p;
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentPage = p;
+                    renderTable(currentPage);
+                    setActivePage(currentPage);
+                    renderPagination();
+                });
+                li.appendChild(a);
+                pagination.appendChild(li);
+            }
+
+            // Next
+            const nextLi = document.createElement('li');
+            nextLi.className = 'page-item me-2';
+            const nextA = document.createElement('a');
+            nextA.className = 'page-link';
+            nextA.href = '#';
+            nextA.id = 'nextPage';
+            nextA.style.borderRadius = '10px';
+            nextA.innerText = 'Next';
+            nextA.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (currentPage < 2) {
+                if (currentPage < totalPages) {
                     currentPage++;
                     renderTable(currentPage);
                     setActivePage(currentPage);
+                    renderPagination();
                 }
             });
+            nextLi.appendChild(nextA);
+            pagination.appendChild(nextLi);
+
             setActivePage(currentPage);
-        });
+        }
 
         function setActivePage(page) {
-            document.getElementById('page1').style.backgroundColor = page === 1 ? 'rgb(48, 72, 156)' : '';
-            document.getElementById('page1').style.color = page === 1 ? 'white' : '';
-            document.getElementById('page2').style.backgroundColor = page === 2 ? 'rgb(48, 72, 156)' : '';
-            document.getElementById('page2').style.color = page === 2 ? 'white' : '';
+            // Clear previous styles
+            const links = document.querySelectorAll('.pagination .page-link');
+            links.forEach(link => {
+                // Reset styles for all page links
+                link.style.backgroundColor = '';
+                link.style.color = '';
+            });
+
+            // Highlight the numeric page link that matches the page
+            links.forEach(link => {
+                const text = link.innerText.trim();
+                if (!isNaN(text) && Number(text) === page) {
+                    link.style.backgroundColor = 'rgb(48, 72, 156)';
+                    link.style.color = 'white';
+                }
+            });
         }
 
         // Sidebar toggle for mobile
