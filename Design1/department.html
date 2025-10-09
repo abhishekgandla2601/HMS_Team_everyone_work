@@ -591,17 +591,10 @@
                                 </tbody>
                             </table>
                         </div>
-                     <!-- Pagination -->
+                        <!-- Pagination -->
                         <nav aria-label="...">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item me-2">
-                                    <a class="page-link" href="#" id="prevPage" style="border-radius: 10px;">Previous</a>
-                                </li>
-                                <li class="page-item me-2"><a class="page-link" href="#" id="page1" style="border-radius: 10px;">1</a></li>
-                                <li class="page-item me-2"><a class="page-link" href="#" id="page2" style="border-radius: 10px;">2</a></li>
-                                <li class="page-item me-2">
-                                    <a class="page-link" href="#" id="nextPage" style="border-radius: 10px;">Next</a>
-                                </li>
+                            <ul class="pagination justify-content-center" id="pagination">
+                                <!-- Pagination buttons will be rendered here -->
                             </ul>
                         </nav>
           </div>
@@ -801,7 +794,7 @@
             { id: 13, name: "Pharmacy", code: "PHAR", status: "Deactive", date: "27-04-25,06:40 PM" },
             { id: 14, name: "Pathology", code: "PATH", status: "Active", date: "28-04-25,09:10 AM" },
             { id: 15, name: "Ophthalmology", code: "OPH", status: "Active", date: "28-04-25,01:55 PM" },
-           { id: 16, name: "Anesthesiology", code: "ANES", status: "Active", date: "28-04-25,04:25 PM" },
+            { id: 16, name: "Anesthesiology", code: "ANES", status: "Active", date: "28-04-25,04:25 PM" },
             { id:17, name: "Physiotherapy", code: "PHY", status: "Deactive", date: "29-04-25,09:45 AM" },
             { id:18, name: "Urology", code: "URO", status: "Active", date: "29-04-25,03:30 PM" },
             { id: 19, name: "Nephrology", code: "NEPH", status: "Active", date: "29-04-25,05:10 PM" },
@@ -815,32 +808,36 @@
             { id: 27, name: "Human Resources", code: "HR", status: "Active", date: "02-05-25,01:15 PM" },
             { id: 28, name: "Security", code: "SEC", status: "Deactive", date: "03-05-25,09:25 AM" },
             { id: 29, name: "Cafeteria", code: "CAF", status: "Active", date: "03-05-25,12:35 PM" },
-            { id: 30, name: "Housekeeping", code: "HK", status: "Active", date: "03-05-25,05:50 PM" } 
+            { id: 30, name: "Housekeeping", code: "HK", status: "Active", date: "03-05-25,05:50 PM" }
         ];
+
+        // Load additional departments from localStorage, filter out invalid/undefined entries
+        const storedDepartments = localStorage.getItem('departments');
+        if (storedDepartments) {
+            try {
+                const extra = JSON.parse(storedDepartments);
+                if (Array.isArray(extra)) {
+                    Departments = Departments.concat(extra.filter(
+                        d => d && typeof d === 'object' && d.name && d.code && d.status && d.date
+                    ));
+                }
+            } catch (e) {}
+        }
         let editId = null;
         let deleteId = null;
 
-        // Pagination variables
-        let currentPage = 1;
-
-        // Return how many items to show per page (half of total, like the original behavior)
-        function getPageSize() {
-            return Math.ceil(Departments.length / 2);
-        }
-
-        function getTotalPages() {
-            const size = getPageSize();
-            return size > 0 ? Math.ceil(Departments.length / size) : 1;
-        }
+    // Pagination variables
+    let currentPage = 1;
+    const pageSize = 10; // Show 10 records per page
 
         function renderTable(page = 1) {
             const tbody = document.querySelector("table tbody");
             tbody.innerHTML = "";
-            const pageSize = getPageSize();
             const start = (page - 1) * pageSize;
             const end = start + pageSize;
             const pageDepartments = Departments.slice(start, end);
             pageDepartments.forEach((item, index) => {
+                if (!item || !item.name || !item.code || !item.status || !item.date) return;
                 tbody.innerHTML += `
         <tr>
             <th scope="row">${start + index + 1}</th>
@@ -879,6 +876,57 @@
             });
         }
 
+        // Render pagination buttons dynamically
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            const totalPages = Math.ceil(Departments.length / pageSize);
+            // Previous button
+            const prev = document.createElement('li');
+            prev.className = 'page-item me-2';
+            prev.innerHTML = `<a class="page-link" href="#" style="border-radius: 10px;">Previous</a>`;
+            prev.onclick = function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(currentPage);
+                    renderPagination();
+                }
+            };
+            pagination.appendChild(prev);
+            // Numbered page buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('li');
+                pageBtn.className = 'page-item me-2';
+                pageBtn.innerHTML = `<a class="page-link" href="#" style="border-radius: 10px;">${i}</a>`;
+                if (i === currentPage) {
+                    pageBtn.querySelector('a').style.backgroundColor = 'rgb(48, 72, 156)';
+                    pageBtn.querySelector('a').style.color = 'white';
+                }
+                pageBtn.onclick = function(e) {
+                    e.preventDefault();
+                    currentPage = i;
+                    renderTable(currentPage);
+                    renderPagination();
+                };
+                pagination.appendChild(pageBtn);
+            }
+            // Next button
+            const next = document.createElement('li');
+            next.className = 'page-item me-2';
+            next.innerHTML = `<a class="page-link" href="#" style="border-radius: 10px;">Next</a>`;
+            next.onclick = function(e) {
+                e.preventDefault();
+                const totalPages = Math.ceil(Departments.length / pageSize);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable(currentPage);
+                    renderPagination();
+                }
+            };
+            pagination.appendChild(next);
+        }
+
         function searchTable() {
             const input = document.getElementById("tableSearch").value.toLowerCase();
             const rows = document.querySelectorAll("table tbody tr");
@@ -909,19 +957,29 @@
                 record.date = new Date().toLocaleString();
                 editId = null;
             } else {
-                const newRecord = {
+                // Always add new department at the end of all records
+                const newDept = {
                     id: Date.now(),
                     name,
                     code,
                     status,
                     date: new Date().toLocaleString()
                 };
-                Departments.push(newRecord);
-
-                // After adding, move to the page that contains the new record
-                const pageSize = getPageSize();
-                const newIndex = Departments.findIndex(d => d.id === newRecord.id);
-                currentPage = Math.floor(newIndex / pageSize) + 1;
+                Departments.push(newDept);
+                // Save to localStorage
+                let extra = [];
+                const storedDepartments = localStorage.getItem('departments');
+                if (storedDepartments) {
+                    try {
+                        extra = JSON.parse(storedDepartments);
+                        if (!Array.isArray(extra)) extra = [];
+                    } catch (e) { extra = []; }
+                }
+                extra.push(newDept);
+                localStorage.setItem('departments', JSON.stringify(extra));
+                // Switch to last page to show the new entry
+                const totalPages = Math.ceil(Departments.length / pageSize);
+                currentPage = totalPages;
             }
 
             document.getElementById("DeptForm").reset();
@@ -966,8 +1024,21 @@
 
         function deleteRecord() {
             if (deleteId !== null) {
+                // Remove from Departments array
                 Departments = Departments.filter(r => r.id !== deleteId);
-                renderTable();
+                // Remove from localStorage
+                let extra = [];
+                const storedDepartments = localStorage.getItem('departments');
+                if (storedDepartments) {
+                    try {
+                        extra = JSON.parse(storedDepartments);
+                        if (!Array.isArray(extra)) extra = [];
+                    } catch (e) { extra = []; }
+                }
+                extra = extra.filter(r => r.id !== deleteId);
+                localStorage.setItem('departments', JSON.stringify(extra));
+                renderTable(currentPage);
+                renderPagination();
                 deleteId = null;
                 bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
             }
@@ -990,94 +1061,6 @@
             renderTable(currentPage);
             renderPagination();
         });
-
-        function renderPagination() {
-            const pagination = document.querySelector('.pagination');
-            const totalPages = getTotalPages();
-            pagination.innerHTML = '';
-
-            // Previous
-            const prevLi = document.createElement('li');
-            prevLi.className = 'page-item me-2';
-            const prevA = document.createElement('a');
-            prevA.className = 'page-link';
-            prevA.href = '#';
-            prevA.id = 'prevPage';
-            prevA.style.borderRadius = '10px';
-            prevA.innerText = 'Previous';
-            prevA.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderTable(currentPage);
-                    setActivePage(currentPage);
-                    renderPagination();
-                }
-            });
-            prevLi.appendChild(prevA);
-            pagination.appendChild(prevLi);
-
-            // Page numbers
-            for (let p = 1; p <= totalPages; p++) {
-                const li = document.createElement('li');
-                li.className = 'page-item me-2';
-                const a = document.createElement('a');
-                a.className = 'page-link';
-                a.href = '#';
-                a.innerText = p;
-                a.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    currentPage = p;
-                    renderTable(currentPage);
-                    setActivePage(currentPage);
-                    renderPagination();
-                });
-                li.appendChild(a);
-                pagination.appendChild(li);
-            }
-
-            // Next
-            const nextLi = document.createElement('li');
-            nextLi.className = 'page-item me-2';
-            const nextA = document.createElement('a');
-            nextA.className = 'page-link';
-            nextA.href = '#';
-            nextA.id = 'nextPage';
-            nextA.style.borderRadius = '10px';
-            nextA.innerText = 'Next';
-            nextA.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderTable(currentPage);
-                    setActivePage(currentPage);
-                    renderPagination();
-                }
-            });
-            nextLi.appendChild(nextA);
-            pagination.appendChild(nextLi);
-
-            setActivePage(currentPage);
-        }
-
-        function setActivePage(page) {
-            // Clear previous styles
-            const links = document.querySelectorAll('.pagination .page-link');
-            links.forEach(link => {
-                // Reset styles for all page links
-                link.style.backgroundColor = '';
-                link.style.color = '';
-            });
-
-            // Highlight the numeric page link that matches the page
-            links.forEach(link => {
-                const text = link.innerText.trim();
-                if (!isNaN(text) && Number(text) === page) {
-                    link.style.backgroundColor = 'rgb(48, 72, 156)';
-                    link.style.color = 'white';
-                }
-            });
-        }
 
         // Sidebar toggle for mobile
         document.addEventListener("DOMContentLoaded", function () {
