@@ -364,6 +364,13 @@
             cursor: pointer;
         }
 
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            word-wrap: break-word;
+        }
+
+
 
         @media (max-width: 768px) {
             .sidebar {
@@ -464,6 +471,51 @@
             .footer-shift {
                 margin-left: 200px;
                 transition: margin-left 0.3s ease;
+            }
+
+            .table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border: 0;
+            }
+
+            .table thead {
+                display: none;
+                /* hide header on small screens */
+            }
+
+            .table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                background: #fff;
+                padding: 10px;
+            }
+
+            .table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+                padding: 8px 10px;
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+                word-break: break-word;
+            }
+
+            .table td:last-child {
+                border-bottom: none;
+            }
+
+            .table td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                flex-basis: 40%;
+                color: #333;
+                text-transform: capitalize;
             }
 
         }
@@ -615,8 +667,8 @@
                             <div class="tab-pame fade show " id="notification" role="tabpanels">
                                 <div class="tabs nav nav-tabs">
                                     <button class="nav-link " id="All-tab" data-bs-toggle="tab" data-bs-target="#All"
-                                        type="button" >
-                                        All <span class="count">12</span>
+                                        type="button">
+                                        All <span class="count">6</span>
                                     </button>
                                     <button class="nav-link" id="Vaccine-tab" data-bs-toggle="tab"
                                         data-bs-target="#Vaccine" type="button">
@@ -640,7 +692,7 @@
                                     </button>
                                     <button class="nav-link" id="Appraisals-tab" data-bs-toggle="tab"
                                         data-bs-target="#Appraisals" type="button">
-                                        Appraisals <span class="count">1612</span>
+                                        Appraisals <span class="count">8</span>
                                     </button>
                                 </div>
 
@@ -835,7 +887,9 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="Grievances" role="tabpanel">
-                                        <center><p>No grievances found</p></center>
+                                        <center>
+                                            <p>No grievances found</p>
+                                        </center>
                                     </div>
                                     <div class="tab-pane fade" id="Interview" role="tabpanel">
                                         <table class="table table-hover">
@@ -879,59 +933,75 @@
                                         <!-- Table -->
                                         <table class="table table-hover">
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. MANOHAR Gupta-25EMP09231777(CATH Lab / Diagnostics HOD)
+                                                <td><i class="bi bi-person-fill"></i> Dr. MANOHAR
+                                                    Gupta-25EMP09231777(CATH Lab / Diagnostics HOD)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;23 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;23
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Mr. Raman -25EMP09221776(Doctor / Senior Doctor)
+                                                <td><i class="bi bi-person-fill"></i> Mr. Raman -25EMP09221776(Doctor /
+                                                    Senior Doctor)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                                                <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor
+                                                    / Senior Doctor)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor / Senior Doctor)
+                                                <td><i class="bi bi-person-fill"></i> Dr. Raghava -25EMP09101766(Doctor
+                                                    / Senior Doctor)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;20
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. Prashanth -25EMP09091762(Doctor / Senior Doctor)
+                                                <td><i class="bi bi-person-fill"></i> Dr. Prashanth
+                                                    -25EMP09091762(Doctor / Senior Doctor)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. Ramesh -25EMP09091761(Aarogyasri / Aarogyasri Inchange Assistant)
+                                                <td><i class="bi bi-person-fill"></i> Dr. Ramesh
+                                                    -25EMP09091761(Aarogyasri / Aarogyasri Inchange Assistant)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Mrs. Sumathi -25EMP09091760(Pharmacy / Assistant Pharmacist)
+                                                <td><i class="bi bi-person-fill"></i> Mrs. Sumathi
+                                                    -25EMP09091760(Pharmacy / Assistant Pharmacist)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><i class="bi bi-person-fill"></i> Dr. Supriya -25EMP09091758(Doctor / Senior Doctor)
+                                                <td><i class="bi bi-person-fill"></i> Dr. Supriya -25EMP09091758(Doctor
+                                                    / Senior Doctor)
                                                 </td>
                                                 <td>
-                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09 Sep,</center>
+                                                    <center>Appraisal - Need to provid.... &nbsp;&nbsp;&nbsp;&nbsp;09
+                                                        Sep,</center>
                                                 </td>
                                             </tr>
 
