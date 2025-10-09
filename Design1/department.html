@@ -798,17 +798,7 @@
             { id:17, name: "Physiotherapy", code: "PHY", status: "Deactive", date: "29-04-25,09:45 AM" },
             { id:18, name: "Urology", code: "URO", status: "Active", date: "29-04-25,03:30 PM" },
             { id: 19, name: "Nephrology", code: "NEPH", status: "Active", date: "29-04-25,05:10 PM" },
-            { id: 20, name: "Gastroenterology", code: "GAST", status: "Active", date: "30-04-25,11:00 AM" },
-            { id: 21, name: "Pulmonology", code: "PUL", status: "Active", date: "30-04-25,02:00 PM" },
-            { id: 22, name: "Psychiatry", code: "PSY", status: "Deactive", date: "30-04-25,06:15 PM" },
-            { id: 23, name: "Dentistry", code: "DEN", status: "Active", date: "01-05-25,09:50 AM" },
-            { id: 24, name: "Surgery", code: "SURG", status: "Active", date: "01-05-25,03:40 PM" },
-            { id: 25, name: "Administration", code: "ADMIN", status: "Active", date: "02-05-25,08:30 AM" },
-            { id: 26, name: "Finance", code: "FIN", status: "Active", date: "02-05-25,10:20 AM" },
-            { id: 27, name: "Human Resources", code: "HR", status: "Active", date: "02-05-25,01:15 PM" },
-            { id: 28, name: "Security", code: "SEC", status: "Deactive", date: "03-05-25,09:25 AM" },
-            { id: 29, name: "Cafeteria", code: "CAF", status: "Active", date: "03-05-25,12:35 PM" },
-            { id: 30, name: "Housekeeping", code: "HK", status: "Active", date: "03-05-25,05:50 PM" }
+            { id: 20, name: "Gastroenterology", code: "GAST", status: "Active", date: "30-04-25,11:00 AM" }
         ];
 
         // Load additional departments from localStorage, filter out invalid/undefined entries
@@ -881,6 +871,7 @@
             const pagination = document.getElementById('pagination');
             pagination.innerHTML = '';
             const totalPages = Math.ceil(Departments.length / pageSize);
+
             // Previous button
             const prev = document.createElement('li');
             prev.className = 'page-item me-2';
@@ -893,7 +884,17 @@
                     renderPagination();
                 }
             };
+            // disable prev if on first page
+            if (currentPage === 1) {
+                prev.classList.add('disabled');
+                const a = prev.querySelector('a');
+                if (a) {
+                    a.setAttribute('aria-disabled', 'true');
+                    a.tabIndex = -1;
+                }
+            }
             pagination.appendChild(prev);
+
             // Numbered page buttons
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('li');
@@ -902,6 +903,7 @@
                 if (i === currentPage) {
                     pageBtn.querySelector('a').style.backgroundColor = 'rgb(48, 72, 156)';
                     pageBtn.querySelector('a').style.color = 'white';
+                    pageBtn.querySelector('a').setAttribute('aria-current', 'page');
                 }
                 pageBtn.onclick = function(e) {
                     e.preventDefault();
@@ -911,6 +913,7 @@
                 };
                 pagination.appendChild(pageBtn);
             }
+
             // Next button
             const next = document.createElement('li');
             next.className = 'page-item me-2';
@@ -924,6 +927,15 @@
                     renderPagination();
                 }
             };
+            // disable next if on last page
+            if (currentPage === totalPages || totalPages === 0) {
+                next.classList.add('disabled');
+                const a = next.querySelector('a');
+                if (a) {
+                    a.setAttribute('aria-disabled', 'true');
+                    a.tabIndex = -1;
+                }
+            }
             pagination.appendChild(next);
         }
 
